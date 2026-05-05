@@ -8,5 +8,6 @@ void ubahAkun(Pengguna *ptrAkun, int jumlahPengguna);
 void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna);
 
 void lihatAkunSendiri(Pengguna *ptrAkun, int indeksAkun, int ukuran);
+void updateProfile(Pengguna *ptrAkun, int indeksAkun, int ukuran);
 
 #endif

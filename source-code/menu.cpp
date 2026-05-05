@@ -156,7 +156,7 @@ void menuAdmin(int indeksLogin) {
             hapusAkun(akun, jumlahPengguna);
         }
         else if (pilihan == 11) {
-            lihatAkunSendiri(akun, indeksLogin + 1, jumlahPengguna);
+            lihatAkunSendiri(akun, indeksLogin, jumlahPengguna);
         } 
         else {
             cout << "=> Pilihan Tidak Valid!" << endl;
@@ -205,11 +205,11 @@ void menuUser(int indeksLogin) {
         }
         else if (pilihan == 4) {
             cout << "=> Mengarahkan ke Menu 'Lihat Informasi Akun'" << endl;
-            cout << indeksLogin << endl;
-            lihatAkunSendiri(akun, indeksLogin + 1, jumlahPengguna);
+            lihatAkunSendiri(akun, indeksLogin, jumlahPengguna);
         }
         else if (pilihan == 5) {
-            cout << "=> Mengarahkan ke Menu 'Perbarui Informasi Akun'" << endl; 
+            cout << "=> Mengarahkan ke Menu 'Perbarui Informasi Akun'" << endl;
+            updateProfile(akun, indeksLogin, jumlahPengguna); 
         } 
         else {
             cout << "=> Pilihan Tidak Valid!" << endl;
