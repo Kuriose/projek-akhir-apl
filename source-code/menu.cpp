@@ -376,6 +376,11 @@ void menuSort() {
             }
             else if (pilihan == 4) {
                 cout << "=> Mengurutkan Berdasarkan Magnitudo" << endl;
+                urutkanBerdasarkanMagnitudo(entri, jumlahEntri);
+
+                cout << "=> Data Setelah Diurutkan Berdasarkan Magnitudo" << endl;
+                lihatSeluruhEntri(entri, jumlahEntri);
+                system("pause");
             }
         }
 
@@ -444,6 +449,7 @@ void menuSearch() {
             }
             else if (pilihan == 2) {
                 cout << "=> Mencari Entri Berdasarkan Kategori" << endl;
+                cariKategori(entri, jumlahEntri);
             }   
             else if (pilihan == 3) {
                 cout << "=> Mencari Entri Berdasarkan Konstelasi" << endl;
