@@ -92,3 +92,39 @@ void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
     cout << "=> Data berhasil diurutkan!" << endl;
     system("pause");
 }
+
+
+
+void cariKonstelasi(BendaLangit arr[], int ukuran) {
+    string cariK;
+    
+    cout << "=== CARI BERDASARKAN KONSTELASI ===" << endl;
+    cout << "Masukkan Konstelasi : " << endl;
+    cout << "> "; 
+    cin.ignore();
+    getline(cin, cariK);
+
+    int jmlKetemu = 0;
+    for (int i = 0; i < ukuran; i++) {
+        if ((arr + i)->konstelasi == cariK) {
+            jmlKetemu++;
+            cout << "---------------------------------------------------------" << endl;
+            cout << "ID Entri         : " << (arr + i)->entriID << endl;
+            cout << "Nama Objek       : " << (arr + i)->namaObjek << endl;
+            cout << "Klasifikasi      : " << (arr + i)->klasifikasi << endl;
+            cout << "Konstelasi       : " << (arr + i)->konstelasi << endl;
+            cout << "Jarak dari Bumi  : " << (arr + i)->jarakDariBumi << endl;
+            cout << "Tahun Penemuan   : " << (arr + i)->tahunPenemuan << endl;
+            cout << "Status Observasi : " << (arr + i)->statusObservasi << endl;
+            cout << "Magnitudo        : " << (arr + i)->magnitudo << endl;
+            cout << "---------------------------------------------------------" << endl;
+            cout << endl;
+        }
+    }
+    if (jmlKetemu == 0) {
+        cout << "Belum ada objek astronomi pada konstelasi " << cariK << endl;
+    } else {
+        cout << "=> Ditemukan " << jmlKetemu << " objek astronomi pada konstelasi " << cariK << endl;
+    }
+    system("pause");
+}

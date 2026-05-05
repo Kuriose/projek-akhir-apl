@@ -403,6 +403,7 @@ void menuSearch() {
             }   
             else if (pilihan == 3) {
                 cout << "=> Mencari Entri Berdasarkan Konstelasi" << endl;
+                cariKonstelasi(entri, jumlahEntri);
             }
         }
 
