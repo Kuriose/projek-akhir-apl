@@ -4,6 +4,43 @@
 #include <iostream>
 using namespace std;
 
+void urutkanBerdasarkanJarak(BendaLangit arr[], int ukuran) {
+    char urutan;
+    cout << "\n=== URUTKAN BERDASARKAN TAHUN ===" << endl;
+    cout << "Pilih urutan pengurutan:" << endl;
+    cout << "A. Ascending" << endl;
+    cout << "D. Descending" << endl;
+    cout << "Masukkan pilihan (A/D): ";
+    cin >> urutan;
+    cin.ignore();
+    urutan = toupper(urutan);
+
+    for (int i = 0; i < ukuran - 1; i++) {
+        for (int j = 0; j < ukuran - i - 1; j++) {
+            bool perluTukar = false;
+            if (urutan == 'A') {
+                if ((arr+j)-> jarakDariBumi > (arr+j+1)-> jarakDariBumi) {
+                    perluTukar = true;
+                }
+            }
+            else if (urutan == 'D') {
+                if ((arr+j)-> jarakDariBumi < (arr+j+1)-> jarakDariBumi) {
+                    perluTukar = true;
+                }
+            }
+            
+            if (perluTukar) {
+                BendaLangit temp = *(arr+j);
+                *(arr+j) = *(arr+j+1);
+                *(arr+j+1) = temp;
+            }
+        }
+    }
+    
+    cout << "=> Data berhasil diurutkan!" << endl;
+    system("pause");
+}
+
 void urutkanBerdasarkanNama(BendaLangit arr[], int ukuran) {
     char urutan;
     cout << "\n=== URUTKAN BERDASARKAN NAMA ===" << endl;
@@ -92,7 +129,6 @@ void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
     cout << "=> Data berhasil diurutkan!" << endl;
     system("pause");
 }
-
 
 
 void cariKonstelasi(BendaLangit arr[], int ukuran) {

@@ -4,7 +4,7 @@
 BendaLangit entri[MAXENTRI]; 
 Pengguna akun[MAXPENGGUNA]; 
 int jumlahEntri = 10; 
-int jumlahPengguna = 2; 
+int jumlahPengguna = 3; 
 int uniqueEntri = jumlahEntri; 
 int uniqueUser = jumlahPengguna; 
 

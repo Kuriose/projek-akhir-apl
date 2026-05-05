@@ -124,3 +124,20 @@ void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
     }
     system("pause");
 }
+
+void lihatAkunSendiri(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
+    for (int i = 0; i < ukuran; i++) {
+        if ((ptrAkun + i)->userID == indeksAkun) {
+            cout << "\n==========================================" << endl;
+            cout << "            DETAIL LENGKAP AKUN           " << endl;
+            cout << "==========================================" << endl;
+            cout << "User ID        : " << (ptrAkun + i)->userID << endl;
+            cout << "Username       : " << (ptrAkun + i)->username << endl;
+            cout << "Password       : " << (ptrAkun + i)->password << endl;
+            cout << "Role           : " << ((ptrAkun + i)->isAdmin ? "Admin" : "Member") << endl;
+            cout << "==========================================" << endl;
+            break;
+        }
+    }
+    system("pause");
+}

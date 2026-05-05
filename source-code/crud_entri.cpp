@@ -55,7 +55,7 @@ void lihatSeluruhEntri(BendaLangit entriTerdaftar[], int ukuran) {
     }
 
     cout << "\n=== DAFTAR SINGKAT ENTRI ===" << endl; 
-    cout << "ID | Nama Objek | Klasifikasi | Konstelasi" << endl; 
+    cout << "ID | Nama Objek | Jarak | Tahun Penemuan | Magnitudo" << endl; 
     for (int i = 0; i < ukuran; i++) {
         if (i % 5 == 0 && i != 0) {
             cout << "--------------------------------------------------------------------------" << endl;
@@ -63,8 +63,9 @@ void lihatSeluruhEntri(BendaLangit entriTerdaftar[], int ukuran) {
 
         cout << entri[i].entriID
             << " | " << entri[i].namaObjek
-            << " | " << entri[i].klasifikasi
-            << " | " << entri[i].konstelasi
+            << " | " << entri[i].jarakDariBumi
+            << " | " << entri[i].tahunPenemuan
+            << " | " << entri[i].magnitudo
             << endl; 
     }
 

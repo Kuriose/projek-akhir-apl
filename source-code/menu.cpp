@@ -102,6 +102,7 @@ void menuAdmin(int indeksLogin) {
         cout << "8. Lihat Akun" << endl; 
         cout << "9. Perbarui Akun" << endl; 
         cout << "10. Hapus Akun" << endl; 
+        cout << "11. Lihat Informasi Akun" << endl;
 
         cout << "-------------------------------------" << endl;
         cout << "0. Keluar" << endl; 
@@ -154,6 +155,9 @@ void menuAdmin(int indeksLogin) {
             cout << "=> Mengarahkan ke Menu 'Hapus Akun'" << endl;
             hapusAkun(akun, jumlahPengguna);
         }
+        else if (pilihan == 11) {
+            lihatAkunSendiri(akun, indeksLogin + 1, jumlahPengguna);
+        } 
         else {
             cout << "=> Pilihan Tidak Valid!" << endl;
         }
@@ -173,7 +177,8 @@ void menuUser(int indeksLogin) {
         cout << "3. Cari Entri" << endl;
         
         cout << "\n[AKUN]" << endl; 
-        cout << "4. Perbarui Data Pribadi" << endl;
+        cout << "4. Lihat Informasi Akun" << endl;
+        cout << "5. Perbarui Informasi Akun" << endl;
         cout << "------------------------------------------" << endl; 
         cout << "0. Logout" << endl; 
         
@@ -199,8 +204,13 @@ void menuUser(int indeksLogin) {
             menuSearch(); 
         }
         else if (pilihan == 4) {
-            cout << "=> Mengarahkan ke Menu 'Perbarui Data Pribadi'" << endl;
+            cout << "=> Mengarahkan ke Menu 'Lihat Informasi Akun'" << endl;
+            cout << indeksLogin << endl;
+            lihatAkunSendiri(akun, indeksLogin + 1, jumlahPengguna);
         }
+        else if (pilihan == 5) {
+            cout << "=> Mengarahkan ke Menu 'Perbarui Informasi Akun'" << endl; 
+        } 
         else {
             cout << "=> Pilihan Tidak Valid!" << endl;
         }
@@ -342,14 +352,24 @@ void menuSort() {
             }
             else if (pilihan == 1) {
                 cout << "=> Mengurutkan Berdasarkan Jarak" << endl;
+                urutkanBerdasarkanJarak(entri, jumlahEntri);
+
+                cout << "=> Data setelah diurutkan berdasarkan Tahun" << endl;
+                lihatSeluruhEntri(entri, jumlahEntri);
+                system("pause");
             }
             else if (pilihan == 2) {
                 cout << "=> Mengurutkan Berdasarkan Nama" << endl;
-                urutkanBerdasarkanNama(entri, jumlahEntri); 
+                urutkanBerdasarkanNama(entri, jumlahEntri);
+                
+                cout << "=> Data setelah diurutkan berdasarkan Tahun" << endl;
+                lihatSeluruhEntri(entri, jumlahEntri);
+                system("pause");
             }
             else if (pilihan == 3) {
                 cout << "=> Mengurutkan Berdasarkan Tahun Penemuan" << endl;
                 urutkanBerdasarkanTahun(entri, jumlahEntri);
+                
                 cout << "=> Data setelah diurutkan berdasarkan Tahun" << endl;
                 lihatSeluruhEntri(entri, jumlahEntri);
                 system("pause");
