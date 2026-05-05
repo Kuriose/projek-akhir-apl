@@ -78,6 +78,23 @@ void urutkanBerdasarkanNama(BendaLangit arr[], int ukuran) {
     system("pause");
 }
 
+void urutkanNama(BendaLangit arr[], int ukuran) {
+    for (int i = 0; i < ukuran - 1; i++) {
+        for (int j = 0; j < ukuran - i - 1; j++) {
+            bool perluTukar = false;
+            if ((arr+j)->namaObjek > (arr+j+1)->namaObjek) {
+                perluTukar = true;
+            }
+            
+            if (perluTukar) {
+                BendaLangit temp = *(arr+j);
+                *(arr+j) = *(arr+j+1);
+                *(arr+j+1) = temp;
+            }
+        }
+    }
+}
+
 void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
     char urutan;
     cout << "\n=== URUTKAN BERDASARKAN TAHUN ===" << endl;
@@ -130,7 +147,6 @@ void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
     system("pause");
 }
 
-
 void cariKonstelasi(BendaLangit arr[], int ukuran) {
     string cariK;
     
@@ -163,4 +179,26 @@ void cariKonstelasi(BendaLangit arr[], int ukuran) {
         cout << "=> Ditemukan " << jmlKetemu << " objek astronomi pada konstelasi " << cariK << endl;
     }
     system("pause");
+}
+
+int cariNama(BendaLangit arr[], int ukuran, string targetNama) {
+    urutkanNama(arr, ukuran);
+    int left = 0; 
+    int right = ukuran - 1; 
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2; 
+
+        if (arr[mid].namaObjek == targetNama) {
+            return mid; // Ditemukan
+        }
+        else if (arr[mid].namaObjek < targetNama) {
+            left = mid + 1; 
+        }
+        else {
+            right = mid - 1; 
+        }
+    }
+
+    return -1; // Tidak Ditemukan
 }

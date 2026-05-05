@@ -417,6 +417,30 @@ void menuSearch() {
             }
             else if (pilihan == 1) {
                 cout << "=> Mencari Entri Berdasarkan Nama" << endl;
+                string targetNama; 
+                cin.ignore();
+                cout << "Masukkan Nama Objek yang Ingin Dicari: "; getline(cin, targetNama);
+                
+                toUpperString(targetNama);
+                int indeksObjek = cariNama(entri, jumlahEntri, targetNama);
+
+                if (indeksObjek != -1) {
+                    cout << "=> Entri Ditemukan" << endl; 
+                    cout << "---------------------------------------------------------" << endl;
+                    cout << "ID Entri         : " << entri[indeksObjek].entriID << endl;
+                    cout << "Nama Objek       : " << entri[indeksObjek].namaObjek << endl;
+                    cout << "Klasifikasi      : " << entri[indeksObjek].klasifikasi << endl;
+                    cout << "Konstelasi       : " << entri[indeksObjek].konstelasi << endl;
+                    cout << "Jarak dari Bumi  : " << entri[indeksObjek].jarakDariBumi << endl;
+                    cout << "Tahun Penemuan   : " << entri[indeksObjek].tahunPenemuan << endl;
+                    cout << "Status Observasi : " << entri[indeksObjek].statusObservasi << endl;
+                    cout << "Magnitudo        : " << entri[indeksObjek].magnitudo << endl;
+                    cout << "---------------------------------------------------------" << endl;
+                }
+                else {
+                    cout << "=> Entri Tidak Ditemukan!" << endl;
+                }
+                system("pause");
             }
             else if (pilihan == 2) {
                 cout << "=> Mencari Entri Berdasarkan Kategori" << endl;
