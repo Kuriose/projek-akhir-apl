@@ -1,6 +1,7 @@
 #include "types.h"
 #include "data.h"
 #include "auth.h"
+#include "utils.h"
 
 #include <iostream> 
 using namespace std; 
@@ -15,16 +16,17 @@ int login(Pengguna *ptrAkun, int jumlahPengguna) {
     do {
         indeksUser = -1;
         akunDitemukan = false;
+        clearScreen();
         
-        cout << "=== MENU LOGIN ==========================================" << endl; 
+        printHeader("MENU LOGIN", 50);
         cout << "Masukkan Username Anda" << endl; 
         cout << "> "; getline(cin, username); 
-        cout << "---------------------------------------------------------" << endl;
+        printSeparator("-", 49); 
 
         for (int i = 0; i < jumlahPengguna; i++) {
             if (username == (ptrAkun + i) -> username) { 
                 cout << "=> Akun ditemukan" << endl;
-                cout << "---------------------------------------------------------" << endl;
+                printSeparator("-", 49);
                 akunDitemukan = true; 
                 indeksUser = i; 
                 break;
@@ -33,7 +35,8 @@ int login(Pengguna *ptrAkun, int jumlahPengguna) {
 
         if (!akunDitemukan) {
             cout << "=> Akun tidak ditemukan. Coba lagi" << endl;
-            cout << "---------------------------------------------------------" << endl;
+            system("pause");
+            printSeparator("-", 49);
         }
     } while (!akunDitemukan);
     
@@ -41,16 +44,16 @@ int login(Pengguna *ptrAkun, int jumlahPengguna) {
         cout << "Sisa Kesempatan: " << kesempatan << endl;
         cout << "Masukkan Password Anda" << endl;
         cout << "> "; getline(cin, password);
-        cout << "---------------------------------------------------------" << endl;
+        printSeparator("-", 49);
 
         if (password == akun[indeksUser].password) {
             cout << "=> Password benar" << endl;
-            cout << "---------------------------------------------------------" << endl; 
+            printSeparator("-", 49); 
             passwordBenar = true;
         }
         else {
             cout << "=> Password salah! Silakan coba lagi" << endl;
-            cout << "---------------------------------------------------------" << endl;
+            printSeparator("-", 49);
             kesempatan--;
         }
 
@@ -59,12 +62,12 @@ int login(Pengguna *ptrAkun, int jumlahPengguna) {
     if (akunDitemukan && passwordBenar) {
         cout << "=> Login berhasil" << endl;
         system("pause");
-        cout << "---------------------------------------------------------" << endl;
+        printSeparator("-", 49);
         return indeksUser;
     } 
     else {
         cout << "=> Login gagal" << endl;
-        cout << "---------------------------------------------------------" << endl;
+        printSeparator("-", 49);
         return -1;
     }
 }
@@ -76,19 +79,22 @@ int regis(Pengguna *ptrAkun, int &jumlahPengguna) {
 
     cin.ignore();
     do {
+        clearScreen();
         usernameValid = true;
         if (jumlahPengguna >= MAXPENGGUNA) {
             cout << "=> Data Pengguna Sudah Penuh!" << endl; 
-            cout << "---------------------------------------------------------" << endl;
+            printSeparator("-", 49);
             system("Pause");
-            cout << "---------------------------------------------------------" << endl;
+            printSeparator("-", 49);
             return 0;
         }
         
-        cout << "=== MENU REGISTER =======================================" << endl;
+        // cout << "=== MENU REGISTER =======================================" << endl;
+        printHeader("MENU REGISTER", 50);
+
         cout << "Masukkan Username" << endl;
         cout << "> "; getline(cin, username);
-        cout << "---------------------------------------------------------" << endl;
+        printSeparator("-", 49);
 
         if (username.length() == 0) {
             cout << "=> Username Tidak Boleh Kosong!" << endl;
@@ -100,7 +106,7 @@ int regis(Pengguna *ptrAkun, int &jumlahPengguna) {
             if (username == (ptrAkun + i) -> username) { 
                 cout << "=> Username sudah digunakan. Silakan masukkan username lain" << endl;
                 system("pause");
-                cout << "---------------------------------------------------------" << endl;
+                printSeparator("-", 49);
                 usernameValid = false; 
                 break;
             }
@@ -112,13 +118,13 @@ int regis(Pengguna *ptrAkun, int &jumlahPengguna) {
         passwordValid = true;
         cout << "Masukkan Password" << endl; 
         cout << "> "; getline(cin, password); 
-        cout << "---------------------------------------------------------" << endl;
+        printSeparator("-", 49);
 
         if (password.length() == 0) {
             cout << "=> Password Tidak Boleh Kosong!" << endl; 
             passwordValid = false;
             system("pause");
-            cout << "---------------------------------------------------------" << endl;
+            printSeparator("-", 49);
         }
     } while (!passwordValid);
 
@@ -130,6 +136,6 @@ int regis(Pengguna *ptrAkun, int &jumlahPengguna) {
 
     cout << "=> Register berhasil" << endl;
     system("pause");
-    cout << "---------------------------------------------------------" << endl;
+    printSeparator("-", 49);
     return jumlahPengguna;
 }

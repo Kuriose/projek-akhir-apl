@@ -4,6 +4,7 @@
 #include "crud_entri.h"
 
 #include <iostream>
+// #include <iomanip> // Untuk std::fixed dan std::setprecision
 using namespace std;
 
 // --- CREATE
@@ -16,17 +17,26 @@ void tambahEntri(BendaLangit newEntri[], int &ukuran) {
         return; 
     }
 
-    cout << "\n=== BUAT ENTRI BARU ===" << endl; 
-    string newObjek, newKlasifikasi, newKonstelasi, newJarak, newTahun, newStatus, newMagnitudo;
+    clearScreen();
+    printHeader("BUAT ENTRI", 50);
+    
+    double newJarak;
+    float newMagnitudo;
+    int newTahun;
+    string newObjek, newKlasifikasi, newKonstelasi, newStatus;
 
     cin.ignore(); 
-    cout << "Masukkan Nama Objek: "; getline(cin, newObjek); 
-    cout << "Masukkan Klasifikasi Objek: "; getline(cin, newKlasifikasi); 
-    cout << "Masukkan Konstelasi: "; getline(cin, newKonstelasi); 
-    cout << "Masukkan Jarak Dari Bumi: "; getline(cin, newJarak); 
-    cout << "Masukkan Tahun Ditemukan: "; getline(cin, newJarak); 
-    cout << "Masukkan Status Observasi: "; getline(cin, newStatus); 
-    cout << "Masukkan Magnitudo Objek: "; getline(cin, newMagnitudo); 
+    cout << "Masukkan Nama Objek            : "; getline(cin, newObjek); 
+    cout << "Masukkan Klasifikasi Objek     : "; getline(cin, newKlasifikasi); 
+    cout << "Masukkan Konstelasi            : "; getline(cin, newKonstelasi); 
+    cout << "Masukkan Jarak Dari Bumi       : "; cin >> newJarak; 
+    
+    cin.ignore(); 
+    cout << "Masukkan Tahun Ditemukan       : "; cin >> newTahun; 
+    
+    cin.ignore();
+    cout << "Masukkan Status Observasi      : "; getline(cin, newStatus); 
+    cout << "Masukkan Magnitudo Objek       : "; cin >> newMagnitudo; 
 
     toUpperString(newObjek);
 
@@ -39,8 +49,8 @@ void tambahEntri(BendaLangit newEntri[], int &ukuran) {
     newEntri[jumlahEntri].statusObservasi = newStatus;
     newEntri[jumlahEntri].magnitudo = newMagnitudo;
     jumlahEntri++; uniqueEntri++; 
-
-    cout << "\n=> Entri Berhasil ditambahkan" << endl; 
+    printSeparator("-", 49);
+    cout << "=> Entri Berhasil ditambahkan" << endl; 
     system("pause");
     return; 
 }
@@ -54,7 +64,11 @@ void lihatSeluruhEntri(BendaLangit entriTerdaftar[], int ukuran) {
         return; 
     }
 
-    cout << "\n=== DAFTAR SINGKAT ENTRI ===" << endl; 
+    // clearScreen();
+    // std::cout << std::fixed << std::setprecision(5);
+    // cout << "\n=== DAFTAR SINGKAT ENTRI ===" << endl; 
+    
+    printHeader("DAFTAR SINGKAT ENTRI", 50);
     cout << "ID | Nama Objek | Jarak | Tahun Penemuan | Magnitudo" << endl; 
     for (int i = 0; i < ukuran; i++) {
         if (i % 5 == 0 && i != 0) {
@@ -68,28 +82,39 @@ void lihatSeluruhEntri(BendaLangit entriTerdaftar[], int ukuran) {
             << " | " << entri[i].magnitudo
             << endl; 
     }
-
-    // system("pause");
 }
 
 // [2] Read Entri Spesifik
 void lihatSpesifik(BendaLangit entriTerdaftar[], int ukuran) {
     if (ukuran == 0) {
-        cout << "\n=> Data Entri kosong!" << endl;
+        cout << "=> Data Entri kosong!" << endl;
         system("pause");
         return;
     }
 
+    clearScreen();
     lihatSeluruhEntri(entriTerdaftar, ukuran);
 
     int idSpesifik;
-    cout << "\nMasukkan ID untuk detail lengkap: ";
+    printSeparator("-", 49);
+    cout << "0. Kembali" << endl;
+    printSeparator("-", 49);
+    
+    cout << "Masukkan ID untuk detail lengkap: ";
     cin >> idSpesifik;
+    printSeparator("-", 49);
+
+    if (idSpesifik == 0) {
+        cout << "=> Kembali ke Menu Sebelumnya" << endl;
+        system("pause");
+        return;
+    }
 
     bool ditemukan = false;
     for (int i = 0; i < ukuran; i++) {
         if (entriTerdaftar[i].entriID == idSpesifik) {
-            cout << "\n==========================================" << endl;
+            clearScreen();
+            cout << "==========================================" << endl;
             cout << "      DETAIL LENGKAP OBJEK ASTRONOMI      " << endl;
             cout << "==========================================" << endl;
             cout << "ID Entri       : " << entriTerdaftar[i].entriID << endl;
@@ -106,7 +131,7 @@ void lihatSpesifik(BendaLangit entriTerdaftar[], int ukuran) {
         }
     }
     if (!ditemukan) {
-        cout << "\n=> ID " << idSpesifik << " tidak ditemukan" << endl;
+        cout << "=> ID " << idSpesifik << " tidak ditemukan" << endl;
     }
     
     system("pause");
@@ -115,12 +140,27 @@ void lihatSpesifik(BendaLangit entriTerdaftar[], int ukuran) {
 // --- UPDATE ---
 void perbaruiEntri(BendaLangit arr[], int ukuran) {
     int idCari;
-    cout << "\n=== PERBARUI ENTRI ===" << endl;
+    
+    clearScreen();
+    printHeader("PERBARUI ENTRI", 50);
+    cout << "Menampilkan Daftar Singkat Entri" << endl;
     lihatSeluruhEntri(arr, ukuran);
+    
+    printSeparator("-", 49);
+    cout << "0. Kembali" << endl;
+    printSeparator("-", 49);
+
     cout << "Masukkan ID Entri yang ingin diperbarui: ";
     cin >> idCari;
     errorHandling(idCari);
-    
+    printSeparator("-", 49);
+
+    if (idCari == 0) {
+        cout << "=> Kembali ke Menu Sebelumnya" << endl;
+        system("pause");
+        return; 
+    }
+
     int indeks = -1;
     for (int i = 0; i < ukuran; i++) {
         if ((arr+i)->entriID == idCari) {
@@ -137,7 +177,8 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
     
     int pilihanField;
     do {
-        cout << "\nEntri ditemukan: " << (arr+indeks)->namaObjek << endl;
+        clearScreen();
+        cout << "Entri ditemukan: " << (arr+indeks)->namaObjek << endl;
         cout << "Pilih field yang ingin diperbarui:" << endl;
         cout << "1. Nama Objek" << endl;
         cout << "2. Klasifikasi" << endl;
@@ -188,17 +229,18 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
                 
                 break;
             case 4:
-                cout << "Masukkan Jarak Dari Bumi baru: ";
-                getline(cin, nilaiBaru);
-                (arr+indeks)->jarakDariBumi = nilaiBaru;
+                double jarakBaru;
+                cout << "Masukkan Jarak Dari Bumi baru: "; cin >> jarakBaru;
+                (arr+indeks)->jarakDariBumi = jarakBaru;
                 cout << "=> Entri berhasil diperbarui!" << endl;
                 system("pause");
                 
                 break;
             case 5:
+                int newTahun;
                 cout << "Masukkan Tahun Penemuan baru: ";
-                getline(cin, nilaiBaru);
-                (arr+indeks)->tahunPenemuan = nilaiBaru;
+                cin >> newTahun;
+                (arr+indeks)->tahunPenemuan = newTahun;
                 cout << "=> Entri berhasil diperbarui!" << endl;
                 system("pause");
                 
@@ -212,9 +254,9 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
 
                 break;
             case 7:
-                cout << "Masukkan Magnitudo baru: ";
-                getline(cin, nilaiBaru);
-                (arr+indeks)->magnitudo = nilaiBaru;
+                float magnitudoBaru;
+                cout << "Masukkan Magnitudo baru: "; cin >> magnitudoBaru;
+                (arr+indeks)->magnitudo = magnitudoBaru;
                 cout << "=> Entri berhasil diperbarui!" << endl;
                 system("pause");
 
@@ -230,15 +272,32 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
 
 // --- DELETE ---
 void hapusEntri() {
+    clearScreen();
     if (jumlahEntri == 0) {
         cout << "=> Tidak ada data" << endl;
         system("pause");
         return;
     }
+    
+    printHeader("HAPUS ENTRI", 50);
+    cout << "Menghapus Entri" << endl;  
     lihatSeluruhEntri(entri, jumlahEntri);
+    
+    printSeparator("-", 49);
+    cout << "0. Kembali" << endl;
+    printSeparator("-", 49);
+
     int idHapus;
     cout << "Masukkan ID yang ingin dihapus: "; 
     cin >> idHapus;
+    printSeparator("-", 49);
+    
+    if (idHapus == 0) {
+        cout << "=> Kembali ke Menu Sebelumnya" << endl;
+        system("pause");
+        return; 
+    }
+
     int idx = -1;
     for (int i = 0; i < jumlahEntri; i++) {
         if (entri[i].entriID == idHapus) { 
@@ -250,9 +309,16 @@ void hapusEntri() {
         cout << "Yakin hapus " << entri[idx].namaObjek << "? (y/n): "; 
         cin >> konfirmasi;
         if (konfirmasi == 'y' || konfirmasi == 'Y') {
+            cout << "=> " << entri[idx].namaObjek<< " Berhasil dihapus!" << endl;
             for (int j = idx; j < jumlahEntri - 1; j++) entri[j] = entri[j + 1];
             jumlahEntri--;
-            cout << "=> " << entri[idx].namaObjek<< " Berhasil dihapus!" << endl;
+            
+        } 
+        else if (konfirmasi == 'n' || konfirmasi == 'N') {
+            cout << "=> Tidak Jadi Menghapus " << entri[idx].namaObjek << endl; 
+        }
+        else {
+            cout << "=> Pilihan Tidak Valid! Tidak Jadi Menghapus " << entri[idx].namaObjek << endl;
         }
     } else cout << "=> ID tidak ditemukan!" << endl;
     system("pause");

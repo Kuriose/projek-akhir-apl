@@ -1,6 +1,7 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#include <iostream>
 #include <string>
 
 struct BendaLangit {
@@ -8,10 +9,10 @@ struct BendaLangit {
     std::string namaObjek; 
     std::string klasifikasi; // Bintang, Planet, Asteroid, Nebula
     std::string konstelasi; // Objek berada di konstelasi mana
-    std::string jarakDariBumi; // Jarak dari Bumi (dalam Light-Year)
-    std::string tahunPenemuan; // Tahun Penemuan Benda Langit
+    double jarakDariBumi; // Jarak dari Bumi (dalam Light-Year)
+    int tahunPenemuan; // Tahun Penemuan Benda Langit
     std::string statusObservasi; // "Dalam Pengamatan", "Selesai Pengamatan", "Pengamatan Ditunda"
-    std::string magnitudo; // Cahaya yang dipancarkan oleh Benda Langit
+    float magnitudo; // Cahaya yang dipancarkan oleh Benda Langit
 };
 
 struct Pengguna {

@@ -7,13 +7,14 @@
 using namespace std;
 
 void lihatSeluruhAkun(Pengguna *ptrAkun, int ukuran) {
+    clearScreen();
     if (ukuran == 0) {
         cout << "=> Tidak ada Akun yang Tersimpan!" << endl; 
         system("pause"); 
         return; 
     }
-
-    cout << "\n=== DAFTAR SELURUH AKUN ===" << endl; 
+ 
+    printHeader("DAFTAR SELURUH AKUN", 50);
     cout << "ID | Username | Role" << endl; 
     for (int i = 0; i < ukuran; i++) {
         if (i % 5 == 0 && i != 0) {
@@ -37,26 +38,27 @@ void lihatAkunSpesifik(Pengguna *ptrAkun, int ukuran) {
     lihatSeluruhAkun(ptrAkun, ukuran);
 
     int idAkunSpesifik;
-    cout << "\nMasukkan User ID untuk detail lengkap: ";
+    printSeparator("-", 49);
+    cout << "Masukkan User ID untuk detail lengkap: ";
     cin >> idAkunSpesifik;
+    printSeparator("-", 49);
 
     bool ditemukan = false;
     for (int i = 0; i < ukuran; i++) {
         if ((ptrAkun + i)->userID == idAkunSpesifik) {
-            cout << "\n==========================================" << endl;
-            cout << "            DETAIL LENGKAP AKUN           " << endl;
-            cout << "==========================================" << endl;
+            clearScreen();
+            printHeader("DETAIL LENGKAP AKUN", 50);
             cout << "User ID        : " << (ptrAkun + i)->userID << endl;
             cout << "Username       : " << (ptrAkun + i)->username << endl;
             cout << "Password       : " << (ptrAkun + i)->password << endl;
             cout << "Role           : " << ((ptrAkun + i)->isAdmin ? "Admin" : "Member") << endl;
-            cout << "==========================================" << endl;
+            printSeparator("-", 49);
             ditemukan = true;
             break;
         }
     }
     if (!ditemukan) {
-        cout << "\n=> User ID " << idAkunSpesifik << " tidak ditemukan!" << endl;
+        cout << "=> User ID " << idAkunSpesifik << " tidak ditemukan!" << endl;
     }
     system("pause");
 }
@@ -71,25 +73,29 @@ void ubahAkun(Pengguna *ptrAkun, int jumlahPengguna) {
     lihatSeluruhAkun(ptrAkun, jumlahPengguna);
 
     int idAkun;
-    cout << "\nMasukkan User ID yang ingin diubah: ";
+    printSeparator("-", 49);
+    cout << "Masukkan User ID yang ingin diubah: ";
     cin >> idAkun;
+    printSeparator("-", 49);
 
     bool ditemukan = false;
     for (int i = 0; i < jumlahPengguna; i++) {
         if ((ptrAkun + i)->userID == idAkun) {
-            cout << "\n--- Ubah Data Akun ---" << endl;
+            printHeader("UBAH DATA AKUN", 50);
             cout << "Username baru   : "; cin >> (ptrAkun + i)->username;
             cout << "Password baru   : "; cin >> (ptrAkun + i)->password;
             char roleInput;
             cout << "Role baru (A/U) : "; cin >> roleInput;
             (ptrAkun + i)->isAdmin = (roleInput == 'A' || roleInput == 'a');
+            
+            printSeparator("-", 49);
             cout << "=> Data akun berhasil diperbarui!" << endl;
             ditemukan = true;
             break;
         }
     }
     if (!ditemukan) {
-        cout << "\n=> User ID " << idAkun << " tidak ditemukan!" << endl;
+        cout << "=> User ID " << idAkun << " tidak ditemukan!" << endl;
     }
     system("pause");
 }
@@ -104,7 +110,8 @@ void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
     lihatSeluruhAkun(ptrAkun, jumlahPengguna);
 
     int idAkun;
-    cout << "\nMasukkan User ID yang ingin dihapus: ";
+    printSeparator("-", 49);
+    cout << "Masukkan User ID yang ingin dihapus: ";
     cin >> idAkun;
 
     bool ditemukan = false;
@@ -114,28 +121,29 @@ void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
                 *(ptrAkun + j) = *(ptrAkun + j + 1);
             }
             jumlahPengguna--;
+            printSeparator("-", 49);
             cout << "=> Akun dengan ID " << idAkun << " berhasil dihapus!" << endl;
             ditemukan = true;
             break;
         }
     }
     if (!ditemukan) {
-        cout << "\n=> User ID " << idAkun << " tidak ditemukan!" << endl;
+        printSeparator("-", 49);
+        cout << "=> User ID " << idAkun << " tidak ditemukan!" << endl;
     }
     system("pause");
 }
 
 void lihatAkunSendiri(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
+    clearScreen();
     for (int i = 0; i < ukuran; i++) {
         if ((ptrAkun + i)->userID == indeksAkun + 1) {
-            cout << "\n============================================" << endl;
-            cout << "                 AKUN ANDA                  " << endl;
-            cout << "============================================" << endl;
+            printHeader("UBAH DATA AKUN", 50);
             cout << "User ID        : " << (ptrAkun + i)->userID << endl;
             cout << "Username       : " << (ptrAkun + i)->username << endl;
             cout << "Password       : " << (ptrAkun + i)->password << endl;
             cout << "Role           : " << ((ptrAkun + i)->isAdmin ? "Admin" : "Member") << endl;
-            cout << "============================================" << endl;
+            printSeparator("-", 49);
             break;
         }
     }
@@ -146,16 +154,15 @@ void updateProfile(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
     int pilihan;
     do {
         try {
+            clearScreen();
             for (int i = 0; i < ukuran; i++) {
                 if ((ptrAkun + i)->userID == indeksAkun + 1) {
-                    cout << "\n============================================" << endl;
-                    cout << "                 AKUN ANDA                  " << endl;
-                    cout << "============================================" << endl;
+                    printHeader("UBAH DATA AKUN", 50);
                     cout << "[1] Username       : " << (ptrAkun + i)->username << endl;
                     cout << "[2] Password       : " << (ptrAkun + i)->password << endl;
-                    cout << "============================================" << endl;
+                    printSeparator("-", 49);
                     cout << "[0] Keluar" << endl; 
-                    cout << "============================================" << endl;
+                    printSeparator("-", 49);
                     break;
                 }
             }
@@ -184,7 +191,7 @@ void updateProfile(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
                 
                 cin.ignore();
                 cout << "=> Mengganti Username" << endl; 
-                cout << "-----------------------------------------" << endl; 
+                printSeparator("-", 49); 
                 cout << "Username Lama  : " << ptrAkun[indeksAkun].username << endl; 
                 cout << "Username Baru  : "; getline(cin, newUsername); 
 
@@ -199,7 +206,7 @@ void updateProfile(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
                 
                 cin.ignore();
                 cout << "=> Mengganti Password" << endl; 
-                cout << "-----------------------------------------" << endl; 
+                printSeparator("-", 49); 
                 cout << "Password Lama  : " << ptrAkun[indeksAkun].password << endl; 
                 cout << "Password Baru  : "; getline(cin, newPassword); 
 

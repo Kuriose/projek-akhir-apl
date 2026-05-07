@@ -1,5 +1,6 @@
 #include "types.h"
 #include "sort_search.h"
+#include "utils.h"
 
 #include <iostream>
 #include <cctype>
@@ -8,10 +9,14 @@ using namespace std;
 
 void urutkanBerdasarkanJarak(BendaLangit arr[], int ukuran) {
     char urutan;
-    cout << "\n=== URUTKAN BERDASARKAN TAHUN ===" << endl;
+    clearScreen();
+    
+    printHeader("URUTKAN BERDASARKAN JARAK", 50);
     cout << "Pilih urutan pengurutan:" << endl;
     cout << "A. Ascending" << endl;
     cout << "D. Descending" << endl;
+    
+    printSeparator("-", 49);
     cout << "Masukkan pilihan (A/D): ";
     cin >> urutan;
     cin.ignore();
@@ -39,16 +44,21 @@ void urutkanBerdasarkanJarak(BendaLangit arr[], int ukuran) {
         }
     }
     
+    printSeparator("-", 49);
     cout << "=> Data berhasil diurutkan!" << endl;
     system("pause");
 }
 
 void urutkanBerdasarkanNama(BendaLangit arr[], int ukuran) {
     char urutan;
-    cout << "\n=== URUTKAN BERDASARKAN NAMA ===" << endl;
+
+    clearScreen();
+    printHeader("URUTKAN BERDASARKAN NAMA", 50);
     cout << "Pilih urutan pengurutan:" << endl;
     cout << "A. Ascending (A-Z)" << endl;
     cout << "D. Descending (Z-A)" << endl;
+    
+    printSeparator("-", 49);
     cout << "Masukkan pilihan (A/D): ";
     cin >> urutan;
     cin.ignore();
@@ -76,6 +86,7 @@ void urutkanBerdasarkanNama(BendaLangit arr[], int ukuran) {
         }
     }
     
+    printSeparator("-", 49);
     cout << "=> Data berhasil diurutkan!" << endl;
     system("pause");
 }
@@ -99,10 +110,14 @@ void urutkanNama(BendaLangit arr[], int ukuran) {
 
 void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
     char urutan;
-    cout << "\n=== URUTKAN BERDASARKAN TAHUN ===" << endl;
+    
+    clearScreen();
+    printHeader("URUTKAN BERDASARKAN TAHUN", 50);
     cout << "Pilih urutan pengurutan:" << endl;
     cout << "A. Ascending" << endl;
     cout << "D. Descending" << endl;
+    
+    printSeparator("-", 49);
     cout << "Masukkan pilihan (A/D): ";
     cin >> urutan;
     cin.ignore();
@@ -110,32 +125,11 @@ void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
     
     for (int i = 0; i < ukuran - 1; i++) {
         for (int j = 0; j < ukuran - i - 1; j++) {
-            
-            int thn1;
-            string s1 = (arr + j)->tahunPenemuan;
-            string temp1 = "";
-            for (char c : s1) if (isdigit(c)) temp1 += c;
-            if (temp1 != "") {
-                thn1 = stoi(temp1);
-            } else {
-                thn1 = 0;
-            }
-
-            int thn2;
-            string s2 = (arr + j + 1)->tahunPenemuan;
-            string temp2 = "";
-            for (char c : s2) if (isdigit(c)) temp2 += c;
-            if (temp2 != "") {
-                thn2 = stoi(temp2);
-            } else {
-                thn2 = 0;
-            }
-
             bool perluTukar = false;
             if (urutan == 'A') {
-                if (thn1 > thn2) perluTukar = true;
+                if ((arr + j)->tahunPenemuan > (arr + j + 1)->tahunPenemuan) perluTukar = true;
             } else if (urutan == 'D') {
-                if (thn1 < thn2) perluTukar = true;
+                if ((arr + j)->tahunPenemuan < (arr + j + 1)->tahunPenemuan) perluTukar = true;
             }
 
             if (perluTukar) {
@@ -145,16 +139,22 @@ void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
             }
         }
     }
+
+    printSeparator("-", 49);
     cout << "=> Data berhasil diurutkan!" << endl;
     system("pause");
 }
 
 void urutkanBerdasarkanMagnitudo(BendaLangit arr[], int ukuran) {
     char urutan;
-    cout << "\n=== URUTKAN BERDASARKAN MAGNITUDO ===" << endl;
+    
+    clearScreen();
+    printHeader("URUTKAN BERDASARKAN MAGNITUDO", 50);
     cout << "Pilih urutan pengurutan:" << endl;
     cout << "A. Ascending (Terkecil -> Terbesar)" << endl;
     cout << "D. Descending (Terbesar -> Terkecil)" << endl;
+    
+    printSeparator("-", 49);
     cout << "Masukkan pilihan (A/D): ";
     cin >> urutan;
     cin.ignore();
@@ -182,6 +182,7 @@ void urutkanBerdasarkanMagnitudo(BendaLangit arr[], int ukuran) {
         }
     }
     
+    printSeparator("-", 49);
     cout << "=> Data berhasil diurutkan!" << endl;
     system("pause");
 }
@@ -189,17 +190,20 @@ void urutkanBerdasarkanMagnitudo(BendaLangit arr[], int ukuran) {
 void cariKonstelasi(BendaLangit arr[], int ukuran) {
     string cariK;
     
-    cout << "=== CARI BERDASARKAN KONSTELASI ===" << endl;
+    clearScreen();
+    printHeader("CARI BERDASARKAN KONSTELASI", 50);
     cout << "Masukkan Konstelasi : " << endl;
     cout << "> "; 
     cin.ignore();
     getline(cin, cariK);
 
+    clearScreen();
     int jmlKetemu = 0;
+    printHeader("ENTRI YANG DITEMUKAN", 50);
     for (int i = 0; i < ukuran; i++) {
         if ((arr + i)->konstelasi == cariK) {
             jmlKetemu++;
-            cout << "---------------------------------------------------------" << endl;
+            printSeparator("-", 49);
             cout << "ID Entri         : " << (arr + i)->entriID << endl;
             cout << "Nama Objek       : " << (arr + i)->namaObjek << endl;
             cout << "Klasifikasi      : " << (arr + i)->klasifikasi << endl;
@@ -208,7 +212,7 @@ void cariKonstelasi(BendaLangit arr[], int ukuran) {
             cout << "Tahun Penemuan   : " << (arr + i)->tahunPenemuan << endl;
             cout << "Status Observasi : " << (arr + i)->statusObservasi << endl;
             cout << "Magnitudo        : " << (arr + i)->magnitudo << endl;
-            cout << "---------------------------------------------------------" << endl;
+            printSeparator("-", 49);
             cout << endl;
         }
     }
@@ -223,17 +227,22 @@ void cariKonstelasi(BendaLangit arr[], int ukuran) {
 void cariKategori(BendaLangit arr[], int ukuran) {
     string cariKat;
     
-    cout << "\n=== CARI BERDASARKAN KATEGORI ===" << endl;
+    // cout << "\n=== CARI BERDASARKAN KATEGORI ===" << endl;
+    
+    clearScreen();
+    printHeader("CARI BERDASARKAN KATEGORI", 50);
     cout << "Masukkan Kategori : " << endl;
     cout << "> "; 
     cin.ignore();
     getline(cin, cariKat);
 
+    clearScreen();
     int jmlKetemu = 0;
+    printHeader("ENTRI YANG DITEMUKAN", 50);
     for (int i = 0; i < ukuran; i++) {
         if ((arr + i)->klasifikasi == cariKat) {
             jmlKetemu++;
-            cout << "---------------------------------------------------------" << endl;
+            printSeparator("-", 49);
             cout << "ID Entri         : " << (arr + i)->entriID << endl;
             cout << "Nama Objek       : " << (arr + i)->namaObjek << endl;
             cout << "Klasifikasi      : " << (arr + i)->klasifikasi << endl;
@@ -242,7 +251,7 @@ void cariKategori(BendaLangit arr[], int ukuran) {
             cout << "Tahun Penemuan   : " << (arr + i)->tahunPenemuan << endl;
             cout << "Status Observasi : " << (arr + i)->statusObservasi << endl;
             cout << "Magnitudo        : " << (arr + i)->magnitudo << endl;
-            cout << "---------------------------------------------------------" << endl;
+            printSeparator("-", 49);
             cout << endl;
         }
     }

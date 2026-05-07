@@ -16,11 +16,14 @@ void menuUtama() {
     
     do {
         try {
-            cout << "\n=== Menu Utama ===" << endl;
+            clearScreen();
+            
+            printHeader("MENU UTAMA", 50);
             cout << "1. Login" << endl; 
             cout << "2. Register" << endl; 
             cout << "0. Keluar" << endl;
-            
+            printSeparator("-", 49); 
+
             cout << "Masukkan Pilihan Anda" << endl; 
             cout << "> "; cin >> pilihan; 
 
@@ -58,9 +61,9 @@ void menuUtama() {
                 } 
                 else {
                     cout << "=> Keluar dari program" << endl;
-                    cout << "---------------------------------------------------------" << endl;
-                    cout << "===               Kesempatan Login Habis              ===" << endl;
-                    cout << "================= Silakan Ulang Program =================" << endl;
+                    cout << "--------------------------------------------------" << endl;
+                    cout << "===           Kesempatan Login Habis           ===" << endl;
+                    cout << "============= Silakan Ulang Program ==============" << endl;
                     pilihan = 0; 
 
                     cout << endl;
@@ -87,8 +90,11 @@ void menuAdmin(int indeksLogin) {
     int pilihan; 
 
     do {
-        cout << "\n=== MENU ADMIN ===" << endl; 
+        clearScreen();
+        
+        printHeader("MENU ADMIN", 50);
         cout << "Selamat Datang Kembali Admin " << akun[indeksLogin].username << endl; 
+        printSeparator("-", 49);
         cout << "[ENTRI]" << endl; 
         cout << "1. Tambah Entri Baru" << endl; 
         cout << "2. Lihat Entri" << endl; 
@@ -96,16 +102,20 @@ void menuAdmin(int indeksLogin) {
         cout << "4. Hapus Entri" << endl; 
         cout << "5. Urutkan Entri" << endl; 
         cout << "6. Cari Entri" << endl;
+        
+        printSeparator("-", 49);
 
-        cout << "\n[AKUN]" << endl; 
+        cout << "[AKUN]" << endl; 
         cout << "7. Tambah Akun" << endl; 
         cout << "8. Lihat Akun" << endl; 
         cout << "9. Perbarui Akun" << endl; 
         cout << "10. Hapus Akun" << endl; 
         cout << "11. Lihat Informasi Akun" << endl;
 
-        cout << "-------------------------------------" << endl;
-        cout << "0. Keluar" << endl; 
+        printSeparator("-", 49);
+        cout << "0. Keluar" << endl;
+        printSeparator("-", 49);
+
         cout << "Masukkan Pilihan Anda" << endl; 
         cout << "> "; cin >> pilihan;
         
@@ -169,19 +179,25 @@ void menuUser(int indeksLogin) {
     int pilihan; 
     
     do {
-        cout << "\n=== MENU USER ===" << endl; 
+        clearScreen(); 
+        
+        printHeader("MENU USER", 50);
         cout << "Selamat Datang Kembali " << akun[indeksLogin].username << endl; 
+        printSeparator("-", 49);
         cout << "[ENTRI]" << endl;
         cout << "1. Lihat Entri" << endl; 
         cout << "2. Urutkan Entri" << endl; 
         cout << "3. Cari Entri" << endl;
         
-        cout << "\n[AKUN]" << endl; 
+        printSeparator("-", 49);
+        cout << "[AKUN]" << endl; 
         cout << "4. Lihat Informasi Akun" << endl;
         cout << "5. Perbarui Informasi Akun" << endl;
-        cout << "------------------------------------------" << endl; 
-        cout << "0. Logout" << endl; 
         
+        printSeparator("-", 49); 
+        cout << "0. Logout" << endl; 
+        printSeparator("-", 49);
+
         cout << "Masukkan Pilihan Anda" << endl; 
         cout << "> "; cin >> pilihan; 
         
@@ -205,11 +221,11 @@ void menuUser(int indeksLogin) {
         }
         else if (pilihan == 4) {
             cout << "=> Mengarahkan ke Menu 'Lihat Informasi Akun'" << endl;
-            lihatAkunSendiri(akun, indeksLogin, jumlahPengguna);
+            lihatAkunSendiri(akun, indeksLogin, uniqueUser);
         }
         else if (pilihan == 5) {
             cout << "=> Mengarahkan ke Menu 'Perbarui Informasi Akun'" << endl;
-            updateProfile(akun, indeksLogin, jumlahPengguna); 
+            updateProfile(akun, indeksLogin, uniqueUser); 
         } 
         else {
             cout << "=> Pilihan Tidak Valid!" << endl;
@@ -223,12 +239,15 @@ void menuRead () {
     
     do {
         try {
-            cout << "\n=== MENU READ ===" << endl; 
+            clearScreen();
+            printHeader("LIHAT ENTRI", 50); 
             cout << "1. Lihat Seluruh Entri" << endl; 
             cout << "2. Lihat Entri Spesifik" << endl; 
-            cout << "-------------------------------------------" << endl; 
             
-            cout << "0. Kembali" << endl; 
+            printSeparator("-", 49); 
+            cout << "0. Kembali" << endl;
+            printSeparator("-", 49); 
+
             cout << "Masukkan Pilihan Anda" << endl; 
             cout << "> "; cin >> pilihan; 
 
@@ -250,7 +269,10 @@ void menuRead () {
             }
             else if (pilihan == 1) {
                 cout << "=> Menampilkan Seluruh Entri" << endl; 
+                clearScreen();
                 lihatSeluruhEntri(entri, jumlahEntri);
+                
+                printSeparator("-", 49);
                 system("pause");
             }
             else if (pilihan == 2) {
@@ -270,13 +292,16 @@ void menu_read_akun() {
     int pilihan; 
     
     do {
-        try {
-            cout << "\n=== MENU READ AKUN ===" << endl; 
+        try { 
+            clearScreen();
+            printHeader("LIHAT AKUN", 50);
             cout << "1. Lihat Seluruh Akun" << endl; 
             cout << "2. Lihat Akun Spesifik" << endl; 
-            cout << "-------------------------------------------" << endl; 
             
-            cout << "0. Kembali" << endl; 
+            printSeparator("-", 49); 
+            cout << "0. Kembali" << endl;
+            printSeparator("-", 49); 
+            
             cout << "Masukkan Pilihan Anda" << endl; 
             cout << "> ";
             cin >> pilihan;
@@ -300,6 +325,8 @@ void menu_read_akun() {
             else if (pilihan == 1) {
                 cout << "=> Menampilkan Seluruh Akun" << endl; 
                 lihatSeluruhAkun(akun, jumlahPengguna);
+                
+                printSeparator("-", 49);
                 system("pause");
             }
             else if (pilihan == 2) {
@@ -322,13 +349,16 @@ void menuSort() {
 
     do {
         try {
-            cout << "\n=== MENU SORT ===" << endl; 
+            clearScreen();
+            printHeader("URUTKAN ENTRI", 50);
             cout << "1. Urutkan Berdasarkan Jarak" << endl; 
             cout << "2. Urutkan Berdasarkan Nama" << endl; 
             cout << "3. Urutkan Berdasarkan Tahun Penemuan" << endl; 
             cout << "4. Urutkan Berdasarkan Magnitudo" << endl; 
-            cout << "--------------------------------------" << endl; 
-            cout << "0. Kembali" << endl; 
+            
+            printSeparator("-", 49); 
+            cout << "0. Kembali" << endl;
+            printSeparator("-", 49); 
 
             cout << "Masukkan Pilihan Anda" << endl; 
             cout << "> "; cin >> pilihan; 
@@ -354,32 +384,36 @@ void menuSort() {
                 cout << "=> Mengurutkan Berdasarkan Jarak" << endl;
                 urutkanBerdasarkanJarak(entri, jumlahEntri);
 
-                cout << "=> Data setelah diurutkan berdasarkan Tahun" << endl;
+                clearScreen();
                 lihatSeluruhEntri(entri, jumlahEntri);
+                printSeparator("-", 49);
                 system("pause");
             }
             else if (pilihan == 2) {
                 cout << "=> Mengurutkan Berdasarkan Nama" << endl;
                 urutkanBerdasarkanNama(entri, jumlahEntri);
                 
-                cout << "=> Data setelah diurutkan berdasarkan Tahun" << endl;
+                clearScreen();
                 lihatSeluruhEntri(entri, jumlahEntri);
+                printSeparator("-", 49);
                 system("pause");
             }
             else if (pilihan == 3) {
                 cout << "=> Mengurutkan Berdasarkan Tahun Penemuan" << endl;
                 urutkanBerdasarkanTahun(entri, jumlahEntri);
                 
-                cout << "=> Data setelah diurutkan berdasarkan Tahun" << endl;
+                clearScreen();
                 lihatSeluruhEntri(entri, jumlahEntri);
+                printSeparator("-", 49);
                 system("pause");
             }
             else if (pilihan == 4) {
                 cout << "=> Mengurutkan Berdasarkan Magnitudo" << endl;
                 urutkanBerdasarkanMagnitudo(entri, jumlahEntri);
 
-                cout << "=> Data Setelah Diurutkan Berdasarkan Magnitudo" << endl;
+                clearScreen();
                 lihatSeluruhEntri(entri, jumlahEntri);
+                printSeparator("-", 49);
                 system("pause");
             }
         }
@@ -395,12 +429,17 @@ void menuSearch() {
 
     do {
         try {
-            cout << "\n=== MENU SORT ===" << endl; 
+            // cout << "\n=== MENU SORT ===" << endl; 
+            clearScreen(); 
+            printHeader("CARI ENTRI", 50);
             cout << "1. Cari Berdasarkan Nama" << endl;
             cout << "2. Cari Berdasarkan Kategori" << endl; 
             cout << "3. Cari Berdasarkan Konstelasi" << endl; 
-            cout << "---------------------------------------------" << endl; 
-            cout << "0. Kembali" << endl; 
+            
+            printSeparator("-", 49); 
+            cout << "0. Kembali" << endl;
+            printSeparator("-", 49);
+            
             cout << "Masukkan Pilihan Anda" << endl; 
             cout << "> "; cin >> pilihan; 
 
@@ -421,17 +460,21 @@ void menuSearch() {
                 cout << "=> Kembali ke Menu Sebelumnya" << endl; 
             }
             else if (pilihan == 1) {
+                clearScreen();
                 cout << "=> Mencari Entri Berdasarkan Nama" << endl;
+                
                 string targetNama; 
                 cin.ignore();
                 cout << "Masukkan Nama Objek yang Ingin Dicari: "; getline(cin, targetNama);
-                
+                printSeparator("-", 49);
+
                 toUpperString(targetNama);
                 int indeksObjek = cariNama(entri, jumlahEntri, targetNama);
 
                 if (indeksObjek != -1) {
+                    clearScreen();
                     cout << "=> Entri Ditemukan" << endl; 
-                    cout << "---------------------------------------------------------" << endl;
+                    printSeparator("-", 49);
                     cout << "ID Entri         : " << entri[indeksObjek].entriID << endl;
                     cout << "Nama Objek       : " << entri[indeksObjek].namaObjek << endl;
                     cout << "Klasifikasi      : " << entri[indeksObjek].klasifikasi << endl;
@@ -440,7 +483,7 @@ void menuSearch() {
                     cout << "Tahun Penemuan   : " << entri[indeksObjek].tahunPenemuan << endl;
                     cout << "Status Observasi : " << entri[indeksObjek].statusObservasi << endl;
                     cout << "Magnitudo        : " << entri[indeksObjek].magnitudo << endl;
-                    cout << "---------------------------------------------------------" << endl;
+                    printSeparator("-", 49);
                 }
                 else {
                     cout << "=> Entri Tidak Ditemukan!" << endl;
