@@ -92,49 +92,59 @@ void lihatSpesifik(BendaLangit entriTerdaftar[], int ukuran) {
         return;
     }
 
-    clearScreen();
-    lihatSeluruhEntri(entriTerdaftar, ukuran);
-
     int idSpesifik;
-    printSeparator("-", 49);
-    cout << "0. Kembali" << endl;
-    printSeparator("-", 49);
-    
-    cout << "Masukkan ID untuk detail lengkap: ";
-    cin >> idSpesifik;
-    printSeparator("-", 49);
 
-    if (idSpesifik == 0) {
-        cout << "=> Kembali ke Menu Sebelumnya" << endl;
-        system("pause");
-        return;
-    }
+    do {
+        clearScreen();
+        lihatSeluruhEntri(entriTerdaftar, ukuran);
 
-    bool ditemukan = false;
-    for (int i = 0; i < ukuran; i++) {
-        if (entriTerdaftar[i].entriID == idSpesifik) {
-            clearScreen();
-            cout << "==========================================" << endl;
-            cout << "      DETAIL LENGKAP OBJEK ASTRONOMI      " << endl;
-            cout << "==========================================" << endl;
-            cout << "ID Entri       : " << entriTerdaftar[i].entriID << endl;
-            cout << "Nama Objek     : " << entriTerdaftar[i].namaObjek << endl;
-            cout << "Klasifikasi    : " << entriTerdaftar[i].klasifikasi << endl;
-            cout << "Konstelasi     : " << entriTerdaftar[i].konstelasi << endl;
-            cout << "Jarak          : " << entriTerdaftar[i].jarakDariBumi << endl;
-            cout << "Tahun Temu     : " << entriTerdaftar[i].tahunPenemuan << endl;
-            cout << "Status         : " << entriTerdaftar[i].statusObservasi << endl;
-            cout << "Magnitudo      : " << entriTerdaftar[i].magnitudo << endl;
-            cout << "==========================================" << endl;
-            ditemukan = true;
-            break;
+        printSeparator("-", 49);
+        cout << "0. Kembali" << endl;
+        printSeparator("-", 49);
+        cout << "Masukkan ID untuk detail lengkap: ";
+        cin >> idSpesifik;
+        printSeparator("-", 49);
+
+        if (cin.fail()) {
+            cout << "\n=> Input harus berupa angka (ID)!" << endl;
+            idSpesifik = errorHandling(-1);
+            system("pause");
+            continue;
         }
-    }
-    if (!ditemukan) {
-        cout << "=> ID " << idSpesifik << " tidak ditemukan" << endl;
-    }
+
+        if (idSpesifik == 0) {
+            cout << "=> Kembali ke Menu Sebelumnya" << endl;
+            system("pause");
+            return;
+        }
+
+        bool ditemukan = false;
+        for (int i = 0; i < ukuran; i++) {
+            if (entriTerdaftar[i].entriID == idSpesifik) {
+                clearScreen();
+                cout << "==========================================" << endl;
+                cout << "      DETAIL LENGKAP OBJEK ASTRONOMI      " << endl;
+                cout << "==========================================" << endl;
+                cout << "ID Entri       : " << entriTerdaftar[i].entriID << endl;
+                cout << "Nama Objek     : " << entriTerdaftar[i].namaObjek << endl;
+                cout << "Klasifikasi    : " << entriTerdaftar[i].klasifikasi << endl;
+                cout << "Konstelasi     : " << entriTerdaftar[i].konstelasi << endl;
+                cout << "Jarak          : " << entriTerdaftar[i].jarakDariBumi << endl;
+                cout << "Tahun Temu     : " << entriTerdaftar[i].tahunPenemuan << endl;
+                cout << "Status         : " << entriTerdaftar[i].statusObservasi << endl;
+                cout << "Magnitudo      : " << entriTerdaftar[i].magnitudo << endl;
+                cout << "==========================================" << endl;
+                ditemukan = true;
+                system("pause");
+                break;
+            }
+        }
+        if (!ditemukan) {
+            cout << "=> ID " << idSpesifik << " tidak ditemukan" << endl;
+            system("pause");
+        }
     
-    system("pause");
+    } while (idSpesifik != 0);
 }
 
 // --- UPDATE ---
@@ -274,53 +284,73 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
 void hapusEntri() {
     clearScreen();
     if (jumlahEntri == 0) {
-        cout << "=> Tidak ada data" << endl;
+        cout << "=> Tidak ada data untuk dihapus" << endl;
         system("pause");
         return;
     }
     
-    printHeader("HAPUS ENTRI", 50);
-    cout << "Menghapus Entri" << endl;  
-    lihatSeluruhEntri(entri, jumlahEntri);
-    
-    printSeparator("-", 49);
-    cout << "0. Kembali" << endl;
-    printSeparator("-", 49);
-
     int idHapus;
-    cout << "Masukkan ID yang ingin dihapus: "; 
-    cin >> idHapus;
-    printSeparator("-", 49);
-    
-    if (idHapus == 0) {
-        cout << "=> Kembali ke Menu Sebelumnya" << endl;
-        system("pause");
-        return; 
-    }
+    bool selesai = false;
 
-    int idx = -1;
-    for (int i = 0; i < jumlahEntri; i++) {
-        if (entri[i].entriID == idHapus) { 
-            idx = i;
-            break; }
-    }
-    if (idx != -1) {
+    do {
+        printHeader("HAPUS ENTRI", 50);
+        cout << "Menghapus Entri" << endl;  
+        lihatSeluruhEntri(entri, jumlahEntri);
+        
+        printSeparator("-", 49);
+        cout << "0. Kembali" << endl;
+        printSeparator("-", 49);
+
+        cout << "Masukkan ID yang ingin dihapus: "; 
+        cin >> idHapus;
+        printSeparator("-", 49);
+        
+        if (cin.fail()) {
+            cout << "\n=> Input harus berupa angka (ID)!" << endl;
+            idHapus = errorHandling(-1);
+            system("pause");
+            continue;
+        }
+        
+        if (idHapus == 0) {
+            cout << "=> Kembali ke Menu Sebelumnya" << endl;
+            system("pause");
+            return; 
+        }
+
+        int idx = -1;
+        for (int i = 0; i < jumlahEntri; i++) {
+            if (entri[i].entriID == idHapus) { 
+                idx = i;
+                break; 
+            }
+        }
+        if (idx != -1) {
         char konfirmasi;
-        cout << "Yakin hapus " << entri[idx].namaObjek << "? (y/n): "; 
-        cin >> konfirmasi;
-        if (konfirmasi == 'y' || konfirmasi == 'Y') {
-            cout << "=> " << entri[idx].namaObjek<< " Berhasil dihapus!" << endl;
-            for (int j = idx; j < jumlahEntri - 1; j++) entri[j] = entri[j + 1];
-            jumlahEntri--;
-            
-        } 
-        else if (konfirmasi == 'n' || konfirmasi == 'N') {
-            cout << "=> Tidak Jadi Menghapus " << entri[idx].namaObjek << endl; 
+            cout << "Yakin hapus " << entri[idx].namaObjek << "? (y/n): "; 
+            cin >> konfirmasi;
+            if (konfirmasi == 'y' || konfirmasi == 'Y') {
+                cout << "=> " << entri[idx].namaObjek<< " Berhasil dihapus!" << endl;
+                for (int j = idx; j < jumlahEntri - 1; j++) entri[j] = entri[j + 1];
+                jumlahEntri--;
+                selesai = true;
+                system("pause");
+            } 
+            else if (konfirmasi == 'n' || konfirmasi == 'N') {
+                cout << "=> Tidak Jadi Menghapus " << entri[idx].namaObjek << endl; 
+                system("pause");
+            }
+            else {
+                cout << "=> Pilihan Tidak Valid! Tidak Jadi Menghapus " << entri[idx].namaObjek << endl;
+                cin.clear();
+                while (cin.get() != '\n');
+                system("pause");
+            }
         }
-        else {
-            cout << "=> Pilihan Tidak Valid! Tidak Jadi Menghapus " << entri[idx].namaObjek << endl;
+        
+        else { 
+            cout << "=> ID " << idHapus << "tidak ditemukan!" << endl;
+            system("pause");
         }
-    } else cout << "=> ID tidak ditemukan!" << endl;
-    system("pause");
+    } while (!selesai);
 }
-
