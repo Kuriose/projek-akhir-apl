@@ -35,32 +35,48 @@ void lihatAkunSpesifik(Pengguna *ptrAkun, int ukuran) {
         return;
     }
 
-    lihatSeluruhAkun(ptrAkun, ukuran);
-
     int idAkunSpesifik;
-    printSeparator("-", 49);
-    cout << "Masukkan User ID untuk detail lengkap: ";
-    cin >> idAkunSpesifik;
-    printSeparator("-", 49);
+    do{
+        lihatSeluruhAkun(ptrAkun, ukuran);
+        printSeparator("-", 49);
+        cout << "0. Kembali" << endl;
+        printSeparator("-", 49);
+        cout << "Masukkan User ID untuk detail lengkap: ";
+        cin >> idAkunSpesifik;
+        printSeparator("-", 49);
 
-    bool ditemukan = false;
-    for (int i = 0; i < ukuran; i++) {
-        if ((ptrAkun + i)->userID == idAkunSpesifik) {
-            clearScreen();
-            printHeader("DETAIL LENGKAP AKUN", 50);
-            cout << "User ID        : " << (ptrAkun + i)->userID << endl;
-            cout << "Username       : " << (ptrAkun + i)->username << endl;
-            cout << "Password       : " << (ptrAkun + i)->password << endl;
-            cout << "Role           : " << ((ptrAkun + i)->isAdmin ? "Admin" : "Member") << endl;
-            printSeparator("-", 49);
-            ditemukan = true;
-            break;
+        if (cin.fail()) {
+            cout << "\n=> Error: Input harus berupa angka (ID)!" << endl;
+            idAkunSpesifik = errorHandling(-1); 
+            system("pause");
+            continue;
         }
-    }
-    if (!ditemukan) {
-        cout << "=> User ID " << idAkunSpesifik << " tidak ditemukan!" << endl;
-    }
-    system("pause");
+        if (idAkunSpesifik == 0) {
+            cout << "=> Kembali ke Menu Sebelumnya" << endl;
+            system("pause");
+            return; 
+        }
+
+        bool ditemukan = false;
+        for (int i = 0; i < ukuran; i++) {
+            if ((ptrAkun + i)->userID == idAkunSpesifik) {
+                clearScreen();
+                printHeader("DETAIL LENGKAP AKUN", 50);
+                cout << "User ID        : " << (ptrAkun + i)->userID << endl;
+                cout << "Username       : " << (ptrAkun + i)->username << endl;
+                cout << "Password       : " << (ptrAkun + i)->password << endl;
+                cout << "Role           : " << ((ptrAkun + i)->isAdmin ? "Admin" : "Member") << endl;
+                printSeparator("-", 49);
+                ditemukan = true;
+                system("pause");
+                break;
+            }
+        }
+        if (!ditemukan) {
+            cout << "=> User ID " << idAkunSpesifik << " tidak ditemukan!" << endl;
+            system("pause");
+        }
+    } while (idAkunSpesifik != 0);
 }
 
 void ubahAkun(Pengguna *ptrAkun, int jumlahPengguna) {
