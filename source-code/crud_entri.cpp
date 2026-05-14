@@ -162,8 +162,14 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
 
     cout << "Masukkan ID Entri yang ingin diperbarui: ";
     cin >> idCari;
-    errorHandling(idCari);
+    idCari = errorHandling(idCari);
     printSeparator("-", 49);
+
+    if (idCari == -1 || idCari < 0) {
+        cout << "=> Input ID tidak valid!" << endl;
+        system("pause");
+        return; 
+    }
 
     if (idCari == 0) {
         cout << "=> Kembali ke Menu Sebelumnya" << endl;
@@ -203,8 +209,14 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
 
         cout << "Masukkan pilihan: ";
         cin >> pilihanField;
-        errorHandling(pilihanField);
+        pilihanField = errorHandling(pilihanField);
         cin.ignore();
+        
+        if (pilihanField == -1) {
+            cout << "=> Pilihan tidak valid!" << endl;
+            system("pause");
+            continue;
+        }
         
         string nilaiBaru;
         switch(pilihanField) {
@@ -214,62 +226,97 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
             case 1:
                 cout << "Masukkan Nama Objek baru: ";
                 getline(cin, nilaiBaru);
-
+                if (nilaiBaru.empty()) {
+                    cout << "=> Nama objek tidak boleh kosong!" << endl;
+                    system("pause");
+                    break;
+                }
                 toUpperString(nilaiBaru);
-
                 (arr+indeks)->namaObjek = nilaiBaru;
                 cout << "=> Entri berhasil diperbarui!" << endl;
                 system("pause");
-
                 break;
             case 2:
                 cout << "Masukkan Klasifikasi baru: ";
                 getline(cin, nilaiBaru);
+                if (nilaiBaru.empty()) {
+                    cout << "=> Klasifikasi tidak boleh kosong!" << endl;
+                    system("pause");
+                    break;
+                }
                 (arr+indeks)->klasifikasi = nilaiBaru;
                 cout << "=> Entri berhasil diperbarui!" << endl;
                 system("pause");
-                
                 break;
             case 3:
                 cout << "Masukkan Konstelasi baru: ";
                 getline(cin, nilaiBaru);
+                if (nilaiBaru.empty()) {
+                    cout << "=> Konstelasi tidak boleh kosong!" << endl;
+                    system("pause");
+                    break;
+                }
                 (arr+indeks)->konstelasi = nilaiBaru;
                 cout << "=> Entri berhasil diperbarui!" << endl;
                 system("pause");
-                
                 break;
             case 4:
                 double jarakBaru;
-                cout << "Masukkan Jarak Dari Bumi baru: "; cin >> jarakBaru;
+                cout << "Masukkan Jarak Dari Bumi baru: ";
+                cin >> jarakBaru;
+                if (cin.fail() || jarakBaru < 0) {
+                    cout << "=> Input jarak tidak valid! Masukkan angka positif." << endl;
+                    cin.clear();
+                    while (cin.peek() != '\n') cin.ignore();
+                    system("pause");
+                    break;
+                }
+                while (cin.peek() != '\n') cin.ignore();
                 (arr+indeks)->jarakDariBumi = jarakBaru;
                 cout << "=> Entri berhasil diperbarui!" << endl;
                 system("pause");
-                
                 break;
             case 5:
                 int newTahun;
                 cout << "Masukkan Tahun Penemuan baru: ";
                 cin >> newTahun;
+                newTahun = errorHandling(newTahun);
+                if (newTahun == -1 || newTahun < -10000 || newTahun > 2100) {
+                    cout << "=> Tahun tidak valid!" << endl;
+                    system("pause");
+                    break;
+                }
                 (arr+indeks)->tahunPenemuan = newTahun;
                 cout << "=> Entri berhasil diperbarui!" << endl;
                 system("pause");
-                
                 break;
             case 6:
                 cout << "Masukkan Status Observasi baru: ";
                 getline(cin, nilaiBaru);
+                if (nilaiBaru.empty()) {
+                    cout << "=> Status tidak boleh kosong!" << endl;
+                    system("pause");
+                    break;
+                }
                 (arr+indeks)->statusObservasi = nilaiBaru;
                 cout << "=> Entri berhasil diperbarui!" << endl;
                 system("pause");
-
                 break;
             case 7:
                 float magnitudoBaru;
-                cout << "Masukkan Magnitudo baru: "; cin >> magnitudoBaru;
+                cout << "Masukkan Magnitudo baru: ";
+                cin >> magnitudoBaru;
+                if (cin.fail()) {
+                    cout << "=> Input magnitudo tidak valid! Masukkan angka." << endl;
+                    cin.clear();
+                    while (cin.peek() != '\n') cin.ignore();
+                    system("pause");
+                    break;
+                }
+                while (cin.peek() != '\n') cin.ignore();
                 (arr+indeks)->magnitudo = magnitudoBaru;
                 cout << "=> Entri berhasil diperbarui!" << endl;
                 system("pause");
-
                 break;
             default:
                 cout << "=> Pilihan tidak valid!" << endl;
@@ -277,7 +324,6 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
         }
         
     } while (pilihanField != 0); 
-
 }
 
 // --- DELETE ---
