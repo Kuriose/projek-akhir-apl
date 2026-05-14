@@ -209,20 +209,70 @@ void urutkanBerdasarkanMagnitudo(BendaLangit arr[], int ukuran) {
 }
 
 void cariKonstelasi(BendaLangit arr[], int ukuran) {
+    if (ukuran == 0) {
+        cout << "=> Data Entri kosong" << endl;
+        system("pause");
+        return;
+    }
+
     string cariK;
-    
+    string cariKupper;
+    cin.ignore(1000, '\n');
+
     clearScreen();
     printHeader("CARI BERDASARKAN KONSTELASI", 50);
-    cout << "Masukkan Konstelasi : " << endl;
+    cout << "Masukkan Nama Konstelasi: " << endl;
     cout << "> "; 
-    cin.ignore();
     getline(cin, cariK);
+
+    if (cariK.empty()) {
+        cout << "=> Input tidak boleh kosong!" << endl;
+        system("pause");
+        return;
+    }
+    bool spasi = true;
+    for (int i = 0; i < cariK.length(); i++) {
+        char c = cariK[i];
+        if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
+            cout << "=> Input nama konstelasi tidak valid!" << endl;
+            system("pause");
+            return;
+        }
+        if (c != ' ') spasi = false;
+    }
+
+    if (spasi) {
+        cout << "=> Input tidak boleh kosong!" << endl;
+        system("pause");
+        return;
+    }
+
+    cariKupper = cariK;
+    toUpperString(cariKupper);
+    bool ditemukan = false;
+    for (int i = 0; i < ukuran; i++) {
+        string konSistem = (arr + i)->konstelasi;
+        toUpperString(konSistem);
+        if (konSistem == cariKupper) {
+            ditemukan = true;
+            break;
+        }
+    }
+
+    if (!ditemukan) {
+        cout << "=> Belum ada objek astronomi pada konstelasi " << cariK << endl;
+        system("pause");
+        return;
+    }
 
     clearScreen();
     int jmlKetemu = 0;
     printHeader("ENTRI YANG DITEMUKAN", 50);
     for (int i = 0; i < ukuran; i++) {
-        if ((arr + i)->konstelasi == cariK) {
+        string konstelasiSistem = (arr + i)->konstelasi;
+        toUpperString(konstelasiSistem);
+        
+        if (konstelasiSistem == cariKupper) {
             jmlKetemu++;
             printSeparator("-", 49);
             cout << "ID Entri         : " << (arr + i)->entriID << endl;
@@ -237,11 +287,7 @@ void cariKonstelasi(BendaLangit arr[], int ukuran) {
             cout << endl;
         }
     }
-    if (jmlKetemu == 0) {
-        cout << "Belum ada objek astronomi pada konstelasi " << cariK << endl;
-    } else {
-        cout << "=> Ditemukan " << jmlKetemu << " objek astronomi pada konstelasi " << cariK << endl;
-    }
+    cout << "=> Berhasil menemukan " << jmlKetemu << " objek pada konstelasi " << cariK << endl;
     system("pause");
 }
 
