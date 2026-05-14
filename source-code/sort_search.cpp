@@ -109,39 +109,60 @@ void urutkanNama(BendaLangit arr[], int ukuran) {
 }
 
 void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
-    char urutan;
-    
-    clearScreen();
-    printHeader("URUTKAN BERDASARKAN TAHUN", 50);
-    cout << "Pilih urutan pengurutan:" << endl;
-    cout << "A. Ascending" << endl;
-    cout << "D. Descending" << endl;
-    
-    printSeparator("-", 49);
-    cout << "Masukkan pilihan (A/D): ";
-    cin >> urutan;
-    cin.ignore();
-    urutan = toupper(urutan);
-    
-    for (int i = 0; i < ukuran - 1; i++) {
-        for (int j = 0; j < ukuran - i - 1; j++) {
-            bool perluTukar = false;
-            if (urutan == 'A') {
-                if ((arr + j)->tahunPenemuan > (arr + j + 1)->tahunPenemuan) perluTukar = true;
-            } else if (urutan == 'D') {
-                if ((arr + j)->tahunPenemuan < (arr + j + 1)->tahunPenemuan) perluTukar = true;
-            }
-
-            if (perluTukar) {
-                BendaLangit temp = *(arr + j);
-                *(arr + j) = *(arr + j + 1);
-                *(arr + j + 1) = temp;
-            }
-        }
+    if (ukuran == 0) {
+        cout << "=> Data kosong, tidak ada yang bisa diurutkan" << endl;
+        system("pause");
+        return;
     }
 
+    string inputUser;
+    char urutan;
+    bool valid = false;
+    do {
+        clearScreen();
+        printHeader("URUTKAN BERDASARKAN TAHUN", 50);
+        cout << "Pilih urutan pengurutan:" << endl;
+        cout << "A. Ascending" << endl;
+        cout << "D. Descending" << endl;
+        
+        printSeparator("-", 49);
+        cout << "Masukkan pilihan (A/D): ";
+        cin >> inputUser;
+
+        if (inputUser.length() == 1) {
+            urutan = toupper(inputUser[0]);
+            if (urutan == 'A' || urutan == 'D') {
+                valid = true;
+            } else {
+                cout << "=> Input tidak valid (A/D)" << endl;
+                system("pause");
+            }
+        } else {
+            cout << "=> Input tidak valid (A/D)" << endl;
+            system("pause");
+        }
+        cin.clear();
+        cin.ignore(1000, '\n');
+    } while (!valid);
+
+        for (int i = 0; i < ukuran - 1; i++) {
+            for (int j = 0; j < ukuran - i - 1; j++) {
+                bool perluTukar = false;
+                if (urutan == 'A') {
+                    if ((arr + j)->tahunPenemuan > (arr + j + 1)->tahunPenemuan) perluTukar = true;
+                } else if (urutan == 'D') {
+                    if ((arr + j)->tahunPenemuan < (arr + j + 1)->tahunPenemuan) perluTukar = true;
+                }
+
+                if (perluTukar) {
+                    BendaLangit temp = *(arr + j);
+                    *(arr + j) = *(arr + j + 1);
+                    *(arr + j + 1) = temp;
+                }
+            }
+        }
     printSeparator("-", 49);
-    cout << "=> Data berhasil diurutkan!" << endl;
+    cout << "=> Data berhasil diurutkan berdasarkan tahun (" << (urutan == 'A' ? "Ascending" : "Descending") << ")" << endl;
     system("pause");
 }
 
@@ -188,20 +209,70 @@ void urutkanBerdasarkanMagnitudo(BendaLangit arr[], int ukuran) {
 }
 
 void cariKonstelasi(BendaLangit arr[], int ukuran) {
+    if (ukuran == 0) {
+        cout << "=> Data Entri kosong" << endl;
+        system("pause");
+        return;
+    }
+
     string cariK;
-    
+    string cariKupper;
+    cin.ignore(1000, '\n');
+
     clearScreen();
     printHeader("CARI BERDASARKAN KONSTELASI", 50);
-    cout << "Masukkan Konstelasi : " << endl;
+    cout << "Masukkan Nama Konstelasi: " << endl;
     cout << "> "; 
-    cin.ignore();
     getline(cin, cariK);
+
+    if (cariK.empty()) {
+        cout << "=> Input tidak boleh kosong!" << endl;
+        system("pause");
+        return;
+    }
+    bool spasi = true;
+    for (int i = 0; i < cariK.length(); i++) {
+        char c = cariK[i];
+        if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
+            cout << "=> Input nama konstelasi tidak valid!" << endl;
+            system("pause");
+            return;
+        }
+        if (c != ' ') spasi = false;
+    }
+
+    if (spasi) {
+        cout << "=> Input tidak boleh kosong!" << endl;
+        system("pause");
+        return;
+    }
+
+    cariKupper = cariK;
+    toUpperString(cariKupper);
+    bool ditemukan = false;
+    for (int i = 0; i < ukuran; i++) {
+        string konSistem = (arr + i)->konstelasi;
+        toUpperString(konSistem);
+        if (konSistem == cariKupper) {
+            ditemukan = true;
+            break;
+        }
+    }
+
+    if (!ditemukan) {
+        cout << "=> Belum ada objek astronomi pada konstelasi " << cariK << endl;
+        system("pause");
+        return;
+    }
 
     clearScreen();
     int jmlKetemu = 0;
     printHeader("ENTRI YANG DITEMUKAN", 50);
     for (int i = 0; i < ukuran; i++) {
-        if ((arr + i)->konstelasi == cariK) {
+        string konstelasiSistem = (arr + i)->konstelasi;
+        toUpperString(konstelasiSistem);
+        
+        if (konstelasiSistem == cariKupper) {
             jmlKetemu++;
             printSeparator("-", 49);
             cout << "ID Entri         : " << (arr + i)->entriID << endl;
@@ -216,11 +287,7 @@ void cariKonstelasi(BendaLangit arr[], int ukuran) {
             cout << endl;
         }
     }
-    if (jmlKetemu == 0) {
-        cout << "Belum ada objek astronomi pada konstelasi " << cariK << endl;
-    } else {
-        cout << "=> Ditemukan " << jmlKetemu << " objek astronomi pada konstelasi " << cariK << endl;
-    }
+    cout << "=> Berhasil menemukan " << jmlKetemu << " objek pada konstelasi " << cariK << endl;
     system("pause");
 }
 
