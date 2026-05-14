@@ -109,39 +109,60 @@ void urutkanNama(BendaLangit arr[], int ukuran) {
 }
 
 void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
-    char urutan;
-    
-    clearScreen();
-    printHeader("URUTKAN BERDASARKAN TAHUN", 50);
-    cout << "Pilih urutan pengurutan:" << endl;
-    cout << "A. Ascending" << endl;
-    cout << "D. Descending" << endl;
-    
-    printSeparator("-", 49);
-    cout << "Masukkan pilihan (A/D): ";
-    cin >> urutan;
-    cin.ignore();
-    urutan = toupper(urutan);
-    
-    for (int i = 0; i < ukuran - 1; i++) {
-        for (int j = 0; j < ukuran - i - 1; j++) {
-            bool perluTukar = false;
-            if (urutan == 'A') {
-                if ((arr + j)->tahunPenemuan > (arr + j + 1)->tahunPenemuan) perluTukar = true;
-            } else if (urutan == 'D') {
-                if ((arr + j)->tahunPenemuan < (arr + j + 1)->tahunPenemuan) perluTukar = true;
-            }
-
-            if (perluTukar) {
-                BendaLangit temp = *(arr + j);
-                *(arr + j) = *(arr + j + 1);
-                *(arr + j + 1) = temp;
-            }
-        }
+    if (ukuran == 0) {
+        cout << "=> Data kosong, tidak ada yang bisa diurutkan" << endl;
+        system("pause");
+        return;
     }
 
+    string inputUser;
+    char urutan;
+    bool valid = false;
+    do {
+        clearScreen();
+        printHeader("URUTKAN BERDASARKAN TAHUN", 50);
+        cout << "Pilih urutan pengurutan:" << endl;
+        cout << "A. Ascending" << endl;
+        cout << "D. Descending" << endl;
+        
+        printSeparator("-", 49);
+        cout << "Masukkan pilihan (A/D): ";
+        cin >> inputUser;
+
+        if (inputUser.length() == 1) {
+            urutan = toupper(inputUser[0]);
+            if (urutan == 'A' || urutan == 'D') {
+                valid = true;
+            } else {
+                cout << "=> Input tidak valid (A/D)" << endl;
+                system("pause");
+            }
+        } else {
+            cout << "=> Input tidak valid (A/D)" << endl;
+            system("pause");
+        }
+        cin.clear();
+        cin.ignore(1000, '\n');
+    } while (!valid);
+
+        for (int i = 0; i < ukuran - 1; i++) {
+            for (int j = 0; j < ukuran - i - 1; j++) {
+                bool perluTukar = false;
+                if (urutan == 'A') {
+                    if ((arr + j)->tahunPenemuan > (arr + j + 1)->tahunPenemuan) perluTukar = true;
+                } else if (urutan == 'D') {
+                    if ((arr + j)->tahunPenemuan < (arr + j + 1)->tahunPenemuan) perluTukar = true;
+                }
+
+                if (perluTukar) {
+                    BendaLangit temp = *(arr + j);
+                    *(arr + j) = *(arr + j + 1);
+                    *(arr + j + 1) = temp;
+                }
+            }
+        }
     printSeparator("-", 49);
-    cout << "=> Data berhasil diurutkan!" << endl;
+    cout << "=> Data berhasil diurutkan berdasarkan tahun (" << (urutan == 'A' ? "Ascending" : "Descending") << ")" << endl;
     system("pause");
 }
 
