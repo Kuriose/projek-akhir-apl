@@ -90,18 +90,52 @@ void ubahAkun(Pengguna *ptrAkun, int jumlahPengguna) {
 
     int idAkun;
     printSeparator("-", 49);
-    cout << "Masukkan User ID yang ingin diubah: ";
-    cin >> idAkun;
+    while (true) {
+        try {
+            cout << "Masukkan User ID yang ingin diubah: ";
+            cin >> idAkun;
+            if (cin.fail()) throw "Input ID harus berupa angka!";
+            cin.ignore();
+            break;
+        } catch (const char* msg) {
+            cin.clear();
+            cin.ignore();
+            cout << "=> " << msg << endl;
+        }
+    }
     printSeparator("-", 49);
 
     bool ditemukan = false;
     for (int i = 0; i < jumlahPengguna; i++) {
         if ((ptrAkun + i)->userID == idAkun) {
             printHeader("UBAH DATA AKUN", 50);
-            cout << "Username baru   : "; cin >> (ptrAkun + i)->username;
-            cout << "Password baru   : "; cin >> (ptrAkun + i)->password;
+            
+            string temp;
+            cout << "Username baru   : ";
+            getline(cin, temp);
+            if (!temp.empty()) (ptrAkun + i)->username = temp;
+
+            cout << "Password baru   : ";
+            getline(cin, temp);
+            if (!temp.empty()) (ptrAkun + i)->password = temp;
+
             char roleInput;
-            cout << "Role baru (A/U) : "; cin >> roleInput;
+            while (true) {
+                try {
+                    cout << "Role baru (A/U) : ";
+                    cin >> roleInput;
+                    if (cin.fail()) throw "Input role gagal!";
+                    cin.ignore(1000, '\n');
+                    if (roleInput != 'A' && roleInput != 'a' && roleInput != 'U' && roleInput != 'u') {
+                        throw "Role wajib diisi 'A' atau 'U'";
+                    }
+                    break;
+                } catch (const char* msg) {
+                    cin.clear();
+                    cin.ignore();
+                    cout << "=> " << msg << endl;
+                }
+            }
             (ptrAkun + i)->isAdmin = (roleInput == 'A' || roleInput == 'a');
             
             printSeparator("-", 49);
@@ -127,12 +161,48 @@ void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
 
     int idAkun;
     printSeparator("-", 49);
-    cout << "Masukkan User ID yang ingin dihapus: ";
-    cin >> idAkun;
+    while (true) {
+        try {
+            cout << "Masukkan User ID yang ingin dihapus: ";
+            cin >> idAkun;
+            if (cin.fail()) throw "Input ID harus berupa angka!";
+            cin.ignore();
+            break;
+        } catch (const char* msg) {
+            cin.clear();
+            cin.ignore();
+            cout << "=> " << msg << endl;
+        }
+    }
+    printSeparator("-", 49);
 
     bool ditemukan = false;
     for (int i = 0; i < jumlahPengguna; i++) {
         if ((ptrAkun + i)->userID == idAkun) {
+            char konfirmasi;
+            while (true) {
+                try {
+                    cout << "Yakin ingin menghapus akun ini? (y/n): ";
+                    cin >> konfirmasi;
+                    if (cin.fail()) throw "Input konfirmasi gagal!";
+                    cin.ignore();
+                    if (konfirmasi != 'y' && konfirmasi != 'Y' && konfirmasi != 'n' && konfirmasi != 'N') {
+                        throw "Masukkan 'y' atau 'n'";
+                    }
+                    break;
+                } catch (const char* msg) {
+                    cin.clear();
+                    cin.ignore();
+                    cout << "=> " << msg << endl;
+                }
+            }
+
+            if (konfirmasi != 'y' && konfirmasi != 'Y') {
+                cout << "=> Penghapusan dibatalkan." << endl;
+                system("pause");
+                return;
+            }
+
             for (int j = i; j < jumlahPengguna - 1; j++) {
                 *(ptrAkun + j) = *(ptrAkun + j + 1);
             }
@@ -144,7 +214,6 @@ void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
         }
     }
     if (!ditemukan) {
-        printSeparator("-", 49);
         cout << "=> User ID " << idAkun << " tidak ditemukan!" << endl;
     }
     system("pause");
