@@ -88,31 +88,51 @@ void ubahAkun(Pengguna *ptrAkun, int jumlahPengguna) {
 
     lihatSeluruhAkun(ptrAkun, jumlahPengguna);
 
-    int idAkun;
+    int indexDitemukan = -1;
     printSeparator("-", 49);
-    cout << "Masukkan User ID yang ingin diubah: ";
-    cin >> idAkun;
-    printSeparator("-", 49);
-
-    bool ditemukan = false;
-    for (int i = 0; i < jumlahPengguna; i++) {
-        if ((ptrAkun + i)->userID == idAkun) {
-            printHeader("UBAH DATA AKUN", 50);
-            cout << "Username baru   : "; cin >> (ptrAkun + i)->username;
-            cout << "Password baru   : "; cin >> (ptrAkun + i)->password;
-            char roleInput;
-            cout << "Role baru (A/U) : "; cin >> roleInput;
-            (ptrAkun + i)->isAdmin = (roleInput == 'A' || roleInput == 'a');
-            
-            printSeparator("-", 49);
-            cout << "=> Data akun berhasil diperbarui!" << endl;
-            ditemukan = true;
-            break;
+    cin.ignore();
+    do {
+        int idAkun = inputAngka("Masukkan User ID yang ingin diubah: ");
+        for (int i = 0; i < jumlahPengguna; i++) {
+            if ((ptrAkun + i)->userID == idAkun) {
+                indexDitemukan = i;
+                break;
+            }
         }
-    }
-    if (!ditemukan) {
-        cout << "=> User ID " << idAkun << " tidak ditemukan!" << endl;
-    }
+        if (indexDitemukan == -1) {
+            cout << "=> User ID " << idAkun << " tidak ditemukan!" << endl;
+        }
+    } while (indexDitemukan == -1);
+
+    printHeader("UBAH DATA AKUN", 50);
+
+    string usernameBaru;
+    bool usernameValid = false;
+    do {
+        usernameBaru = inputString("Username baru   : ");
+        bool duplikat = false;
+        for (int j = 0; j < jumlahPengguna; j++) {
+            if ((ptrAkun + j)->username == usernameBaru) {
+                duplikat = true;
+                break;
+            }
+        }
+        if (duplikat) {
+            cout << "=> Username sudah digunakan akun lain!" << endl;
+        } else {
+            usernameValid = true;
+        }
+    } while (!usernameValid);
+
+    string passwordBaru = inputString("Password baru   : ", 3);
+    char roleInput = inputKarakter("Role baru (A/U) : ", "AU");
+
+    (ptrAkun + indexDitemukan)->username = usernameBaru;
+    (ptrAkun + indexDitemukan)->password = passwordBaru;
+    (ptrAkun + indexDitemukan)->isAdmin = (roleInput == 'A');
+
+    printSeparator("-", 49);
+    cout << "=> Data akun berhasil diperbarui!" << endl;
     system("pause");
 }
 
@@ -125,28 +145,51 @@ void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
 
     lihatSeluruhAkun(ptrAkun, jumlahPengguna);
 
-    int idAkun;
+    int indexDitemukan = -1;
     printSeparator("-", 49);
-    cout << "Masukkan User ID yang ingin dihapus: ";
-    cin >> idAkun;
-
-    bool ditemukan = false;
-    for (int i = 0; i < jumlahPengguna; i++) {
-        if ((ptrAkun + i)->userID == idAkun) {
-            for (int j = i; j < jumlahPengguna - 1; j++) {
-                *(ptrAkun + j) = *(ptrAkun + j + 1);
+    cin.ignore();
+    do {
+        int idAkun = inputAngka("Masukkan User ID yang ingin dihapus: ");
+        for (int i = 0; i < jumlahPengguna; i++) {
+            if ((ptrAkun + i)->userID == idAkun) {
+                indexDitemukan = i;
+                break;
             }
-            jumlahPengguna--;
+        }
+        if (indexDitemukan == -1) {
+            cout << "=> User ID " << idAkun << " tidak ditemukan!" << endl;
+        }
+    } while (indexDitemukan == -1);
+
+    if ((ptrAkun + indexDitemukan)->isAdmin) {
+        int jumlahAdmin = 0;
+        for (int k = 0; k < jumlahPengguna; k++) {
+            if ((ptrAkun + k)->isAdmin) jumlahAdmin++;
+        }
+        if (jumlahAdmin <= 1) {
             printSeparator("-", 49);
-            cout << "=> Akun dengan ID " << idAkun << " berhasil dihapus!" << endl;
-            ditemukan = true;
-            break;
+            cout << "=> Tidak dapat menghapus admin terakhir!" << endl;
+            system("pause");
+            return;
         }
     }
-    if (!ditemukan) {
+
+    printSeparator("-", 49);
+    char konfirmasi = inputKarakter("Yakin ingin menghapus akun ini? (Y/N): ", "YN");
+    if (konfirmasi != 'Y') {
         printSeparator("-", 49);
-        cout << "=> User ID " << idAkun << " tidak ditemukan!" << endl;
+        cout << "=> Penghapusan dibatalkan!" << endl;
+        system("pause");
+        return;
     }
+
+    int idTerhapus = (ptrAkun + indexDitemukan)->userID;
+    for (int j = indexDitemukan; j < jumlahPengguna - 1; j++) {
+        *(ptrAkun + j) = *(ptrAkun + j + 1);
+    }
+    jumlahPengguna--;
+    printSeparator("-", 49);
+    cout << "=> Akun dengan ID " << idTerhapus << " berhasil dihapus!" << endl;
     system("pause");
 }
 
