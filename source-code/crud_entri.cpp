@@ -9,37 +9,74 @@ using namespace std;
 
 // --- CREATE
 void tambahEntri(BendaLangit newEntri[], int &ukuran) {
-    int pilihan; 
-     
-    if (ukuran >= MAXENTRI) {
-        cout << "=> Data Entri sudah Penuh!" << endl; 
-        system("pause");
-        return; 
-    }
+    bool lanjut = false;
 
-    clearScreen();
-    printHeader("BUAT ENTRI", 50);
-    
     double newJarak;
     float newMagnitudo;
     int newTahun;
     string newObjek, newKlasifikasi, newKonstelasi, newStatus;
 
-    cin.ignore(); 
-    cout << "Masukkan Nama Objek            : "; getline(cin, newObjek); 
-    cout << "Masukkan Klasifikasi Objek     : "; getline(cin, newKlasifikasi); 
-    cout << "Masukkan Konstelasi            : "; getline(cin, newKonstelasi); 
-    cout << "Masukkan Jarak Dari Bumi       : "; cin >> newJarak; 
-    
-    cin.ignore(); 
-    cout << "Masukkan Tahun Ditemukan       : "; cin >> newTahun; 
-    
     cin.ignore();
-    cout << "Masukkan Status Observasi      : "; getline(cin, newStatus); 
-    cout << "Masukkan Magnitudo Objek       : "; cin >> newMagnitudo; 
+    do {
+        lanjut = false;
+        
+        clearScreen();
+        if (ukuran >= MAXENTRI) {
+            cout << "=> Data Entri sudah Penuh!" << endl; 
+            system("pause");
+            return; 
+        }
+
+        printHeader("BUAT ENTRI", 50);
+ 
+        cout << "Masukkan Nama Objek            : "; getline(cin, newObjek); 
+        if (newObjek.length() == 0) {
+            cout << "=> Nama Objek Tidak Boleh Kosong!" << endl; 
+            system("pause");
+            clearScreen();
+            continue;
+        }
+
+        cout << "Masukkan Klasifikasi Objek     : "; getline(cin, newKlasifikasi); 
+        if (newKlasifikasi.length() == 0) {
+            cout << "=> Klasifikasi Objek Tidak Boleh Kosong!" << endl;
+            system("pause");
+            clearScreen();
+            continue;
+        }
+
+        cout << "Masukkan Konstelasi            : "; getline(cin, newKonstelasi);
+        if (newKonstelasi.length() == 0) {
+            cout << "=> Konstelasi Tidak Boleh Kosong!" << endl; 
+            system("pause"); 
+            clearScreen();
+            continue; 
+        }
+        
+        cout << "Masukkan Status Observasi      : "; getline(cin, newStatus);
+        if (newStatus.length() == 0) {
+            cout << "=> Status Observasi Tidak Boleh Kosong!" << endl; 
+            system("pause"); 
+            clearScreen(); 
+            continue; 
+        } 
+
+        cout << "Masukkan Jarak Dari Bumi       : "; cin >> newJarak; 
+        newJarak = errorHandling(newJarak); 
+
+        cout << "Masukkan Tahun Ditemukan       : "; cin >> newTahun;
+        newTahun = errorHandling(newTahun);
+        
+        cout << "Masukkan Magnitudo Objek       : "; cin >> newMagnitudo;
+        newMagnitudo = errorHandling(newMagnitudo);
+        lanjut = true;
+
+    } while (!lanjut); 
 
     toUpperString(newObjek);
-
+    toUpperString(newKlasifikasi);
+    toUpperString(newKonstelasi);
+    
     newEntri[jumlahEntri].entriID = uniqueEntri + 1;
     newEntri[jumlahEntri].namaObjek = newObjek;
     newEntri[jumlahEntri].klasifikasi = newKlasifikasi;
@@ -49,6 +86,7 @@ void tambahEntri(BendaLangit newEntri[], int &ukuran) {
     newEntri[jumlahEntri].statusObservasi = newStatus;
     newEntri[jumlahEntri].magnitudo = newMagnitudo;
     jumlahEntri++; uniqueEntri++; 
+    
     printSeparator("-", 49);
     cout << "=> Entri Berhasil ditambahkan" << endl; 
     system("pause");
@@ -63,10 +101,6 @@ void lihatSeluruhEntri(BendaLangit entriTerdaftar[], int ukuran) {
         system("pause"); 
         return; 
     }
-
-    // clearScreen();
-    // std::cout << std::fixed << std::setprecision(5);
-    // cout << "\n=== DAFTAR SINGKAT ENTRI ===" << endl; 
     
     printHeader("DAFTAR SINGKAT ENTRI", 50);
     cout << "ID | Nama Objek | Jarak | Tahun Penemuan | Magnitudo" << endl; 
