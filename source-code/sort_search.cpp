@@ -50,34 +50,32 @@ void urutkanBerdasarkanJarak(BendaLangit arr[], int ukuran) {
 }
 
 void urutkanBerdasarkanNama(BendaLangit arr[], int ukuran) {
-    char urutan;
+    if (ukuran == 0) {
+        cout << "=> Data kosong, tidak ada yang bisa diurutkan!" << endl;
+        system("pause");
+        return;
+    }
 
     clearScreen();
     printHeader("URUTKAN BERDASARKAN NAMA", 50);
     cout << "Pilih urutan pengurutan:" << endl;
     cout << "A. Ascending (A-Z)" << endl;
     cout << "D. Descending (Z-A)" << endl;
-    
     printSeparator("-", 49);
-    cout << "Masukkan pilihan (A/D): ";
-    cin >> urutan;
+
     cin.ignore();
-    urutan = toupper(urutan);
-    
+    char urutan = inputKarakter("Masukkan pilihan (A/D): ", "A/D");
+
     for (int i = 0; i < ukuran - 1; i++) {
         for (int j = 0; j < ukuran - i - 1; j++) {
             bool perluTukar = false;
             if (urutan == 'A') {
-                if ((arr+j)->namaObjek > (arr+j+1)->namaObjek) {
-                    perluTukar = true;
-                }
+                if ((arr+j)->namaObjek > (arr+j+1)->namaObjek) perluTukar = true;
             }
             else if (urutan == 'D') {
-                if ((arr+j)->namaObjek < (arr+j+1)->namaObjek) {
-                    perluTukar = true;
-                }
+                if ((arr+j)->namaObjek < (arr+j+1)->namaObjek) perluTukar = true;
             }
-            
+
             if (perluTukar) {
                 BendaLangit temp = *(arr+j);
                 *(arr+j) = *(arr+j+1);
@@ -85,7 +83,7 @@ void urutkanBerdasarkanNama(BendaLangit arr[], int ukuran) {
             }
         }
     }
-    
+
     printSeparator("-", 49);
     cout << "=> Data berhasil diurutkan!" << endl;
     system("pause");
@@ -167,34 +165,32 @@ void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
 }
 
 void urutkanBerdasarkanMagnitudo(BendaLangit arr[], int ukuran) {
-    char urutan;
-    
+    if (ukuran == 0) {
+        cout << "=> Data kosong, tidak ada yang bisa diurutkan!" << endl;
+        system("pause");
+        return;
+    }
+
     clearScreen();
     printHeader("URUTKAN BERDASARKAN MAGNITUDO", 50);
     cout << "Pilih urutan pengurutan:" << endl;
     cout << "A. Ascending (Terkecil -> Terbesar)" << endl;
     cout << "D. Descending (Terbesar -> Terkecil)" << endl;
-    
     printSeparator("-", 49);
-    cout << "Masukkan pilihan (A/D): ";
-    cin >> urutan;
+
     cin.ignore();
-    urutan = toupper(urutan);
-    
+    char urutan = inputKarakter("Masukkan pilihan (A/D): ", "A/D");
+
     for (int i = 0; i < ukuran - 1; i++) {
         for (int j = 0; j < ukuran - i - 1; j++) {
             bool perluTukar = false;
             if (urutan == 'A') {
-                if ((arr+j)->magnitudo > (arr+j+1)->magnitudo) {
-                    perluTukar = true;
-                }
+                if ((arr+j)->magnitudo > (arr+j+1)->magnitudo) perluTukar = true;
             }
             else if (urutan == 'D') {
-                if ((arr+j)->magnitudo < (arr+j+1)->magnitudo) {
-                    perluTukar = true;
-                }
+                if ((arr+j)->magnitudo < (arr+j+1)->magnitudo) perluTukar = true;
             }
-            
+
             if (perluTukar) {
                 BendaLangit temp = *(arr+j);
                 *(arr+j) = *(arr+j+1);
@@ -202,7 +198,7 @@ void urutkanBerdasarkanMagnitudo(BendaLangit arr[], int ukuran) {
             }
         }
     }
-    
+
     printSeparator("-", 49);
     cout << "=> Data berhasil diurutkan!" << endl;
     system("pause");
@@ -292,16 +288,42 @@ void cariKonstelasi(BendaLangit arr[], int ukuran) {
 }
 
 void cariKategori(BendaLangit arr[], int ukuran) {
+    if (ukuran == 0) {
+        cout << "=> Data kosong, tidak ada yang bisa dicari!" << endl;
+        system("pause");
+        return;
+    }
+
     string cariKat;
-    
-    // cout << "\n=== CARI BERDASARKAN KATEGORI ===" << endl;
-    
     clearScreen();
     printHeader("CARI BERDASARKAN KATEGORI", 50);
-    cout << "Masukkan Kategori : " << endl;
-    cout << "> "; 
+
     cin.ignore();
-    getline(cin, cariKat);
+    while (true) {
+        cout << "Masukkan Kategori: " << endl;
+        cout << "> ";
+        getline(cin, cariKat);
+
+        if (cariKat.empty()) {
+            cout << "=> Input tidak boleh kosong!" << endl;
+            continue;
+        }
+
+        bool valid = true;
+        for (char c : cariKat) {
+            if (!isalpha(c) && c != ' ') {
+                valid = false;
+                break;
+            }
+        }
+
+        if (!valid) {
+            cout << "=> Input tidak valid, hanya huruf yang diperbolehkan!" << endl;
+            continue;
+        }
+
+        break;
+    }
 
     clearScreen();
     int jmlKetemu = 0;
@@ -322,8 +344,9 @@ void cariKategori(BendaLangit arr[], int ukuran) {
             cout << endl;
         }
     }
+
     if (jmlKetemu == 0) {
-        cout << "Belum ada objek astronomi pada kategori " << cariKat << endl;
+        cout << "=> Belum ada objek astronomi pada kategori " << cariKat << endl;
     } else {
         cout << "=> Ditemukan " << jmlKetemu << " objek astronomi pada kategori " << cariKat << endl;
     }
