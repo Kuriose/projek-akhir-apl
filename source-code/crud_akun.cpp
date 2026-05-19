@@ -171,7 +171,6 @@ void ubahAkun(Pengguna *ptrAkun, int jumlahPengguna) {
 
     printSeparator("-", 49);
     cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Data Akun Berhasil Diperbarui!" << RESET_WARNA << endl;
-    
     printSeparator("-", 49);
     system("pause");
 }
@@ -209,6 +208,7 @@ void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
         }
         if (indexDitemukan == -1) {
             cout << FG_MERAH << "[!] User ID " << FG_KUNING << idAkun << FG_MERAH << " tidak ditemukan!" << RESET_WARNA << endl;
+            printSeparator("-", 49);
         }
     } while (indexDitemukan == -1);
 
@@ -269,7 +269,7 @@ void updateProfile(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
     do {
         try {
             clearScreen();
-            for (int i = 0; i < ukuran; i++) {
+            for (int i = 0; i <= ukuran; i++) {
                 if ((ptrAkun + i)->userID == indeksAkun + 1) {
                     printHeader("UBAH DATA AKUN", 50);
                     cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "] " << FG_CYAN << "Username       " << FG_PUTIH << ": " << FG_KUNING << (ptrAkun + i)->username << endl;
@@ -307,16 +307,39 @@ void updateProfile(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
                 cin.ignore();
                 cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengganti Username" << RESET_WARNA << endl;
                 
-                printSeparator("-", 49); 
-                cout << FG_CYAN << "Username Lama  " << FG_PUTIH << ": " << FG_HIJAU << ptrAkun[indeksAkun].username << endl; 
-                cout << FG_CYAN << "Username Baru  " << FG_PUTIH << ": "; 
-                cout << FG_KUNING; getline(cin, newUsername); cout << RESET_WARNA;
+                bool usernameValid = false;
+                do {
+                    printSeparator("-", 49); 
+                    cout << FG_CYAN << "Username Lama  " << FG_PUTIH << ": " << FG_HIJAU << ptrAkun[indeksAkun].username << endl; 
+                    cout << FG_CYAN << "Username Baru  " << FG_PUTIH << ": "; 
+                    cout << FG_KUNING; getline(cin, newUsername); cout << RESET_WARNA;
 
-                if (newUsername.length() == 0) {
-                    newUsername = ptrAkun[indeksAkun].username;
-                }
+                    if (newUsername.length() == 0) {
+                        newUsername = ptrAkun[indeksAkun].username;
+                    }
 
-                ptrAkun[indeksAkun].username = newUsername; 
+                    bool duplikat = false; 
+                    for (int i = 0; i < jumlahPengguna; i++) {
+                        if ((ptrAkun + i) -> username == newUsername) {
+                            duplikat = true; 
+                            break;
+                        }
+                    }
+
+                    if (duplikat) {
+                        cout << FG_MERAH << "[!] Username sudah digunakan akun lain!" << RESET_WARNA << endl;
+                    } else {
+                        usernameValid = true;
+                    }
+
+                } while(!usernameValid);
+
+                ptrAkun[indeksAkun].username = newUsername;
+                
+                printSeparator("-", 49);
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Data Akun Berhasil Diperbarui!" << RESET_WARNA << endl;
+                printSeparator("-", 49);
+                system("pause"); 
             }
             else if (pilihan == 2) {
                 string newPassword;  
@@ -333,7 +356,12 @@ void updateProfile(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
                     newPassword = ptrAkun[indeksAkun].password;
                 }
 
-                ptrAkun[indeksAkun].password = newPassword; 
+                ptrAkun[indeksAkun].password = newPassword;
+                
+                printSeparator("-", 49);
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Data Akun Berhasil Diperbarui!" << RESET_WARNA << endl;
+                printSeparator("-", 49);
+                system("pause");
             }
         }
         catch (const exception &e) {

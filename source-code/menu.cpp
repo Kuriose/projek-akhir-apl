@@ -44,7 +44,7 @@ void menuUtama() {
 
             if (pilihan == 0) {
                 printSeparator("-", 49);
-                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Keluar dari Program!" << RESET_WARNA << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Keluar dari Program" << RESET_WARNA << endl;
 
                 break; 
             }
@@ -63,10 +63,11 @@ void menuUtama() {
                     }
                 } 
                 else {
-                    cout << "=> Keluar dari program" << endl;
-                    cout << "--------------------------------------------------" << endl;
-                    cout << "===           Kesempatan Login Habis           ===" << endl;
-                    cout << "============= Silakan Ulang Program ==============" << endl;
+                    cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Keluar dari Program!" << RESET_WARNA << endl;
+                    printSeparator("-", 49);
+                    cout << FG_MERAH << "[!] Kesempatan Login Habis!" << RESET_WARNA << endl;
+                    cout << FG_MERAH << "[!] Silahkan Ulang Program!" << RESET_WARNA << endl;
+                    printSeparator("-", 49);
                     pilihan = 0; 
 
                     cout << endl;
@@ -117,7 +118,6 @@ void menuAdmin(int indeksLogin) {
         cout << FG_HIJAU << "[" << FG_PUTIH << "09" << FG_HIJAU << "]" << FG_CYAN << " Perbarui Akun" << endl;
         cout << FG_HIJAU << "[" << FG_PUTIH << "10" << FG_HIJAU << "]" << FG_CYAN << " Hapus Akun" << endl;
         cout << FG_HIJAU << "[" << FG_PUTIH << "11" << FG_HIJAU << "]" << FG_CYAN << " Lihat Informasi Akun" << endl;
-        // cout << FG_HIJAU << "[" << FG_PUTIH << "12" << FG_HIJAU << "]" << FG_CYAN << " Lihat Kategori" << RESET_WARNA << endl;
 
         printSeparator("-", 49);
         cout << FG_HIJAU << "[" << FG_PUTIH << "00" << FG_HIJAU << "]" << FG_CYAN << " Keluar" << RESET_WARNA << endl;
@@ -175,17 +175,6 @@ void menuAdmin(int indeksLogin) {
         else if (pilihan == 11) {
             lihatAkunSendiri(akun, indeksLogin, jumlahPengguna);
         } 
-        // else if (pilihan == 12) {
-        //     string kategori[100]; 
-        //     int jumlahKategori = 0;
-            
-        //     getKategori(entri, jumlahEntri, "KLASIFIKASI", kategori, jumlahKategori);
-        //     cout << "Kategori terdaftar:\n";
-        //     for(int i=0; i < jumlahKategori; i++) {
-        //         cout << kategori[i] << endl;
-        //     }
-        //     system("pause");
-        // }
         else {
             cout << FG_MERAH << "[!] Pilihan Tidak Valid!" << RESET_WARNA << endl;
             printSeparator("-", 49);

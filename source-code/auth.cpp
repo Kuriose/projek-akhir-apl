@@ -35,8 +35,8 @@ int login(Pengguna *ptrAkun, int jumlahPengguna) {
 
         if (!akunDitemukan) {
             cout << FG_MERAH << "[!] Akun Tidak Ditemukan!" << RESET_WARNA << endl;
-            system("pause");
             printSeparator("-", 49);
+            system("pause");
         }
     } while (!akunDitemukan);
     

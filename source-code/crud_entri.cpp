@@ -86,7 +86,7 @@ void tambahEntri(BendaLangit newEntri[], int &ukuran) {
                 cout << FG_KUNING; getline(cin, newKlasifikasi); cout << RESET_WARNA;
                 printSeparator("-", 49);
 
-                if (newKonstelasi.length() == 0) {
+                if (newKlasifikasi.length() == 0) {
                     cout << FG_MERAH << "[!] Klasfikasi Tidak Boleh Kosong!" << RESET_WARNA << endl; 
                     printSeparator("-", 49);
                     system("pause"); 
@@ -240,7 +240,7 @@ void tambahEntri(BendaLangit newEntri[], int &ukuran) {
                 cout << FG_KUNING; getline(cin, newStatus); cout << RESET_WARNA;
                 printSeparator("-", 49);
 
-                if (newKonstelasi.length() == 0) {
+                if (newStatus.length() == 0) {
                     cout << FG_MERAH << "[!] Status Observasi Tidak Boleh Kosong!" << RESET_WARNA << endl; 
                     printSeparator("-", 49);
                     system("pause"); 
@@ -248,7 +248,7 @@ void tambahEntri(BendaLangit newEntri[], int &ukuran) {
                 }     
                 else {
                     selesaiKlas = true;
-                    toUpperString(newKonstelasi);
+                    toUpperString(newStatus);
                     cout << FG_CYAN << "Status Baru " << FG_KUNING << newStatus << FG_CYAN << " Berhasil Ditambahkan!" << RESET_WARNA << endl;
                     printSeparator("-", 49);
                     system("pause");
@@ -292,6 +292,9 @@ void tambahEntri(BendaLangit newEntri[], int &ukuran) {
         cout << FG_KUNING; cin >> newJarak; cout << RESET_WARNA; 
         
         newJarak = errorHandling(newJarak); 
+        if (newJarak == -1) {
+            newJarak = 0;
+        }
 
         clearScreen();
 
@@ -307,7 +310,10 @@ void tambahEntri(BendaLangit newEntri[], int &ukuran) {
         cout << FG_KUNING; cin >> newTahun; cout << RESET_WARNA;
 
         newTahun = errorHandling(newTahun);
-        
+        if (newTahun == -1) {
+            newTahun = 0;
+        }
+
         clearScreen();
         
         printHeader("ENTRI BARU", 50);
@@ -323,7 +329,10 @@ void tambahEntri(BendaLangit newEntri[], int &ukuran) {
         cout << FG_KUNING; cin >> newMagnitudo; cout << RESET_WARNA;
         
         newMagnitudo = errorHandling(newMagnitudo);
-        
+        if (newMagnitudo == -1) {
+            newMagnitudo = 0;
+        }
+
         clearScreen();
         printHeader("ENTRI BARU", 50);
         cout << FG_CYAN << "Klasifikasi Objek      " FG_PUTIH << ": " << FG_KUNING << newKlasifikasi << endl;
@@ -463,7 +472,7 @@ void lihatSpesifik(BendaLangit entriTerdaftar[], int ukuran) {
         }
         if (!ditemukan) {
             cout << FG_MERAH << "[!] ID " << FG_KUNING << idSpesifik << FG_MERAH << " tidak ditemukan" << RESET_WARNA << endl;
-            printSeparator("-", 49);
+            printSeparator("-", 79);
             system("pause");
         }
     
@@ -560,19 +569,27 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
             case 0: 
                 cout << "=> Kembali" << endl;
                 break;
-            case 1:
-                cout << "Masukkan Nama Objek baru: ";
-                getline(cin, nilaiBaru);
+            case 1: {
+                cout << FG_CYAN << "Masukkan Nama Objek baru: " << RESET_WARNA;
+                cout << FG_KUNING; getline(cin, nilaiBaru); cout << RESET_WARNA;
+                printSeparator("-", 49);
+
                 if (nilaiBaru.empty()) {
-                    cout << "=> Nama objek tidak boleh kosong!" << endl;
+                    cout << FG_MERAH << "[!] Nama objek tidak boleh kosong!" << RESET_WARNA << endl;
+                    
+                    printSeparator("-", 49);
                     system("pause");
                     break;
                 }
                 toUpperString(nilaiBaru);
                 (arr+indeks)->namaObjek = nilaiBaru;
-                cout << "=> Entri berhasil diperbarui!" << endl;
+                
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Entri Berhasil Diperbarui" << RESET_WARNA << endl;
+                printSeparator("-", 49);
                 system("pause");
                 break;
+            }
+                
             case 2: {
                 int pilihanUpdate; 
                 bool selesaiUpdate = false;
@@ -581,13 +598,14 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
                     clearScreen();
                     string updateKlasifikasi;
 
-                    printHeader("KLASIFIKASI", 50); 
-                    cout << "1. Pilih Klasifikasi yang Sudah Ada" << endl; 
-                    cout << "2. Buat Klasifikasi Baru" << endl; 
+                    printHeader("KLASIFIKASI OBJEK", 50); 
+                    cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Pilih Klasifikasi yang Sudah Ada" << endl;
+                    cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Buat Klasifikasi Baru" << RESET_WARNA << endl;
+                    
+                    printSeparator("-", 49);
+                    cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+                    cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihanUpdate;
 
-                    printSeparator("-", 49); 
-                    cout << "Pilihan Anda:" << endl;
-                    cout << "> "; cin >> pilihanUpdate;
                     pilihanUpdate = errorHandling(pilihanUpdate);
 
                     if (pilihanUpdate == 1) {
@@ -596,17 +614,20 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
                         int pilih; 
 
                         clearScreen();
-                        cout << "[KLASIFIKASI YANG SUDAH ADA]" << endl; 
+
+                        cout << FG_KUNING << "[KLASIFIKASI YANG SUDAH ADA]" << RESET_WARNA << endl; 
                         printSeparator("-", 49);
                         getKategori(entri, ukuran, "KLASIFIKASI", kategori, ukuranKategori); 
                         
                         for (int i = 0; i < ukuranKategori; i++) {
-                            cout << i + 1 << ". " << kategori[i] << endl;
+                            cout << FG_HIJAU << "[" << FG_PUTIH << "0" << i + 1 << FG_HIJAU << "] " << FG_CYAN << kategori[i] << endl;
                         }
-                        
+
                         printSeparator("-", 49);
-                        cout << "Masukkan Pilihan Anda:" << endl; 
-                        cout << "> "; cin >> pilih;
+                        cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+                        cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilih;
+                        printSeparator("-", 49);
+
                         pilih = errorHandling(pilih); 
 
                         if (pilih > 0 && pilih <= ukuranKategori) {
@@ -615,31 +636,36 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
                             cin.ignore();
                         }
                         else {
-                            cout << "=> Pilihan Tidak Valid!" << endl; 
+                            cout << FG_MERAH << "[!] Pilihan Tidak Valid!" << endl;
+                            printSeparator("-", 49);
+                            system("pause"); 
                         }
                     }
                     else if (pilihanUpdate == 2) {
-                        cin.ignore(); 
                         clearScreen();
+                        cin.ignore(); 
 
-                        cout << "[BUAT KLASIFIKASI BARU]" << endl; 
+                        cout << FG_KUNING << "[BUAT KLASIFIKASI BARU]" << RESET_WARNA << endl; 
                         printSeparator("-", 49);
-                        cout << "Masukkan Klasifikasi            : "; getline(cin, updateKlasifikasi);
+                        cout << FG_CYAN <<"Masukkan Klasifikasi            " FG_PUTIH << ": "; 
+                        cout << FG_KUNING; getline(cin, updateKlasifikasi); cout << RESET_WARNA;
                         printSeparator("-", 49);
 
                         if (updateKlasifikasi.length() == 0) {
-                            cout << "=> Klasifikasi Tidak Boleh Kosong!" << endl; 
+                            cout << FG_MERAH << "[!] Klasfikasi Tidak Boleh Kosong!" << RESET_WARNA << endl; 
+                            printSeparator("-", 49);
                             system("pause"); 
                             continue; 
                         }     
                         else {
                             selesaiUpdate = true;
                             toUpperString(updateKlasifikasi);
-                            cout << "=> Klasifikasi Baru " << updateKlasifikasi << " Berhasil Ditambahkan!" << endl;
+                            cout << FG_CYAN << "Klasifikasi Baru " << FG_KUNING << updateKlasifikasi << FG_CYAN << " Berhasil Ditambahkan!" << RESET_WARNA << endl;
                             arr[indeks].klasifikasi = updateKlasifikasi;
-                            
+
                             printSeparator("-", 49);
-                            cout << "=> Klasifikasi Berhasil Diperbarui" << endl;
+                            cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Entri Berhasil Diperbarui" << RESET_WARNA << endl;
+                            printSeparator("-", 49);
                             system("pause");
                         }     
                     }
@@ -657,12 +683,13 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
                     string update;
 
                     printHeader("KONSTELASI", 50); 
-                    cout << "1. Pilih Konstelasi yang Sudah Ada" << endl; 
-                    cout << "2. Buat Konstelasi Baru" << endl; 
+                    cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Pilih Konstelasi yang Sudah Ada" << endl;
+                    cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Buat Konstelasi Baru" << RESET_WARNA << endl;
 
                     printSeparator("-", 49); 
-                    cout << "Pilihan Anda:" << endl;
-                    cout << "> "; cin >> pilihanUpdate;
+                    cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+                    cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihanUpdate;
+                    
                     pilihanUpdate = errorHandling(pilihanUpdate);
 
                     if (pilihanUpdate == 1) {
@@ -671,17 +698,20 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
                         int pilih; 
 
                         clearScreen();
-                        cout << "[KONSTELASI YANG SUDAH ADA]" << endl; 
+
+                        cout << FG_KUNING << "[KONSTELASI YANG SUDAH ADA]" << RESET_WARNA << endl; 
                         printSeparator("-", 49);
                         getKategori(entri, ukuran, "KONSTELASI", kategori, ukuranKategori); 
                         
                         for (int i = 0; i < ukuranKategori; i++) {
-                            cout << i + 1 << ". " << kategori[i] << endl;
+                            cout << FG_HIJAU << "[" << FG_PUTIH << "0" << i + 1 << FG_HIJAU << "] " << FG_CYAN << kategori[i] << endl;
                         }
-                        
+
                         printSeparator("-", 49);
-                        cout << "Masukkan Pilihan Anda:" << endl; 
-                        cout << "> "; cin >> pilih;
+                        cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+                        cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilih;
+                        printSeparator("-", 49);
+
                         pilih = errorHandling(pilih); 
 
                         if (pilih > 0 && pilih <= ukuranKategori) {
@@ -690,31 +720,36 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
                             cin.ignore();
                         }
                         else {
-                            cout << "=> Pilihan Tidak Valid!" << endl; 
+                            cout << FG_MERAH << "[!] Pilihan Tidak Valid!" << RESET_WARNA << endl;
+                            printSeparator("-", 49);
+                            system("pause"); 
                         }
                     }
                     else if (pilihanUpdate == 2) {
                         cin.ignore(); 
                         clearScreen();
 
-                        cout << "[BUAT KONSTELASI BARU]" << endl; 
+                        cout << FG_KUNING << "[BUAT KONSTELASI BARU]" << RESET_WARNA << endl; 
                         printSeparator("-", 49);
-                        cout << "Masukkan Konstelasi            : "; getline(cin, update);
+                        cout << FG_CYAN <<"Masukkan Konstelasi            " FG_PUTIH << ": "; 
+                        cout << FG_KUNING; getline(cin, update); cout << RESET_WARNA;
                         printSeparator("-", 49);
 
                         if (update.length() == 0) {
-                            cout << "=> Konstelasi Tidak Boleh Kosong!" << endl; 
+                            cout << FG_MERAH << "[!] Konstelasi Tidak Boleh Kosong!" << RESET_WARNA << endl; 
+                            printSeparator("-", 49);
                             system("pause"); 
                             continue; 
                         }     
                         else {
                             selesaiUpdate = true;
                             toUpperString(update);
-                            cout << "=> Konstelasi Baru " << update << " Berhasil Ditambahkan!" << endl;
+                            cout << FG_CYAN << "Konstelasi Baru " << FG_KUNING << update << FG_CYAN << " Berhasil Ditambahkan!" << RESET_WARNA << endl;
                             arr[indeks].konstelasi = update;
-                            
+
                             printSeparator("-", 49);
-                            cout << "=> Konstelasi Berhasil Diperbarui" << endl;
+                            cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Entri Berhasil Diperbarui" << RESET_WARNA << endl;
+                            printSeparator("-", 49);
                             system("pause");
                         }     
                     }
@@ -724,36 +759,52 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
                 break;
             }
                 
-            case 4:
+            case 4: {
                 double jarakBaru;
-                cout << "Masukkan Jarak Dari Bumi baru: ";
-                cin >> jarakBaru;
+                
+                cout << FG_CYAN << "Masukkan Jarak Dari Bumi baru: ";
+                cout << FG_KUNING; cin >> jarakBaru; cout << RESET_WARNA;
+                printSeparator("-", 49);
+
                 if (cin.fail() || jarakBaru < 0) {
-                    cout << "=> Input jarak tidak valid! Masukkan angka positif." << endl;
+                    cout << FG_MERAH << "[!] Input jarak tidak valid!" << RESET_WARNA << endl;
+                    cout << FG_MERAH << "[!] Masukkan Angka Positif!" << RESET_WARNA << endl;
                     cin.clear();
                     while (cin.peek() != '\n') cin.ignore();
+                    printSeparator("-", 49);
                     system("pause");
                     break;
                 }
+                
                 while (cin.peek() != '\n') cin.ignore();
+                
                 (arr+indeks)->jarakDariBumi = jarakBaru;
-                cout << "=> Entri berhasil diperbarui!" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Entri Berhasil Diperbarui" << RESET_WARNA << endl;
+                printSeparator("-", 49);
                 system("pause");
                 break;
-            case 5:
+            }
+            case 5: {
                 int newTahun;
-                cout << "Masukkan Tahun Penemuan baru: ";
-                cin >> newTahun;
+
+                cout << FG_CYAN << "Masukkan Tahun Penemuan baru: " << RESET_WARNA;
+                cout << FG_KUNING; cin >> newTahun; cout << RESET_WARNA;
                 newTahun = errorHandling(newTahun);
+                
                 if (newTahun == -1 || newTahun < -10000 || newTahun > 2100) {
-                    cout << "=> Tahun tidak valid!" << endl;
+                    cout << FG_MERAH << "[!] Tahun tidak valid!" << RESET_WARNA << endl;
+                    printSeparator("-", 49);
                     system("pause");
                     break;
                 }
+                
                 (arr+indeks)->tahunPenemuan = newTahun;
-                cout << "=> Entri berhasil diperbarui!" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Entri Berhasil Diperbarui" << RESET_WARNA << endl;
+                printSeparator("-", 49);
                 system("pause");
                 break;
+            }
+
             case 6: {
                 int pilihanUpdate; 
                 bool selesaiUpdate = false;
@@ -763,12 +814,13 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
                     string update;
 
                     printHeader("STATUS OBSERVASI", 50); 
-                    cout << "1. Pilih Status yang Sudah Ada" << endl; 
-                    cout << "2. Buat Status Baru" << endl; 
+                    cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Pilih Status yang Sudah Ada" << endl;
+                    cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Buat Status Baru" << RESET_WARNA << endl; 
 
                     printSeparator("-", 49); 
-                    cout << "Pilihan Anda:" << endl;
-                    cout << "> "; cin >> pilihanUpdate;
+                    cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+                    cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihanUpdate;
+
                     pilihanUpdate = errorHandling(pilihanUpdate);
 
                     if (pilihanUpdate == 1) {
@@ -777,17 +829,20 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
                         int pilih; 
 
                         clearScreen();
-                        cout << "[STATUS YANG SUDAH ADA]" << endl; 
+
+                        cout << FG_KUNING << "[STATUS YANG SUDAH ADA]" << RESET_WARNA << endl; 
                         printSeparator("-", 49);
                         getKategori(entri, ukuran, "STATUS OBSERVASI", kategori, ukuranKategori); 
                         
                         for (int i = 0; i < ukuranKategori; i++) {
-                            cout << i + 1 << ". " << kategori[i] << endl;
+                            cout << FG_HIJAU << "[" << FG_PUTIH << "0" << i + 1 << FG_HIJAU << "] " << FG_CYAN << kategori[i] << endl;
                         }
-                        
+
                         printSeparator("-", 49);
-                        cout << "Masukkan Pilihan Anda:" << endl; 
-                        cout << "> "; cin >> pilih;
+                        cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+                        cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilih;
+                        printSeparator("-", 49);
+
                         pilih = errorHandling(pilih); 
 
                         if (pilih > 0 && pilih <= ukuranKategori) {
@@ -796,31 +851,36 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
                             cin.ignore();
                         }
                         else {
-                            cout << "=> Pilihan Tidak Valid!" << endl; 
+                            cout << FG_MERAH << "[!] Pilihan Tidak Valid!" << RESET_WARNA << endl;
+                            printSeparator("-", 49); 
+                            system("pause");
                         }
                     }
                     else if (pilihanUpdate == 2) {
                         cin.ignore(); 
                         clearScreen();
 
-                        cout << "[BUAT STATUS BARU]" << endl; 
+                        cout << FG_KUNING << "[BUAT STATUS BARU]" << RESET_WARNA << endl; 
                         printSeparator("-", 49);
-                        cout << "Masukkan Status Observasi            : "; getline(cin, update);
+                        cout << FG_CYAN <<"Masukkan Status Observasi            " FG_PUTIH << ": "; 
+                        cout << FG_KUNING; getline(cin, update); cout << RESET_WARNA;
                         printSeparator("-", 49);
 
                         if (update.length() == 0) {
-                            cout << "=> Status Observasi Tidak Boleh Kosong!" << endl; 
+                            cout << FG_MERAH << "[!] Status Observasi Tidak Boleh Kosong!" << RESET_WARNA << endl; 
+                            printSeparator("-", 49);
                             system("pause"); 
                             continue; 
                         }     
                         else {
                             selesaiUpdate = true;
                             toUpperString(update);
-                            cout << "=> Status Baru " << update << " Berhasil Ditambahkan!" << endl;
+                            cout << FG_CYAN << "Status Baru " << FG_KUNING << update << FG_CYAN << " Berhasil Ditambahkan!" << RESET_WARNA << endl;
                             arr[indeks].statusObservasi = update;
                             
                             printSeparator("-", 49);
-                            cout << "=> Status Observasi Berhasil Diperbarui" << endl;
+                            cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Entri Berhasil Diperbarui" << RESET_WARNA << endl;
+                            printSeparator("-", 49);
                             system("pause");
                         }     
                     }
@@ -830,24 +890,34 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
                 break;
             }
                 
-            case 7:
+            case 7: {
                 float magnitudoBaru;
-                cout << "Masukkan Magnitudo baru: ";
-                cin >> magnitudoBaru;
+                
+                cout << FG_CYAN << "Masukkan Magnitudo baru: " << RESET_WARNA;
+                cout << FG_KUNING; cin >> magnitudoBaru; cout << RESET_WARNA;
+                
                 if (cin.fail()) {
-                    cout << "=> Input magnitudo tidak valid! Masukkan angka." << endl;
+                    cout << FG_MERAH << "[!] Input Magnitudo Tidak Valid! Masukkan Angka!" << RESET_WARNA << endl;
+                    
                     cin.clear();
                     while (cin.peek() != '\n') cin.ignore();
+                    
+                    printSeparator("-", 49);
                     system("pause");
                     break;
                 }
+                
                 while (cin.peek() != '\n') cin.ignore();
                 (arr+indeks)->magnitudo = magnitudoBaru;
-                cout << "=> Entri berhasil diperbarui!" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Entri Berhasil Diperbarui" << RESET_WARNA << endl;
+                printSeparator("-", 49); 
                 system("pause");
                 break;
+            }
+                
             default:
-                cout << "=> Pilihan tidak valid!" << endl;
+                cout << FG_MERAH << "[!] Pilihan tidak valid!" << RESET_WARNA << endl;
+                printSeparator("-", 49);
                 system("pause");
         }
         
@@ -938,7 +1008,7 @@ void hapusEntri() {
         }
         
         else { 
-            cout << FG_MERAH << "[!] ID " << FG_KUNING << idHapus << FG_MERAH << "tidak ditemukan!" << endl;
+            cout << FG_MERAH << "[!] ID " << FG_KUNING << idHapus << FG_MERAH << " tidak ditemukan!" << endl;
             printSeparator("-", 79);
             system("pause");
         }
