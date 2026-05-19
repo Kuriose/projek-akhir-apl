@@ -9,7 +9,8 @@ using namespace std;
 
 void urutkanBerdasarkanJarak(BendaLangit arr[], int ukuran) {    
     if (ukuran == 0) {
-        cout << "=> Data kosong, tidak ada yang bisa diurutkan" << endl; 
+        cout << FG_MERAH << "[!] Data kosong, tidak ada yang bisa diurutkan" << RESET_WARNA << endl; 
+        printSeparator("-", 49);
         system("pause"); 
         return; 
     }
@@ -21,24 +22,26 @@ void urutkanBerdasarkanJarak(BendaLangit arr[], int ukuran) {
     do {
         clearScreen();
         printHeader("URUTKAN BERDASARKAN JARAK", 50);
-        cout << "Pilih urutan pengurutan:" << endl;
-        cout << "A. Ascending" << endl;
-        cout << "D. Descending" << endl;
+        cout << FG_CYAN <<"Pilih urutan pengurutan:" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "A" << FG_HIJAU << "]" << FG_CYAN << " Ascending" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "D" << FG_HIJAU << "]" << FG_CYAN << " Descending" << RESET_WARNA << endl;
 
         printSeparator("-", 49);
-        cout << "Masukkan pilihan (A/D): ";
-        cin >> inputUser;
+        cout << FG_CYAN << "Masukkan pilihan (A/D): ";
+        cout << FG_KUNING; cin >> inputUser; cout << RESET_WARNA;
         
         if (inputUser.length() == 1) {
             urutan = toupper(inputUser[0]); 
             if (urutan == 'A' || urutan == 'D') {
                 valid = true; 
             } else {
-                cout << "=> Input tidak valid (A/D)" << endl; 
+                cout << FG_MERAH << "[!] Input tidak valid (A/D)" << RESET_WARNA << endl; 
+                printSeparator("-", 49);
                 system("pause");
             }
         } else {
-            cout << "=> Input tidak valid (A/D)" << endl; 
+            cout << FG_MERAH << "[!] Input tidak valid (A/D)" << RESET_WARNA << endl; 
+            printSeparator("-", 49);
             system("pause");
         }
         cin.clear();
@@ -69,22 +72,24 @@ void urutkanBerdasarkanJarak(BendaLangit arr[], int ukuran) {
     }
     
     printSeparator("-", 49);
-    cout << "=> Data berhasil diurutkan!" << endl;
+    cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Data Berhasil Diurutkan!" << RESET_WARNA << endl;
+    printSeparator("-", 49);
     system("pause");
 }
 
 void urutkanBerdasarkanNama(BendaLangit arr[], int ukuran) {
     if (ukuran == 0) {
-        cout << "=> Data kosong, tidak ada yang bisa diurutkan!" << endl;
+        cout << FG_MERAH << "[!] Data kosong, tidak ada yang bisa diurutkan!" << RESET_WARNA << endl;
+        printSeparator("-", 49);
         system("pause");
         return;
     }
 
     clearScreen();
     printHeader("URUTKAN BERDASARKAN NAMA", 50);
-    cout << "Pilih urutan pengurutan:" << endl;
-    cout << "A. Ascending (A-Z)" << endl;
-    cout << "D. Descending (Z-A)" << endl;
+    cout << FG_CYAN <<"Pilih urutan pengurutan:" << endl;
+    cout << FG_HIJAU << "[" << FG_PUTIH << "A" << FG_HIJAU << "]" << FG_CYAN << " Ascending (A-Z)" << endl;
+    cout << FG_HIJAU << "[" << FG_PUTIH << "D" << FG_HIJAU << "]" << FG_CYAN << " Descending (Z-A)" << RESET_WARNA << endl;
     printSeparator("-", 49);
 
     cin.ignore();
@@ -109,7 +114,8 @@ void urutkanBerdasarkanNama(BendaLangit arr[], int ukuran) {
     }
 
     printSeparator("-", 49);
-    cout << "=> Data berhasil diurutkan!" << endl;
+    cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Data Berhasil Diurutkan!" << RESET_WARNA << endl;
+    printSeparator("-", 49);
     system("pause");
 }
 
@@ -132,7 +138,8 @@ void urutkanNama(BendaLangit arr[], int ukuran) {
 
 void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
     if (ukuran == 0) {
-        cout << "=> Data kosong, tidak ada yang bisa diurutkan" << endl;
+        cout << FG_MERAH << "[!] Data kosong, tidak ada yang bisa diurutkan" << RESET_WARNA << endl;
+        printSeparator("-", 49);
         system("pause");
         return;
     }
@@ -143,24 +150,27 @@ void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
     do {
         clearScreen();
         printHeader("URUTKAN BERDASARKAN TAHUN", 50);
-        cout << "Pilih urutan pengurutan:" << endl;
-        cout << "A. Ascending" << endl;
-        cout << "D. Descending" << endl;
         
+        cout << FG_CYAN <<"Pilih urutan pengurutan:" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "A" << FG_HIJAU << "]" << FG_CYAN << " Ascending" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "D" << FG_HIJAU << "]" << FG_CYAN << " Descending" << RESET_WARNA << endl;
+
         printSeparator("-", 49);
-        cout << "Masukkan pilihan (A/D): ";
-        cin >> inputUser;
+        cout << FG_CYAN << "Masukkan pilihan (A/D): ";
+        cout << FG_KUNING; cin >> inputUser; cout << RESET_WARNA;
 
         if (inputUser.length() == 1) {
             urutan = toupper(inputUser[0]);
             if (urutan == 'A' || urutan == 'D') {
                 valid = true;
             } else {
-                cout << "=> Input tidak valid (A/D)" << endl;
+                cout << FG_MERAH << "=> Input tidak valid (A/D)" << RESET_WARNA << endl;
+                printSeparator("-", 49);
                 system("pause");
             }
         } else {
-            cout << "=> Input tidak valid (A/D)" << endl;
+            cout << FG_MERAH << "[!] Input tidak valid (A/D)" << RESET_WARNA << endl;
+            printSeparator("-", 49);
             system("pause");
         }
         cin.clear();
@@ -184,22 +194,24 @@ void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
             }
         }
     printSeparator("-", 49);
-    cout << "=> Data berhasil diurutkan berdasarkan tahun (" << (urutan == 'A' ? "Ascending" : "Descending") << ")" << endl;
+    cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Data Berhasil diurutkan (" << FG_KUNING << (urutan == 'A' ? "Ascending" : "Descending") << FG_CYAN << ")" << RESET_WARNA << endl;
+    printSeparator("-", 49);
     system("pause");
 }
 
 void urutkanBerdasarkanMagnitudo(BendaLangit arr[], int ukuran) {
     if (ukuran == 0) {
-        cout << "=> Data kosong, tidak ada yang bisa diurutkan!" << endl;
+        cout << FG_MERAH << "[!] Data kosong, tidak ada yang bisa diurutkan!" << RESET_WARNA << endl;
+        printSeparator("-", 49);
         system("pause");
         return;
     }
 
     clearScreen();
     printHeader("URUTKAN BERDASARKAN MAGNITUDO", 50);
-    cout << "Pilih urutan pengurutan:" << endl;
-    cout << "A. Ascending (Terkecil -> Terbesar)" << endl;
-    cout << "D. Descending (Terbesar -> Terkecil)" << endl;
+    cout << FG_CYAN <<"Pilih urutan pengurutan:" << endl;
+    cout << FG_HIJAU << "[" << FG_PUTIH << "A" << FG_HIJAU << "]" << FG_CYAN << " Ascending (Terkecil -> Terbesar)" << endl;
+    cout << FG_HIJAU << "[" << FG_PUTIH << "D" << FG_HIJAU << "]" << FG_CYAN << " Descending (Terbesar -> Terkecil)" << RESET_WARNA << endl;
     printSeparator("-", 49);
 
     cin.ignore();
@@ -224,13 +236,15 @@ void urutkanBerdasarkanMagnitudo(BendaLangit arr[], int ukuran) {
     }
 
     printSeparator("-", 49);
-    cout << "=> Data berhasil diurutkan!" << endl;
+    cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Data Berhasil Diurutkan!" << RESET_WARNA << endl;
+    printSeparator("-", 49);
     system("pause");
 }
 
 void cariKonstelasi(BendaLangit arr[], int ukuran) {
     if (ukuran == 0) {
-        cout << "=> Data Entri kosong" << endl;
+        cout << FG_MERAH << "[!] Data Entri kosong" << RESET_WARNA << endl;
+        printSeparator("-", 79);
         system("pause");
         return;
     }
@@ -240,23 +254,91 @@ void cariKonstelasi(BendaLangit arr[], int ukuran) {
     cin.ignore(1000, '\n');
 
     clearScreen();
-    printHeader("CARI BERDASARKAN KONSTELASI", 50);
-    cout << "Masukkan Nama Konstelasi: " << endl;
-    cout << "> "; 
-    getline(cin, cariK);
+    printHeader("CARI BERDASARKAN KONSTELASI", 80);
+    
+    int pilihan; 
+    bool selesai = false;
 
-    if (cariK.empty()) {
-        cout << "=> Input tidak boleh kosong!" << endl;
-        system("pause");
-        return;
-    }
+    do {
+        clearScreen();
+
+        printHeader("KONSTELASI OBJEK", 80); 
+        cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Pilih Konstelasi yang Ada" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Input Konstelasi Manual" << RESET_WARNA << endl;
+        
+        printSeparator("-", 79);
+        cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+        cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihan;
+        printSeparator("-", 79);
+
+        pilihan = errorHandling(pilihan);
+        
+        if (pilihan == 1) {
+            string kategori[100]; 
+            int ukuranKategori = 0; 
+            int pilih; 
+
+            clearScreen();
+            
+            cout << FG_KUNING << "[DAFTAR KONSTELASI]" << RESET_WARNA << endl; 
+            printSeparator("-", 79);
+            getKategori(arr, ukuran, "KONSTELASI", kategori, ukuranKategori); 
+            
+            for (int i = 0; i < ukuranKategori; i++) {
+                cout << FG_HIJAU << "[" << FG_PUTIH << "0" << i + 1 << FG_HIJAU << "] " << FG_CYAN << kategori[i] << endl;
+            }
+
+            printSeparator("-", 79);
+            cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilih;
+            
+            pilih = errorHandling(pilih); 
+
+            if (pilih > 0 && pilih <= ukuranKategori) {
+                cariK = kategori[pilih - 1];
+                selesai = true;
+                cin.ignore();
+            }
+            else {
+                cout << FG_MERAH << "[!] Pilihan Tidak Valid!" << endl;
+                printSeparator("-", 79);
+                system("pause"); 
+            }
+        }
+        else if (pilihan == 2) {
+            cin.ignore();
+            while (true) {
+                cout << FG_CYAN << "Masukkan Nama Konstelasi" << RESET_WARNA << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; getline(cin, cariK);
+                printSeparator("-", 79);
+
+                if (cariK.empty()) {
+                    cout << FG_MERAH << "[!] Input tidak boleh kosong!" << RESET_WARNA << endl;
+                    printSeparator("-", 79);
+                    system("pause");
+                    printSeparator("-", 79);
+                    continue;
+                }
+
+                selesai = true;
+                break;
+            }
+        }
+        else {
+            cout << FG_MERAH << "[!] Pilihan Tidak Valid!" << RESET_WARNA << endl; 
+            printSeparator("-", 79);
+            system("pause");
+        }
+        
+    } while(!selesai);
 
     toUpperString(cariK);
     bool spasi = true;
     for (int i = 0; i < cariK.length(); i++) {
         char c = cariK[i];
         if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
-            cout << "=> Input nama konstelasi tidak valid!" << endl;
+            cout << FG_MERAH << "[!] Input nama konstelasi tidak valid!" << RESET_WARNA << endl;
+            printSeparator("-", 79);
             system("pause");
             return;
         }
@@ -264,7 +346,8 @@ void cariKonstelasi(BendaLangit arr[], int ukuran) {
     }
 
     if (spasi) {
-        cout << "=> Input tidak boleh kosong!" << endl;
+        cout << FG_MERAH << "[!] Input tidak boleh kosong!" << RESET_WARNA << endl;
+        printSeparator("-", 79);
         system("pause");
         return;
     }
@@ -282,101 +365,164 @@ void cariKonstelasi(BendaLangit arr[], int ukuran) {
     }
 
     if (!ditemukan) {
-        cout << "=> Belum ada objek astronomi pada konstelasi " << cariK << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Belum ada Objek Astronomi pada Konstelasi " << FG_KUNING << cariK << RESET_WARNA << RESET_WARNA << endl;
+        printSeparator("-", 79);
         system("pause");
         return;
     }
 
     clearScreen();
     int jmlKetemu = 0;
-    printHeader("ENTRI YANG DITEMUKAN", 50);
+    printHeader("ENTRI YANG DITEMUKAN", 80);
     for (int i = 0; i < ukuran; i++) {
         string konstelasiSistem = (arr + i)->konstelasi;
         toUpperString(konstelasiSistem);
         
         if (konstelasiSistem == cariKupper) {
             jmlKetemu++;
-            printSeparator("-", 49);
-            cout << "ID Entri         : " << (arr + i)->entriID << endl;
-            cout << "Nama Objek       : " << (arr + i)->namaObjek << endl;
-            cout << "Klasifikasi      : " << (arr + i)->klasifikasi << endl;
-            cout << "Konstelasi       : " << (arr + i)->konstelasi << endl;
-            cout << "Jarak dari Bumi  : " << (arr + i)->jarakDariBumi << endl;
-            cout << "Tahun Penemuan   : " << (arr + i)->tahunPenemuan << endl;
-            cout << "Status Observasi : " << (arr + i)->statusObservasi << endl;
-            cout << "Magnitudo        : " << (arr + i)->magnitudo << endl;
-            printSeparator("-", 49);
-            cout << endl;
+            printSeparator("-", 79);
+            cout << FG_CYAN << "ID Entri         " << FG_PUTIH << ": " << (arr + i)->entriID << endl;
+            cout << FG_CYAN << "Nama Objek       " << FG_PUTIH << ": " << (arr + i)->namaObjek << endl;
+            cout << FG_CYAN << "Klasifikasi      " << FG_PUTIH << ": " << (arr + i)->klasifikasi << endl;
+            cout << FG_CYAN << "Konstelasi       " << FG_PUTIH << ": " << FG_KUNING << (arr + i)->konstelasi << endl;
+            cout << FG_CYAN << "Jarak dari Bumi  " << FG_PUTIH << ": " << (arr + i)->jarakDariBumi << endl;
+            cout << FG_CYAN << "Tahun Penemuan   " << FG_PUTIH << ": " << (arr + i)->tahunPenemuan << endl;
+            cout << FG_CYAN << "Status Observasi " << FG_PUTIH << ": " << (arr + i)->statusObservasi << endl;
+            cout << FG_CYAN << "Magnitudo        " << FG_PUTIH << ": " << (arr + i)->magnitudo << endl;
+            printSeparator("-", 79);
         }
     }
-    cout << "=> Berhasil menemukan " << jmlKetemu << " objek pada konstelasi " << cariK << endl;
+    cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Berhasil Menemukan " << FG_KUNING << jmlKetemu << FG_CYAN << " Objek pada Konstelasi " << FG_KUNING << cariKupper << RESET_WARNA << endl;
+    printSeparator("-", 79);
     system("pause");
 }
 
 void cariKategori(BendaLangit arr[], int ukuran) {
     if (ukuran == 0) {
-        cout << "=> Data kosong, tidak ada yang bisa dicari!" << endl;
+        cout << FG_MERAH << "[!] Data kosong, tidak ada yang bisa dicari!" << RESET_WARNA << endl;
+        printSeparator("-", 79);
         system("pause");
         return;
     }
 
     string cariKat;
     clearScreen();
-    printHeader("CARI BERDASARKAN KATEGORI", 50);
+    printHeader("CARI BERDASARKAN KLASIFIKASI", 80);
 
-    cin.ignore();
-    while (true) {
-        cout << "Masukkan Kategori: " << endl;
-        cout << "> ";
-        getline(cin, cariKat);
+    int pilihan; 
+    bool selesai = false;
 
-        if (cariKat.empty()) {
-            cout << "=> Input tidak boleh kosong!" << endl;
-            continue;
+    do {
+        clearScreen();
+
+        printHeader("KLASIFIKASI OBJEK", 80); 
+        cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Pilih Klasifikasi yang Ada" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Input Klasifikasi Manual" << RESET_WARNA << endl;
+        
+        printSeparator("-", 79);
+        cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+        cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihan;
+        printSeparator("-", 79);
+
+        pilihan = errorHandling(pilihan);
+
+        if (pilihan == 1) {
+            string kategori[100]; 
+            int ukuranKategori = 0; 
+            int pilih; 
+
+            clearScreen();
+            
+            cout << FG_KUNING << "[DAFTAR KLASIFIKASI]" << RESET_WARNA << endl; 
+            printSeparator("-", 79);
+            getKategori(arr, ukuran, "KLASIFIKASI", kategori, ukuranKategori); 
+            
+            for (int i = 0; i < ukuranKategori; i++) {
+                cout << FG_HIJAU << "[" << FG_PUTIH << "0" << i + 1 << FG_HIJAU << "] " << FG_CYAN << kategori[i] << endl;
+            }
+
+            printSeparator("-", 79);
+            cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilih;
+            
+            pilih = errorHandling(pilih); 
+
+            if (pilih > 0 && pilih <= ukuranKategori) {
+                cariKat = kategori[pilih - 1];
+                selesai = true;
+                cin.ignore();
+            }
+            else {
+                cout << FG_MERAH << "[!] Pilihan Tidak Valid!" << endl;
+                printSeparator("-", 79);
+                system("pause"); 
+            }
         }
 
-        toUpperString(cariKat);
-        bool valid = true;
-        for (char c : cariKat) {
-            if (!isalpha(c) && c != ' ') {
-                valid = false;
+        else if (pilihan == 2) {
+            cin.ignore();
+            while (true) {
+                cout << FG_CYAN << "Masukkan Kategori" << RESET_WARNA << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; getline(cin, cariKat);
+                printSeparator("-", 79);
+
+                if (cariKat.empty()) {
+                    cout << FG_MERAH << "[!] Input tidak boleh kosong!" << RESET_WARNA << endl;
+                    printSeparator("-", 79);
+                    system("pause");
+                    printSeparator("-", 79);
+                    continue;
+                }
+
+                toUpperString(cariKat);
+                bool valid = true;
+                for (char c : cariKat) {
+                    if (!isalpha(c) && c != ' ') {
+                        valid = false;
+                        break;
+                    }
+                }
+
+                if (!valid) {
+                    cout << FG_MERAH << "[!] Input tidak valid, hanya huruf yang diperbolehkan!" << RESET_WARNA << endl;
+                    printSeparator("-", 79);
+                    system("pause");
+                    printSeparator("-", 79);
+                    continue;
+                }
+
+                selesai = true;
                 break;
             }
         }
 
-        if (!valid) {
-            cout << "=> Input tidak valid, hanya huruf yang diperbolehkan!" << endl;
-            continue;
-        }
-
-        break;
-    }
+    } while (!selesai);
 
     clearScreen();
     int jmlKetemu = 0;
-    printHeader("ENTRI YANG DITEMUKAN", 50);
+    printHeader("ENTRI YANG DITEMUKAN", 80);
     for (int i = 0; i < ukuran; i++) {
         if ((arr + i)->klasifikasi == cariKat) {
             jmlKetemu++;
-            printSeparator("-", 49);
-            cout << "ID Entri         : " << (arr + i)->entriID << endl;
-            cout << "Nama Objek       : " << (arr + i)->namaObjek << endl;
-            cout << "Klasifikasi      : " << (arr + i)->klasifikasi << endl;
-            cout << "Konstelasi       : " << (arr + i)->konstelasi << endl;
-            cout << "Jarak dari Bumi  : " << (arr + i)->jarakDariBumi << endl;
-            cout << "Tahun Penemuan   : " << (arr + i)->tahunPenemuan << endl;
-            cout << "Status Observasi : " << (arr + i)->statusObservasi << endl;
-            cout << "Magnitudo        : " << (arr + i)->magnitudo << endl;
-            printSeparator("-", 49);
-            cout << endl;
+            printSeparator("-", 79);
+            cout << FG_CYAN << "ID Entri         " << FG_PUTIH << ": " << (arr + i)->entriID << endl;
+            cout << FG_CYAN << "Nama Objek       " << FG_PUTIH << ": " << (arr + i)->namaObjek << endl;
+            cout << FG_CYAN << "Klasifikasi      " << FG_PUTIH << ": " << FG_KUNING << (arr + i)->klasifikasi << endl;
+            cout << FG_CYAN << "Konstelasi       " << FG_PUTIH << ": " << (arr + i)->konstelasi << endl;
+            cout << FG_CYAN << "Jarak dari Bumi  " << FG_PUTIH << ": " << (arr + i)->jarakDariBumi << endl;
+            cout << FG_CYAN << "Tahun Penemuan   " << FG_PUTIH << ": " << (arr + i)->tahunPenemuan << endl;
+            cout << FG_CYAN << "Status Observasi " << FG_PUTIH << ": " << (arr + i)->statusObservasi << endl;
+            cout << FG_CYAN << "Magnitudo        " << FG_PUTIH << ": " << (arr + i)->magnitudo << RESET_WARNA << endl;
+            printSeparator("-", 79);
         }
     }
 
     if (jmlKetemu == 0) {
-        cout << "=> Belum ada objek astronomi pada kategori " << cariKat << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Belum ada Objek Astronomi pada Kategori " << FG_KUNING << cariKat << RESET_WARNA << endl;
     } else {
-        cout << "=> Ditemukan " << jmlKetemu << " objek astronomi pada kategori " << cariKat << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Ditemukan " << FG_KUNING << jmlKetemu << FG_CYAN << " Objek Astronomi pada Kategori " << FG_KUNING << cariKat << RESET_WARNA << endl;
     }
+    printSeparator("-", 79);
     system("pause");
 }
 

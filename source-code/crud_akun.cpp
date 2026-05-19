@@ -19,34 +19,35 @@ void lihatSeluruhAkun(Pengguna *ptrAkun, int ukuran) {
     printHeader("DAFTAR SELURUH AKUN", 50);
 
     // Header tabel
-    cout << left
+    cout << FG_KUNING << left
          << setw(8)  << "ID"
          << setw(25) << "Username"
          << setw(15) << "Role"
-         << endl;
+         << RESET_WARNA << endl;
 
-    cout << string(48, '-') << endl;
+    cout << FG_MAGENTA << string(50, '-') << RESET_WARNA << endl;
 
     // Isi tabel
     for (int i = 0; i < ukuran; i++) {
 
         if (i % 5 == 0 && i != 0) {
-            cout << string(48, '-') << endl;
+            cout << FG_MAGENTA << string(50, '-') << RESET_WARNA << endl;
         }
 
-        cout << left
+        cout << FG_CYAN << left
              << setw(8)  << (ptrAkun + i)->userID
              << setw(25) << (ptrAkun + i)->username
              << setw(15) << ((ptrAkun + i)->isAdmin ? "Admin" : "User")
-             << endl;
+             << RESET_WARNA << endl;
     }
 
-    cout << string(48, '-') << endl;
+    cout << FG_MAGENTA << string(50, '-') << RESET_WARNA << endl;
 }
 
 void lihatAkunSpesifik(Pengguna *ptrAkun, int ukuran) {
     if (ukuran == 0) {
-        cout << "\n=> Data Akun kosong!" << endl;
+        cout << FG_MERAH << "[!] Data Akun kosong!" << RESET_WARNA << endl;
+        printSeparator("-", 49);
         system("pause");
         return;
     }
@@ -54,20 +55,28 @@ void lihatAkunSpesifik(Pengguna *ptrAkun, int ukuran) {
     int idAkunSpesifik;
     do{
         lihatSeluruhAkun(ptrAkun, ukuran);
-        cout << "0. Kembali" << endl;
+        cout << FG_CYAN << left
+             << setw(8) << "0"
+             << setw(25) << "Kembali"
+             << RESET_WARNA << endl;
+        
         printSeparator("-", 49);
-        cout << "Masukkan User ID untuk detail lengkap: ";
-        cin >> idAkunSpesifik;
+        cout << FG_CYAN << "Masukkan ID untuk detail lengkap: "; 
+        cout << FG_KUNING; cin >> idAkunSpesifik; cout << RESET_WARNA;
         printSeparator("-", 49);
 
         if (cin.fail()) {
-            cout << "\n=> Error: Input harus berupa angka (ID)!" << endl;
+            cout << FG_MERAH << "[!] Input harus berupa angka (ID)!" << RESET_WARNA << endl;
             idAkunSpesifik = errorHandling(-1); 
+            
+            printSeparator("-", 49);
             system("pause");
             continue;
         }
         if (idAkunSpesifik == 0) {
-            cout << "=> Kembali ke Menu Sebelumnya" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Kembali ke Menu Sebelumnya" << RESET_WARNA << endl;
+            
+            printSeparator("-", 49);
             system("pause");
             return; 
         }
@@ -77,18 +86,20 @@ void lihatAkunSpesifik(Pengguna *ptrAkun, int ukuran) {
             if ((ptrAkun + i)->userID == idAkunSpesifik) {
                 clearScreen();
                 printHeader("DETAIL LENGKAP AKUN", 50);
-                cout << "User ID        : " << (ptrAkun + i)->userID << endl;
-                cout << "Username       : " << (ptrAkun + i)->username << endl;
-                cout << "Password       : " << (ptrAkun + i)->password << endl;
-                cout << "Role           : " << ((ptrAkun + i)->isAdmin ? "Admin" : "Member") << endl;
+                cout << FG_CYAN << "User ID        " << FG_PUTIH << ": " << FG_KUNING << (ptrAkun + i)->userID << endl;
+                cout << FG_CYAN << "Username       " << FG_PUTIH << ": " << FG_KUNING << (ptrAkun + i)->username << endl;
+                cout << FG_CYAN << "Password       " << FG_PUTIH << ": " << FG_KUNING << (ptrAkun + i)->password << endl;
+                cout << FG_CYAN << "Role           " << FG_PUTIH << ": " << FG_KUNING << ((ptrAkun + i)->isAdmin ? "Admin" : "Member") << RESET_WARNA << endl;
                 printSeparator("-", 49);
                 ditemukan = true;
+                
                 system("pause");
                 break;
             }
         }
         if (!ditemukan) {
-            cout << "=> User ID " << idAkunSpesifik << " tidak ditemukan!" << endl;
+            cout << FG_MERAH << "[!] User ID " << FG_KUNING << idAkunSpesifik << FG_MERAH << " tidak ditemukan!" << RESET_WARNA << endl;
+            printSeparator("-", 49);
             system("pause");
         }
     } while (idAkunSpesifik != 0);
@@ -96,18 +107,30 @@ void lihatAkunSpesifik(Pengguna *ptrAkun, int ukuran) {
 
 void ubahAkun(Pengguna *ptrAkun, int jumlahPengguna) {
     if (jumlahPengguna == 0) {
-        cout << "=> Tidak ada Akun yang Tersimpan!" << endl;
+        cout << FG_MERAH << "[!] Tidak ada Akun yang Tersimpan!" << RESET_WARNA << endl;
+        printSeparator("-", 49);
         system("pause");
         return;
     }
 
     lihatSeluruhAkun(ptrAkun, jumlahPengguna);
+    cout << FG_CYAN << left
+        << setw(8) << "0"
+        << setw(25) << "Kembali"
+        << RESET_WARNA << endl;
+    
+    printSeparator("-", 49);
 
     int indexDitemukan = -1;
-    printSeparator("-", 49);
     cin.ignore();
     do {
         int idAkun = inputAngka("Masukkan User ID yang ingin diubah: ");
+        printSeparator("-", 49);
+        
+        if (idAkun == 0) {
+            return;
+        }
+    
         for (int i = 0; i < jumlahPengguna; i++) {
             if ((ptrAkun + i)->userID == idAkun) {
                 indexDitemukan = i;
@@ -115,12 +138,12 @@ void ubahAkun(Pengguna *ptrAkun, int jumlahPengguna) {
             }
         }
         if (indexDitemukan == -1) {
-            cout << "=> User ID " << idAkun << " tidak ditemukan!" << endl;
+            cout << FG_MERAH << "[!] User ID " << FG_KUNING << idAkun << FG_MERAH << " tidak ditemukan!" << RESET_WARNA << endl;
+            printSeparator("-", 49);
         }
     } while (indexDitemukan == -1);
 
     printHeader("UBAH DATA AKUN", 50);
-
     string usernameBaru;
     bool usernameValid = false;
     do {
@@ -133,7 +156,7 @@ void ubahAkun(Pengguna *ptrAkun, int jumlahPengguna) {
             }
         }
         if (duplikat) {
-            cout << "=> Username sudah digunakan akun lain!" << endl;
+            cout << FG_MERAH << "[!] Username sudah digunakan akun lain!" << RESET_WARNA << endl;
         } else {
             usernameValid = true;
         }
@@ -147,24 +170,37 @@ void ubahAkun(Pengguna *ptrAkun, int jumlahPengguna) {
     (ptrAkun + indexDitemukan)->isAdmin = (roleInput == 'A');
 
     printSeparator("-", 49);
-    cout << "=> Data akun berhasil diperbarui!" << endl;
+    cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Data Akun Berhasil Diperbarui!" << RESET_WARNA << endl;
+    
+    printSeparator("-", 49);
     system("pause");
 }
 
 void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
     if (jumlahPengguna == 0) {
-        cout << "=> Tidak ada Akun yang Tersimpan!" << endl;
+        cout << FG_MERAH << "[!] Tidak ada Akun yang Tersimpan!" << RESET_WARNA << endl;
+        printSeparator("-", 49);
         system("pause");
         return;
     }
 
     lihatSeluruhAkun(ptrAkun, jumlahPengguna);
+    cout << FG_CYAN << left
+        << setw(8) << "0"
+        << setw(25) << "Kembali"
+        << RESET_WARNA << endl;
+    
+    printSeparator("-", 49);
 
     int indexDitemukan = -1;
-    printSeparator("-", 49);
     cin.ignore();
     do {
         int idAkun = inputAngka("Masukkan User ID yang ingin dihapus: ");
+        
+        if (idAkun == 0) {
+            return;
+        }
+        
         for (int i = 0; i < jumlahPengguna; i++) {
             if ((ptrAkun + i)->userID == idAkun) {
                 indexDitemukan = i;
@@ -172,7 +208,7 @@ void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
             }
         }
         if (indexDitemukan == -1) {
-            cout << "=> User ID " << idAkun << " tidak ditemukan!" << endl;
+            cout << FG_MERAH << "[!] User ID " << FG_KUNING << idAkun << FG_MERAH << " tidak ditemukan!" << RESET_WARNA << endl;
         }
     } while (indexDitemukan == -1);
 
@@ -183,7 +219,8 @@ void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
         }
         if (jumlahAdmin <= 1) {
             printSeparator("-", 49);
-            cout << "=> Tidak dapat menghapus admin terakhir!" << endl;
+            cout << FG_MERAH << "[!] Tidak dapat menghapus admin terakhir!" << RESET_WARNA << endl;
+            printSeparator("-", 49);
             system("pause");
             return;
         }
@@ -193,7 +230,8 @@ void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
     char konfirmasi = inputKarakter("Yakin ingin menghapus akun ini? (Y/N): ", "YN");
     if (konfirmasi != 'Y') {
         printSeparator("-", 49);
-        cout << "=> Penghapusan dibatalkan!" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Penghapusan Dibatalkan!" << RESET_WARNA << endl;
+        printSeparator("-", 49);
         system("pause");
         return;
     }
@@ -204,7 +242,9 @@ void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
     }
     jumlahPengguna--;
     printSeparator("-", 49);
-    cout << "=> Akun dengan ID " << idTerhapus << " berhasil dihapus!" << endl;
+    
+    cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Akun Dengan ID " << FG_KUNING << idTerhapus << FG_CYAN << " Berhasil Dihapus!" << RESET_WARNA << endl;
+    printSeparator("-", 49);
     system("pause");
 }
 

@@ -117,7 +117,7 @@ void menuAdmin(int indeksLogin) {
         cout << FG_HIJAU << "[" << FG_PUTIH << "09" << FG_HIJAU << "]" << FG_CYAN << " Perbarui Akun" << endl;
         cout << FG_HIJAU << "[" << FG_PUTIH << "10" << FG_HIJAU << "]" << FG_CYAN << " Hapus Akun" << endl;
         cout << FG_HIJAU << "[" << FG_PUTIH << "11" << FG_HIJAU << "]" << FG_CYAN << " Lihat Informasi Akun" << endl;
-        cout << FG_HIJAU << "[" << FG_PUTIH << "12" << FG_HIJAU << "]" << FG_CYAN << " Lihat Kategori" << RESET_WARNA << endl;
+        // cout << FG_HIJAU << "[" << FG_PUTIH << "12" << FG_HIJAU << "]" << FG_CYAN << " Lihat Kategori" << RESET_WARNA << endl;
 
         printSeparator("-", 49);
         cout << FG_HIJAU << "[" << FG_PUTIH << "00" << FG_HIJAU << "]" << FG_CYAN << " Keluar" << RESET_WARNA << endl;
@@ -175,17 +175,17 @@ void menuAdmin(int indeksLogin) {
         else if (pilihan == 11) {
             lihatAkunSendiri(akun, indeksLogin, jumlahPengguna);
         } 
-        else if (pilihan == 12) {
-            string kategori[100]; 
-            int jumlahKategori = 0;
+        // else if (pilihan == 12) {
+        //     string kategori[100]; 
+        //     int jumlahKategori = 0;
             
-            getKategori(entri, jumlahEntri, "KLASIFIKASI", kategori, jumlahKategori);
-            cout << "Kategori terdaftar:\n";
-            for(int i=0; i < jumlahKategori; i++) {
-                cout << kategori[i] << endl;
-            }
-            system("pause");
-        }
+        //     getKategori(entri, jumlahEntri, "KLASIFIKASI", kategori, jumlahKategori);
+        //     cout << "Kategori terdaftar:\n";
+        //     for(int i=0; i < jumlahKategori; i++) {
+        //         cout << kategori[i] << endl;
+        //     }
+        //     system("pause");
+        // }
         else {
             cout << FG_MERAH << "[!] Pilihan Tidak Valid!" << RESET_WARNA << endl;
             printSeparator("-", 49);
@@ -410,7 +410,7 @@ void menuSort() {
 
                 clearScreen();
                 lihatSeluruhEntri(entri, jumlahEntri);
-                printSeparator("-", 49);
+                printSeparator("-", 79);
                 system("pause");
             }
             else if (pilihan == 2) {
@@ -419,7 +419,7 @@ void menuSort() {
                 
                 clearScreen();
                 lihatSeluruhEntri(entri, jumlahEntri);
-                printSeparator("-", 49);
+                printSeparator("-", 79);
                 system("pause");
             }
             else if (pilihan == 3) {
@@ -428,7 +428,7 @@ void menuSort() {
                 
                 clearScreen();
                 lihatSeluruhEntri(entri, jumlahEntri);
-                printSeparator("-", 49);
+                printSeparator("-", 79);
                 system("pause");
             }
             else if (pilihan == 4) {
@@ -437,7 +437,7 @@ void menuSort() {
 
                 clearScreen();
                 lihatSeluruhEntri(entri, jumlahEntri);
-                printSeparator("-", 49);
+                printSeparator("-", 79);
                 system("pause");
             }
         }
@@ -458,7 +458,7 @@ void menuSearch() {
             clearScreen(); 
             printHeader("CARI ENTRI", 50);
             cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Cari Berdasarkan Nama" << endl;
-            cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Cari Berdasarkan Kategori" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Cari Berdasarkan Klasifikasi" << endl;
             cout << FG_HIJAU << "[" << FG_PUTIH << "03" << FG_HIJAU << "]" << FG_CYAN << " Cari Berdasarkan Konstelasi" << RESET_WARNA << endl; 
             
             printSeparator("-", 49); 

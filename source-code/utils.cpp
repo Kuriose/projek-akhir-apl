@@ -58,12 +58,13 @@ void printSeparator(string teks, int jumlahKarakter) {
 int inputAngka(const string &prompt) {
     int nilai;
     while (true) {
-        cout << prompt;
+        cout << FG_CYAN << prompt << RESET_WARNA;
         string input;
-        getline(cin, input);
+        cout << FG_KUNING; getline(cin, input); cout << RESET_WARNA;
 
         if (input.empty()) {
-            cout << "=> Input tidak boleh kosong!" << endl;
+            cout << FG_MERAH << "[!] Input tidak boleh kosong!" << RESET_WARNA << endl;
+            printSeparator("-", 49);
             continue;
         }
 
@@ -76,7 +77,8 @@ int inputAngka(const string &prompt) {
         }
 
         if (!angka) {
-            cout << "=> Input tidak valid, masukkan angka!" << endl;
+            cout << FG_MERAH << "[!] Input tidak valid, masukkan angka!" << RESET_WARNA << endl;
+            printSeparator("-", 49);
             continue;
         }
 
@@ -89,16 +91,17 @@ int inputAngka(const string &prompt) {
 string inputString(const string &prompt, int minLength) {
     string input;
     while (true) {
-        cout << prompt;
-        getline(cin, input);
+        cout << FG_CYAN << prompt << RESET_WARNA;
+        cout << FG_KUNING; getline(cin, input); cout << RESET_WARNA;
 
         if (input.empty()) {
-            cout << "=> Input tidak boleh kosong!" << endl;
+            cout << FG_MERAH << "[!] Input tidak boleh kosong!" << RESET_WARNA << endl;
+            printSeparator("-", 49);
             continue;
         }
 
         if (input.length() < minLength) {
-            cout << "=> Input minimal " << minLength << " karakter!" << endl;
+            cout << FG_MERAH << "[!] Input minimal " << FG_KUNING << minLength << FG_MERAH << " karakter!" << RESET_WARNA << endl;
             continue;
         }
 
@@ -109,12 +112,13 @@ string inputString(const string &prompt, int minLength) {
 
 char inputKarakter(const string &prompt, const string &validKarakter) {
     while (true) {
-        cout << prompt;
+        cout << FG_CYAN << prompt << RESET_WARNA;
         string input;
-        getline(cin, input);
+        cout << FG_KUNING; getline(cin, input); cout << RESET_WARNA;
 
         if (input.empty()) {
-            cout << "=> Input tidak boleh kosong!" << endl;
+            cout << FG_MERAH << "[!] Input tidak boleh kosong!" << RESET_WARNA << endl;
+            printSeparator("-", 49);
             continue;
         }
 
@@ -128,7 +132,8 @@ char inputKarakter(const string &prompt, const string &validKarakter) {
         }
 
         if (!valid) {
-            cout << "=> Input tidak valid, masukkan " << validKarakter << "!" << endl;
+            cout << FG_MERAH << "[!] Input tidak valid, masukkan " << FG_KUNING << validKarakter << FG_MERAH << "!" << RESET_WARNA << endl;
+            printSeparator("-", 49);
             continue;
         }
 

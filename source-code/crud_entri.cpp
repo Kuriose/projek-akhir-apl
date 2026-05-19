@@ -428,14 +428,14 @@ void lihatSpesifik(BendaLangit entriTerdaftar[], int ukuran) {
         if (cin.fail()) {
             cout << FG_MERAH << "[!] Input harus berupa angka (ID)!" << RESET_WARNA << endl;
             idSpesifik = errorHandling(-1);
-            printSeparator("-", 80);
+            printSeparator("-", 79);
             system("pause");
             continue;
         }
 
         if (idSpesifik == 0) {
             cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Kembali ke Menu Sebelumnya" << RESET_WARNA << endl;
-            printSeparator("-", 80);
+            printSeparator("-", 79);
             system("pause");
             return;
         }
@@ -492,18 +492,18 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
     cout << FG_KUNING; cin >> idCari; cout << RESET_WARNA;
 
     idCari = errorHandling(idCari);
-    printSeparator("-", 80);
+    printSeparator("-", 79);
 
     if (idCari == -1 || idCari < 0) {
         cout << FG_MERAH << "[!] Input ID tidak valid!" << RESET_WARNA << endl;
-        printSeparator("-", 80);
+        printSeparator("-", 79);
         system("pause");
         return; 
     }
 
     if (idCari == 0) {
         cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Kembali ke Menu Sebelumnya" << RESET_WARNA << endl;
-        printSeparator("-", 80);
+        printSeparator("-", 79);
         system("pause");
         return; 
     }
@@ -517,7 +517,8 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
     }
     
     if (indeks == -1) {
-        cout << "=> Entri dengan ID tersebut tidak ditemukan!" << endl;
+        cout << FG_MERAH << "[!] Entri dengan ID tersebut tidak ditemukan!" << RESET_WARNA << endl;
+        printSeparator("-", 79);
         system("pause");
         return;
     }
@@ -525,21 +526,26 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
     int pilihanField;
     do {
         clearScreen();
-        cout << "Entri ditemukan: " << (arr+indeks)->namaObjek << endl;
-        cout << "Pilih field yang ingin diperbarui:" << endl;
-        cout << "1. Nama Objek" << endl;
-        cout << "2. Klasifikasi" << endl;
-        cout << "3. Konstelasi" << endl;
-        cout << "4. Jarak Dari Bumi" << endl;
-        cout << "5. Tahun Penemuan" << endl;
-        cout << "6. Status Observasi" << endl;
-        cout << "7. Magnitudo" << endl;
-        cout << endl; 
+        cout << FG_CYAN << "Entri ditemukan: " << FG_KUNING <<(arr+indeks)->namaObjek << RESET_WARNA << endl;
+        printSeparator("-", 49);
 
-        cout << "0. Kembali" << endl; 
+        cout << FG_CYAN << "Pilih field yang ingin diperbarui" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Nama Objek       " << FG_PUTIH << ": " << (arr+indeks)->namaObjek << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Klasifikasi      " << FG_PUTIH << ": " << (arr+indeks)->klasifikasi << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "03" << FG_HIJAU << "]" << FG_CYAN << " Konstelasi       " << FG_PUTIH << ": " << (arr+indeks)->konstelasi << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "04" << FG_HIJAU << "]" << FG_CYAN << " Jarak dari Bumi  " << FG_PUTIH << ": " << (arr+indeks)->jarakDariBumi << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "05" << FG_HIJAU << "]" << FG_CYAN << " Tahun Penemuan   " << FG_PUTIH << ": " << (arr+indeks)->tahunPenemuan << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "06" << FG_HIJAU << "]" << FG_CYAN << " Status Observasi " << FG_PUTIH << ": " << (arr+indeks)->statusObservasi << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "07" << FG_HIJAU << "]" << FG_CYAN << " Magnitudo        " << FG_PUTIH << ": " << (arr+indeks)->magnitudo << RESET_WARNA << endl;
+        
+        printSeparator("-", 49);
+        cout << FG_HIJAU << "[" << FG_PUTIH << "00" << FG_HIJAU << "]" << FG_CYAN << " Kembali" << RESET_WARNA << endl;
+        printSeparator("-", 49);
 
-        cout << "Masukkan pilihan: ";
-        cin >> pilihanField;
+        cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+        cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihanField;
+        printSeparator("-", 49);
+
         pilihanField = errorHandling(pilihanField);
         cin.ignore();
         
@@ -852,7 +858,8 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
 void hapusEntri() {
     clearScreen();
     if (jumlahEntri == 0) {
-        cout << "=> Tidak ada data untuk dihapus" << endl;
+        cout << FG_MERAH << "[!] Tidak ada data untuk dihapus" << RESET_WARNA << endl;
+        printSeparator("-", 79);
         system("pause");
         return;
     }
@@ -861,27 +868,35 @@ void hapusEntri() {
     bool selesai = false;
 
     do {
-        printHeader("HAPUS ENTRI", 50);
-        cout << "Menghapus Entri" << endl;  
+        clearScreen();
+        printHeader("HAPUS ENTRI", 80);
+        cout << FG_CYAN << "Entri-Entri yang Terdaftar" << RESET_WARNA << endl;  
+        printSeparator("-", 79);
         lihatSeluruhEntri(entri, jumlahEntri);
         
-        printSeparator("-", 49);
-        cout << "0. Kembali" << endl;
-        printSeparator("-", 49);
+        printSeparator("-", 79);
+        cout << FG_CYAN << left
+             << setw(5) << "0"
+             << setw(25) << "Kembali"
+             << RESET_WARNA << endl;
 
-        cout << "Masukkan ID yang ingin dihapus: "; 
-        cin >> idHapus;
-        printSeparator("-", 49);
+        printSeparator("-", 79);
+
+        cout << FG_CYAN << "Masukkan ID Entri yang ingin dihapus: "; 
+        cout << FG_KUNING; cin >> idHapus; cout << RESET_WARNA;
+        printSeparator("-", 79);
         
         if (cin.fail()) {
-            cout << "\n=> Input harus berupa angka (ID)!" << endl;
+            cout << FG_MERAH << "[!] Input harus berupa angka (ID)!" << RESET_WARNA << endl;
             idHapus = errorHandling(-1);
+            printSeparator("-", 79);
             system("pause");
             continue;
         }
         
         if (idHapus == 0) {
-            cout << "=> Kembali ke Menu Sebelumnya" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Kembali ke Menu Sebelumnya" << RESET_WARNA << endl;
+            printSeparator("-", 79);
             system("pause");
             return; 
         }
@@ -895,29 +910,36 @@ void hapusEntri() {
         }
         if (idx != -1) {
         char konfirmasi;
-            cout << "Yakin hapus " << entri[idx].namaObjek << "? (y/n): "; 
+            cout << FG_CYAN << "Yakin hapus " << FG_KUNING << entri[idx].namaObjek << FG_CYAN << " ? (y/n): "; 
             cin >> konfirmasi;
             if (konfirmasi == 'y' || konfirmasi == 'Y') {
-                cout << "=> " << entri[idx].namaObjek<< " Berhasil dihapus!" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_KUNING << entri[idx].namaObjek << FG_CYAN << " Berhasil Dihapus!" << RESET_WARNA << endl;
                 for (int j = idx; j < jumlahEntri - 1; j++) entri[j] = entri[j + 1];
                 jumlahEntri--;
                 selesai = true;
+
+                printSeparator("-", 79);
                 system("pause");
             } 
             else if (konfirmasi == 'n' || konfirmasi == 'N') {
-                cout << "=> Tidak Jadi Menghapus " << entri[idx].namaObjek << endl; 
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Tidak Jadi Menghapus " <<  FG_KUNING << entri[idx].namaObjek << RESET_WARNA << endl;
+
+                printSeparator("-", 79);
                 system("pause");
             }
             else {
-                cout << "=> Pilihan Tidak Valid! Tidak Jadi Menghapus " << entri[idx].namaObjek << endl;
+                cout << FG_MERAH << "[!] Pilihan Tidak Valid! Tidak Jadi Menghapus " << FG_KUNING << entri[idx].namaObjek << RESET_WARNA << endl;
                 cin.clear();
                 while (cin.get() != '\n');
+                
+                printSeparator("-", 79);
                 system("pause");
             }
         }
         
         else { 
-            cout << "=> ID " << idHapus << "tidak ditemukan!" << endl;
+            cout << FG_MERAH << "[!] ID " << FG_KUNING << idHapus << FG_MERAH << "tidak ditemukan!" << endl;
+            printSeparator("-", 79);
             system("pause");
         }
     } while (!selesai);
