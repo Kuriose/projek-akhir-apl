@@ -18,14 +18,15 @@ void menuUtama() {
         try {
             clearScreen();
             
-            printHeader("MENU UTAMA", 50);
-            cout << "1. Login" << endl; 
-            cout << "2. Register" << endl; 
-            cout << "0. Keluar" << endl;
+            printHeader("MENU UTAMA", 50); 
+            cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Login" << RESET_WARNA << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Register" << RESET_WARNA << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "00" << FG_HIJAU << "]" << FG_CYAN << " Keluar" << RESET_WARNA << endl;
+
             printSeparator("-", 49); 
 
-            cout << "Masukkan Pilihan Anda" << endl; 
-            cout << "> "; cin >> pilihan; 
+            cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihan; 
 
             if (cin.fail()) {
                 cin.clear();
@@ -42,15 +43,17 @@ void menuUtama() {
             }
 
             if (pilihan == 0) {
-                cout << "=> Keluar Dari Program!" << endl;
+                printSeparator("-", 49);
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Keluar dari Program!" << RESET_WARNA << endl;
+
                 break; 
             }
             else if (pilihan == 1) {
-                cout << "=> Mengarahkan ke 'Menu Login'" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengarahkan ke 'Menu Login'!" << RESET_WARNA << endl;
                 int indeksUser = login(akun, jumlahPengguna);
                 
                 if (indeksUser >= 0) {
-                    cout << "=> Mengarahkan ke menu selanjutnya" << endl;
+                    cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengarahkan ke Menu Selanjutnya!" << RESET_WARNA << endl;
                     cout << "---------------------------------------------------------" << endl;
                     if (akun[indeksUser].isAdmin) { 
                         menuAdmin(indeksUser);
@@ -70,16 +73,19 @@ void menuUtama() {
                 } 
             }
             else if (pilihan == 2) {
-                cout << "=> Mengarahkan ke 'Menu Register'" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengarahkan ke 'Menu Register'!" << RESET_WARNA << endl;
                 regis(akun, jumlahPengguna); 
             }
             else {
-                cout << "=> Pilihan Tidak Valid!" << endl;
+                cout << FG_MERAH << "[!] Pilihan Tidak Valid" << endl;
             }
         }
     
         catch (const exception& e) {
-            cout << "Error: " << e.what() << endl;
+            cout << FG_MERAH << "[!] " << e.what() << RESET_WARNA << endl;
+            
+            printSeparator("-", 49);
+            system("pause");
         }
 
     } while (pilihan != 0);
@@ -93,31 +99,32 @@ void menuAdmin(int indeksLogin) {
         clearScreen();
         
         printHeader("MENU ADMIN", 50);
-        cout << "Selamat Datang Kembali Admin " << akun[indeksLogin].username << endl; 
-        printSeparator("-", 49);
-        cout << "[ENTRI]" << endl; 
-        cout << "1. Tambah Entri Baru" << endl; 
-        cout << "2. Lihat Entri" << endl; 
-        cout << "3. Perbarui Entri" << endl; 
-        cout << "4. Hapus Entri" << endl; 
-        cout << "5. Urutkan Entri" << endl; 
-        cout << "6. Cari Entri" << endl;
+        cout << FG_CYAN << "Selamat Datang Kembali Admin " << FG_KUNING << akun[indeksLogin].username << RESET_WARNA << endl; 
         
         printSeparator("-", 49);
-
-        cout << "[AKUN]" << endl; 
-        cout << "7. Tambah Akun" << endl; 
-        cout << "8. Lihat Akun" << endl; 
-        cout << "9. Perbarui Akun" << endl; 
-        cout << "10. Hapus Akun" << endl; 
-        cout << "11. Lihat Informasi Akun" << endl;
+        cout << FG_KUNING << "[ENTRI]" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Tambah Entri" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Lihat Entri" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "03" << FG_HIJAU << "]" << FG_CYAN << " Perbarui Entri" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "04" << FG_HIJAU << "]" << FG_CYAN << " Hapus Entri" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "05" << FG_HIJAU << "]" << FG_CYAN << " Urutkan Entri" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "06" << FG_HIJAU << "]" << FG_CYAN << " Cari Entri" << RESET_WARNA << endl;
+        
+        printSeparator("-", 49);
+        cout << FG_KUNING << "[AKUN]" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "07" << FG_HIJAU << "]" << FG_CYAN << " Tambah Akun" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "08" << FG_HIJAU << "]" << FG_CYAN << " Lihat Akun" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "09" << FG_HIJAU << "]" << FG_CYAN << " Perbarui Akun" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "10" << FG_HIJAU << "]" << FG_CYAN << " Hapus Akun" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "11" << FG_HIJAU << "]" << FG_CYAN << " Lihat Informasi Akun" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "12" << FG_HIJAU << "]" << FG_CYAN << " Lihat Kategori" << RESET_WARNA << endl;
 
         printSeparator("-", 49);
-        cout << "0. Keluar" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "00" << FG_HIJAU << "]" << FG_CYAN << " Keluar" << RESET_WARNA << endl;
         printSeparator("-", 49);
 
-        cout << "Masukkan Pilihan Anda" << endl; 
-        cout << "> "; cin >> pilihan;
+        cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+        cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihan;
         
         pilihan = errorHandling(pilihan); 
 
@@ -168,8 +175,21 @@ void menuAdmin(int indeksLogin) {
         else if (pilihan == 11) {
             lihatAkunSendiri(akun, indeksLogin, jumlahPengguna);
         } 
+        else if (pilihan == 12) {
+            string kategori[100]; 
+            int jumlahKategori = 0;
+            
+            getKategori(entri, jumlahEntri, "KLASIFIKASI", kategori, jumlahKategori);
+            cout << "Kategori terdaftar:\n";
+            for(int i=0; i < jumlahKategori; i++) {
+                cout << kategori[i] << endl;
+            }
+            system("pause");
+        }
         else {
-            cout << "=> Pilihan Tidak Valid!" << endl;
+            cout << FG_MERAH << "[!] Pilihan Tidak Valid!" << RESET_WARNA << endl;
+            printSeparator("-", 49);
+            system("pause");
         }
     
     } while (pilihan != 0);
@@ -182,53 +202,56 @@ void menuUser(int indeksLogin) {
         clearScreen(); 
         
         printHeader("MENU USER", 50);
-        cout << "Selamat Datang Kembali " << akun[indeksLogin].username << endl; 
-        printSeparator("-", 49);
-        cout << "[ENTRI]" << endl;
-        cout << "1. Lihat Entri" << endl; 
-        cout << "2. Urutkan Entri" << endl; 
-        cout << "3. Cari Entri" << endl;
+        cout << FG_CYAN << "Selamat Datang Kembali " << FG_KUNING << akun[indeksLogin].username << RESET_WARNA << endl; 
         
         printSeparator("-", 49);
-        cout << "[AKUN]" << endl; 
-        cout << "4. Lihat Informasi Akun" << endl;
-        cout << "5. Perbarui Informasi Akun" << endl;
+        cout << FG_KUNING << "[ENTRI]" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Lihat Entri" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Urutkan Entri" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "03" << FG_HIJAU << "]" << FG_CYAN << " Cari Entri" << RESET_WARNA << endl;
+        
+        printSeparator("-", 49);
+        cout << FG_KUNING << "[AKUN]" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "04" << FG_HIJAU << "]" << FG_CYAN << " Lihat Informasi Akun" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << "05" << FG_HIJAU << "]" << FG_CYAN << " Perbarui Informasi Akun" << RESET_WARNA << endl;
         
         printSeparator("-", 49); 
-        cout << "0. Logout" << endl; 
+        cout << FG_HIJAU << "[" << FG_PUTIH << "00" << FG_HIJAU << "]" << FG_CYAN << " Logout" << RESET_WARNA << endl;
         printSeparator("-", 49);
 
-        cout << "Masukkan Pilihan Anda" << endl; 
-        cout << "> "; cin >> pilihan; 
+        cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+        cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihan; 
         
         pilihan = errorHandling(pilihan);
 
         if (pilihan == 0) {
-            cout << "=> Logout dari Akun" << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Logout dari Akun" << RESET_WARNA << endl;
             break; 
         }
         else if (pilihan == 1) {
-            cout << "=> Mengarahkan ke Menu 'Lihat Entri'" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengarahkan ke Menu 'Lihat Entri'!" << RESET_WARNA << endl;
             menuRead(); 
         }
         else if (pilihan == 2) {
-            cout << "=> Mengarahkan ke Menu 'Urutkan Entri'" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengarahkan ke Menu 'Urutkan Entri'!" << RESET_WARNA << endl;
             menuSort();
         }
         else if (pilihan == 3) {
-            cout << "=> Mengarahkan ke Menu 'Cari Entri'" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengarahkan ke Menu 'Cari Entri'!" << RESET_WARNA << endl;
             menuSearch(); 
         }
         else if (pilihan == 4) {
-            cout << "=> Mengarahkan ke Menu 'Lihat Informasi Akun'" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengarahkan ke Menu 'Lihat Informasi Akun'!" << RESET_WARNA << endl;
             lihatAkunSendiri(akun, indeksLogin, uniqueUser);
         }
         else if (pilihan == 5) {
-            cout << "=> Mengarahkan ke Menu 'Perbarui Informasi Akun'" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengarahkan ke Menu 'Perbarui Informasi Akun'!" << RESET_WARNA << endl;
             updateProfile(akun, indeksLogin, uniqueUser); 
         } 
         else {
-            cout << "=> Pilihan Tidak Valid!" << endl;
+            cout << FG_MERAH << "[!] Pilihan Tidak Valid" << RESET_WARNA << endl;
+            printSeparator("-", 49);
+            system("pause");
         }
     } while (pilihan != 0); 
 }
@@ -241,15 +264,15 @@ void menuRead () {
         try {
             clearScreen();
             printHeader("LIHAT ENTRI", 50); 
-            cout << "1. Lihat Seluruh Entri" << endl; 
-            cout << "2. Lihat Entri Spesifik" << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Lihat Seluruh Entri" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Lihat Entri Spesifik" << RESET_WARNA << endl;
             
             printSeparator("-", 49); 
-            cout << "0. Kembali" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "00" << FG_HIJAU << "]" << FG_CYAN << " Kembali" << RESET_WARNA << endl;
             printSeparator("-", 49); 
 
-            cout << "Masukkan Pilihan Anda" << endl; 
-            cout << "> "; cin >> pilihan; 
+            cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihan;
 
             if (cin.fail()) {
                 cin.clear(); 
@@ -265,24 +288,26 @@ void menuRead () {
             }
 
             if (pilihan == 0) {
-                cout << "=> Kembali ke Menu Sebelumnya" << endl; 
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Kembali ke Menu Sebelumnya" << RESET_WARNA << endl;
             }
             else if (pilihan == 1) {
-                cout << "=> Menampilkan Seluruh Entri" << endl; 
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Menampilkan Seluruh Entri" << RESET_WARNA << endl;
                 clearScreen();
                 lihatSeluruhEntri(entri, jumlahEntri);
                 
-                printSeparator("-", 49);
+                printSeparator("-", 79);
                 system("pause");
             }
             else if (pilihan == 2) {
-                cout << "=> Menampilkan Entri Spesifik" << endl; 
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Menampilkan Entri Spesifik" << RESET_WARNA << endl;
                 lihatSpesifik(entri, jumlahEntri);
             }
         }
 
         catch (const exception& e) {
-            cout << "Error: " << e.what() << endl; 
+            cout << FG_MERAH <<"[!] " << e.what() << RESET_WARNA << endl;
+            printSeparator("-", 49); 
+            system("pause"); 
         }
 
     } while (pilihan != 0);
@@ -295,16 +320,15 @@ void menu_read_akun() {
         try { 
             clearScreen();
             printHeader("LIHAT AKUN", 50);
-            cout << "1. Lihat Seluruh Akun" << endl; 
-            cout << "2. Lihat Akun Spesifik" << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Lihat Seluruh Akun" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Lihat Akun Spesifik" << RESET_WARNA << endl;
             
             printSeparator("-", 49); 
-            cout << "0. Kembali" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "00" << FG_HIJAU << "]" << FG_CYAN << " Kembali" << RESET_WARNA << endl;
             printSeparator("-", 49); 
-            
-            cout << "Masukkan Pilihan Anda" << endl; 
-            cout << "> ";
-            cin >> pilihan;
+
+            cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihan;
 
             if (cin.fail()) {
                 cin.clear(); 
@@ -320,23 +344,23 @@ void menu_read_akun() {
             }
 
             if (pilihan == 0) {
-                cout << "=> Kembali ke Menu Sebelumnya" << endl; 
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Kembali ke Menu Sebelumnya" << RESET_WARNA << endl;
             }
             else if (pilihan == 1) {
-                cout << "=> Menampilkan Seluruh Akun" << endl; 
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Menampilkan Seluruh Akun" << RESET_WARNA << endl;
                 lihatSeluruhAkun(akun, jumlahPengguna);
                 
-                printSeparator("-", 49);
                 system("pause");
             }
             else if (pilihan == 2) {
-                cout << "=> Menampilkan Detail Akun Spesifik" << endl; 
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Menampilkan Detail Akun Spesifik" << RESET_WARNA << endl;
                 lihatAkunSpesifik(akun, jumlahPengguna);
             }
         }
 
         catch (const exception& e) {
-            cout << "Error: " << e.what() << endl; 
+            cout << FG_MERAH << "[!] " << e.what() << endl; 
+            printSeparator("-", 49);
             system("pause");
         }
 
@@ -351,17 +375,17 @@ void menuSort() {
         try {
             clearScreen();
             printHeader("URUTKAN ENTRI", 50);
-            cout << "1. Urutkan Berdasarkan Jarak" << endl; 
-            cout << "2. Urutkan Berdasarkan Nama" << endl; 
-            cout << "3. Urutkan Berdasarkan Tahun Penemuan" << endl; 
-            cout << "4. Urutkan Berdasarkan Magnitudo" << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Urutkan Berdasarkan Jarak" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Urutkan Berdasarkan Nama" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "03" << FG_HIJAU << "]" << FG_CYAN << " Urutkan Berdasarkan Tahun Penemuan" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "04" << FG_HIJAU << "]" << FG_CYAN << " Urutkan Berdasarkan Magnitudo" << RESET_WARNA << endl;
             
             printSeparator("-", 49); 
-            cout << "0. Kembali" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "00" << FG_HIJAU << "]" << FG_CYAN << " Kembali" << RESET_WARNA << endl;
             printSeparator("-", 49); 
 
-            cout << "Masukkan Pilihan Anda" << endl; 
-            cout << "> "; cin >> pilihan; 
+            cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihan; 
 
             if (cin.fail()) {
                 cin.clear(); 
@@ -381,7 +405,7 @@ void menuSort() {
                 cout << "=> Kembali ke Menu Sebelumnya" << endl;
             }
             else if (pilihan == 1) {
-                cout << "=> Mengurutkan Berdasarkan Jarak" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengurutkan Berdasarkan Jarak" << RESET_WARNA << endl;
                 urutkanBerdasarkanJarak(entri, jumlahEntri);
 
                 clearScreen();
@@ -390,7 +414,7 @@ void menuSort() {
                 system("pause");
             }
             else if (pilihan == 2) {
-                cout << "=> Mengurutkan Berdasarkan Nama" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengurutkan Berdasarkan Nama" << RESET_WARNA << endl;
                 urutkanBerdasarkanNama(entri, jumlahEntri);
                 
                 clearScreen();
@@ -399,7 +423,7 @@ void menuSort() {
                 system("pause");
             }
             else if (pilihan == 3) {
-                cout << "=> Mengurutkan Berdasarkan Tahun Penemuan" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengurutkan Berdasarkan Tahun Penemuan" << RESET_WARNA << endl;
                 urutkanBerdasarkanTahun(entri, jumlahEntri);
                 
                 clearScreen();
@@ -408,7 +432,7 @@ void menuSort() {
                 system("pause");
             }
             else if (pilihan == 4) {
-                cout << "=> Mengurutkan Berdasarkan Magnitudo" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengurutkan Berdasarkan Magnitudo" << RESET_WARNA << endl;
                 urutkanBerdasarkanMagnitudo(entri, jumlahEntri);
 
                 clearScreen();
@@ -419,7 +443,9 @@ void menuSort() {
         }
 
         catch (const exception& e) {
-            cout << "Error: " << e.what() << endl;
+            cout << FG_MERAH << "[!] " << e.what() << RESET_WARNA << endl;
+            printSeparator("-", 49);
+            system("pause");
         }
     } while (pilihan != 0);
 }
@@ -429,19 +455,18 @@ void menuSearch() {
 
     do {
         try {
-            // cout << "\n=== MENU SORT ===" << endl; 
             clearScreen(); 
             printHeader("CARI ENTRI", 50);
-            cout << "1. Cari Berdasarkan Nama" << endl;
-            cout << "2. Cari Berdasarkan Kategori" << endl; 
-            cout << "3. Cari Berdasarkan Konstelasi" << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "]" << FG_CYAN << " Cari Berdasarkan Nama" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "]" << FG_CYAN << " Cari Berdasarkan Kategori" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "03" << FG_HIJAU << "]" << FG_CYAN << " Cari Berdasarkan Konstelasi" << RESET_WARNA << endl; 
             
             printSeparator("-", 49); 
-            cout << "0. Kembali" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "00" << FG_HIJAU << "]" << FG_CYAN << " Kembali" << RESET_WARNA << endl;
             printSeparator("-", 49);
-            
-            cout << "Masukkan Pilihan Anda" << endl; 
-            cout << "> "; cin >> pilihan; 
+
+            cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihan;
 
             if (cin.fail()) {
                 cin.clear(); 
@@ -457,15 +482,16 @@ void menuSearch() {
             }
 
             if (pilihan == 0) {
-                cout << "=> Kembali ke Menu Sebelumnya" << endl; 
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Kembali ke Menu Sebelumnya" << RESET_WARNA << endl;
             }
             else if (pilihan == 1) {
                 clearScreen();
-                cout << "=> Mencari Entri Berdasarkan Nama" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mencari Entri Berdasarkan Nama" << RESET_WARNA << endl;
                 
                 string targetNama; 
                 cin.ignore();
-                cout << "Masukkan Nama Objek yang Ingin Dicari: "; getline(cin, targetNama);
+                cout << FG_CYAN << "Masukkan Nama Objek yang Ingin Dicari: "; 
+                cout << FG_KUNING; getline(cin, targetNama); cout << RESET_WARNA; 
                 printSeparator("-", 49);
 
                 toUpperString(targetNama);
@@ -473,35 +499,39 @@ void menuSearch() {
 
                 if (indeksObjek != -1) {
                     clearScreen();
-                    cout << "=> Entri Ditemukan" << endl; 
+                    cout << FG_KUNING << "[ENTRI DITEMUKAN]" << RESET_WARNA << endl;
                     printSeparator("-", 49);
-                    cout << "ID Entri         : " << entri[indeksObjek].entriID << endl;
-                    cout << "Nama Objek       : " << entri[indeksObjek].namaObjek << endl;
-                    cout << "Klasifikasi      : " << entri[indeksObjek].klasifikasi << endl;
-                    cout << "Konstelasi       : " << entri[indeksObjek].konstelasi << endl;
-                    cout << "Jarak dari Bumi  : " << entri[indeksObjek].jarakDariBumi << endl;
-                    cout << "Tahun Penemuan   : " << entri[indeksObjek].tahunPenemuan << endl;
-                    cout << "Status Observasi : " << entri[indeksObjek].statusObservasi << endl;
-                    cout << "Magnitudo        : " << entri[indeksObjek].magnitudo << endl;
+                    cout << FG_CYAN << "ID Entri         " << FG_PUTIH << ": " << FG_KUNING << entri[indeksObjek].entriID << endl;
+                    cout << FG_CYAN << "Nama Objek       " << FG_PUTIH << ": " << FG_KUNING << entri[indeksObjek].namaObjek << endl;
+                    cout << FG_CYAN << "Klasifikasi      " << FG_PUTIH << ": " << FG_KUNING << entri[indeksObjek].klasifikasi << endl;
+                    cout << FG_CYAN << "Konstelasi       " << FG_PUTIH << ": " << FG_KUNING << entri[indeksObjek].konstelasi << endl;
+                    cout << FG_CYAN << "Jarak dari Bumi  " << FG_PUTIH << ": " << FG_KUNING << entri[indeksObjek].jarakDariBumi << endl;
+                    cout << FG_CYAN << "Tahun Penemuan   " << FG_PUTIH << ": " << FG_KUNING << entri[indeksObjek].tahunPenemuan << endl;
+                    cout << FG_CYAN << "Status Observasi " << FG_PUTIH << ": " << FG_KUNING << entri[indeksObjek].statusObservasi << endl;
+                    cout << FG_CYAN << "Magnitudo        " << FG_PUTIH << ": " << FG_KUNING << entri[indeksObjek].magnitudo << RESET_WARNA << endl;
                     printSeparator("-", 49);
+                    system("pause");
                 }
                 else {
-                    cout << "=> Entri Tidak Ditemukan!" << endl;
+                    cout << FG_MERAH << "[!] Entri Tidak Ditemukan" << RESET_WARNA << endl; 
+                    printSeparator("-", 49);
+                    system("pause");
                 }
-                system("pause");
             }
             else if (pilihan == 2) {
-                cout << "=> Mencari Entri Berdasarkan Kategori" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mencari Entri Berdasarkan Kategori" << RESET_WARNA << endl;
                 cariKategori(entri, jumlahEntri);
             }   
             else if (pilihan == 3) {
-                cout << "=> Mencari Entri Berdasarkan Konstelasi" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mencari Entri Berdasarkan Konstelasi" << RESET_WARNA << endl;
                 cariKonstelasi(entri, jumlahEntri);
             }
         }
 
         catch (const exception& e) {
-            cout << "Error: " << e.what() << endl; 
+            cout << FG_MERAH << "[!] " << e.what() << RESET_WARNA << endl; 
+            printSeparator("-", 49);
+            system("pause");
         }
 
     } while (pilihan != 0);

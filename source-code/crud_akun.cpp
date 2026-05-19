@@ -4,28 +4,44 @@
 #include "crud_akun.h"
 
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 void lihatSeluruhAkun(Pengguna *ptrAkun, int ukuran) {
     clearScreen();
+
     if (ukuran == 0) {
-        cout << "=> Tidak ada Akun yang Tersimpan!" << endl; 
-        system("pause"); 
-        return; 
+        cout << "=> Tidak ada Akun yang Tersimpan!" << endl;
+        system("pause");
+        return;
     }
- 
+
     printHeader("DAFTAR SELURUH AKUN", 50);
-    cout << "ID | Username | Role" << endl; 
+
+    // Header tabel
+    cout << left
+         << setw(8)  << "ID"
+         << setw(25) << "Username"
+         << setw(15) << "Role"
+         << endl;
+
+    cout << string(48, '-') << endl;
+
+    // Isi tabel
     for (int i = 0; i < ukuran; i++) {
+
         if (i % 5 == 0 && i != 0) {
-            cout << "--------------------------------------------------------------------------" << endl;
+            cout << string(48, '-') << endl;
         }
 
-        cout << (ptrAkun + i)->userID
-            << " | " << (ptrAkun + i)->username
-            << " | " << ((ptrAkun + i)->isAdmin ? "Admin" : "User")
-            << endl; 
+        cout << left
+             << setw(8)  << (ptrAkun + i)->userID
+             << setw(25) << (ptrAkun + i)->username
+             << setw(15) << ((ptrAkun + i)->isAdmin ? "Admin" : "User")
+             << endl;
     }
+
+    cout << string(48, '-') << endl;
 }
 
 void lihatAkunSpesifik(Pengguna *ptrAkun, int ukuran) {
@@ -38,7 +54,6 @@ void lihatAkunSpesifik(Pengguna *ptrAkun, int ukuran) {
     int idAkunSpesifik;
     do{
         lihatSeluruhAkun(ptrAkun, ukuran);
-        printSeparator("-", 49);
         cout << "0. Kembali" << endl;
         printSeparator("-", 49);
         cout << "Masukkan User ID untuk detail lengkap: ";
@@ -197,11 +212,11 @@ void lihatAkunSendiri(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
     clearScreen();
     for (int i = 0; i < ukuran; i++) {
         if ((ptrAkun + i)->userID == indeksAkun + 1) {
-            printHeader("UBAH DATA AKUN", 50);
-            cout << "User ID        : " << (ptrAkun + i)->userID << endl;
-            cout << "Username       : " << (ptrAkun + i)->username << endl;
-            cout << "Password       : " << (ptrAkun + i)->password << endl;
-            cout << "Role           : " << ((ptrAkun + i)->isAdmin ? "Admin" : "Member") << endl;
+            printHeader("INFORMASI AKUN", 50);
+            cout << FG_CYAN << "User ID        " << FG_PUTIH << ": " << FG_KUNING << (ptrAkun + i)->userID << endl;
+            cout << FG_CYAN << "Username       " << FG_PUTIH << ": " << FG_KUNING << (ptrAkun + i)->username << endl;
+            cout << FG_CYAN << "Password       " << FG_PUTIH << ": " << FG_KUNING << (ptrAkun + i)->password << endl;
+            cout << FG_CYAN << "Role           " << FG_PUTIH << ": " << FG_KUNING << ((ptrAkun + i)->isAdmin ? "Admin" : "Member") << endl;
             printSeparator("-", 49);
             break;
         }
@@ -217,17 +232,18 @@ void updateProfile(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
             for (int i = 0; i < ukuran; i++) {
                 if ((ptrAkun + i)->userID == indeksAkun + 1) {
                     printHeader("UBAH DATA AKUN", 50);
-                    cout << "[1] Username       : " << (ptrAkun + i)->username << endl;
-                    cout << "[2] Password       : " << (ptrAkun + i)->password << endl;
+                    cout << FG_HIJAU << "[" << FG_PUTIH << "01" << FG_HIJAU << "] " << FG_CYAN << "Username       " << FG_PUTIH << ": " << FG_KUNING << (ptrAkun + i)->username << endl;
+                    cout << FG_HIJAU << "[" << FG_PUTIH << "02" << FG_HIJAU << "] " << FG_CYAN << "Password       " << FG_PUTIH << ": " << FG_KUNING << (ptrAkun + i)->password << endl;
+                    
                     printSeparator("-", 49);
-                    cout << "[0] Keluar" << endl; 
+                    cout << FG_HIJAU << "[" << FG_PUTIH << "00" << FG_HIJAU << "]" << FG_CYAN << " Kembali" << RESET_WARNA << endl;
                     printSeparator("-", 49);
                     break;
                 }
             }
             
-            cout << "Masukkan Pilihan Anda" << endl; 
-            cout << "> "; cin >> pilihan; 
+            cout << FG_CYAN << "Masukkan Pilihan Anda" << RESET_WARNA << endl; 
+            cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; cin >> pilihan; 
 
             if (cin.fail()) {
                 cin.clear(); 
@@ -243,16 +259,18 @@ void updateProfile(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
             }
 
             if (pilihan == 0) {
-                cout << "=> Kembali ke Menu Sebelumnya!" << endl; 
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Kembali ke Menu Sebelumnya" << RESET_WARNA << endl;
             }
             else if (pilihan == 1) {
                 string newUsername;  
                 
                 cin.ignore();
-                cout << "=> Mengganti Username" << endl; 
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengganti Username" << RESET_WARNA << endl;
+                
                 printSeparator("-", 49); 
-                cout << "Username Lama  : " << ptrAkun[indeksAkun].username << endl; 
-                cout << "Username Baru  : "; getline(cin, newUsername); 
+                cout << FG_CYAN << "Username Lama  " << FG_PUTIH << ": " << FG_HIJAU << ptrAkun[indeksAkun].username << endl; 
+                cout << FG_CYAN << "Username Baru  " << FG_PUTIH << ": "; 
+                cout << FG_KUNING; getline(cin, newUsername); cout << RESET_WARNA;
 
                 if (newUsername.length() == 0) {
                     newUsername = ptrAkun[indeksAkun].username;
@@ -264,10 +282,12 @@ void updateProfile(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
                 string newPassword;  
                 
                 cin.ignore();
-                cout << "=> Mengganti Password" << endl; 
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_CYAN << "Mengganti Password" << RESET_WARNA << endl;
+                
                 printSeparator("-", 49); 
-                cout << "Password Lama  : " << ptrAkun[indeksAkun].password << endl; 
-                cout << "Password Baru  : "; getline(cin, newPassword); 
+                cout << FG_CYAN << "Password Lama  " << FG_PUTIH << ": " << FG_HIJAU << ptrAkun[indeksAkun].password << endl; 
+                cout << FG_CYAN << "Password Baru  " << FG_PUTIH << ": "; 
+                cout << FG_KUNING; getline(cin, newPassword); cout << RESET_WARNA; 
 
                 if (newPassword.length() == 0) {
                     newPassword = ptrAkun[indeksAkun].password;
@@ -277,7 +297,9 @@ void updateProfile(Pengguna *ptrAkun, int indeksAkun, int ukuran) {
             }
         }
         catch (const exception &e) {
-            cout << "=> Error: " << e.what() << endl; 
+            cout << FG_MERAH << "[!] " << e.what() << RESET_WARNA << endl; 
+            printSeparator("-", 49);
+            system("pause");
         }
     } while (pilihan != 0);
      

@@ -19,13 +19,13 @@ int login(Pengguna *ptrAkun, int jumlahPengguna) {
         clearScreen();
         
         printHeader("MENU LOGIN", 50);
-        cout << "Masukkan Username Anda" << endl; 
-        cout << "> "; getline(cin, username); 
+        cout << FG_CYAN <<"Masukkan Username Anda" << RESET_WARNA << endl; 
+        cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; getline(cin, username); 
         printSeparator("-", 49); 
 
         for (int i = 0; i < jumlahPengguna; i++) {
             if (username == (ptrAkun + i) -> username) { 
-                cout << "=> Akun ditemukan" << endl;
+                cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_KUNING << FG_HIJAU << "Akun Ditemukan!" << RESET_WARNA << endl; 
                 printSeparator("-", 49);
                 akunDitemukan = true; 
                 indeksUser = i; 
@@ -34,25 +34,33 @@ int login(Pengguna *ptrAkun, int jumlahPengguna) {
         }
 
         if (!akunDitemukan) {
-            cout << "=> Akun tidak ditemukan. Coba lagi" << endl;
+            cout << FG_MERAH << "[!] Akun Tidak Ditemukan!" << RESET_WARNA << endl;
             system("pause");
             printSeparator("-", 49);
         }
     } while (!akunDitemukan);
     
     do {
-        cout << "Sisa Kesempatan: " << kesempatan << endl;
-        cout << "Masukkan Password Anda" << endl;
-        cout << "> "; getline(cin, password);
+        string warna = FG_HIJAU;
+        if (kesempatan == 2) {
+            warna = FG_KUNING;
+        }
+        else if (kesempatan < 2) {
+            warna = FG_MERAH;
+        }
+        
+        cout << FG_CYAN <<"Sisa Kesempatan: " << warna << kesempatan << endl;
+        cout << FG_CYAN << "Masukkan Password Anda" << endl;
+        cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; getline(cin, password);
         printSeparator("-", 49);
 
         if (password == akun[indeksUser].password) {
-            cout << "=> Password benar" << endl;
+            cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << FG_KUNING << FG_HIJAU << "Password Benar!" << RESET_WARNA << endl;
             printSeparator("-", 49); 
             passwordBenar = true;
         }
         else {
-            cout << "=> Password salah! Silakan coba lagi" << endl;
+            cout << FG_MERAH << "[!] Password Salah! Silahkan Coba Lagi!" << RESET_WARNA << endl;
             printSeparator("-", 49);
             kesempatan--;
         }
@@ -60,13 +68,13 @@ int login(Pengguna *ptrAkun, int jumlahPengguna) {
     } while (kesempatan != 0 && !passwordBenar);
 
     if (akunDitemukan && passwordBenar) {
-        cout << "=> Login berhasil" << endl;
-        system("pause");
+        cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] " << "Login Berhasil!" << RESET_WARNA << endl;
         printSeparator("-", 49);
+        system("pause");
         return indeksUser;
     } 
     else {
-        cout << "=> Login gagal" << endl;
+        cout << FG_MERAH << "[!] Login Gagal!" << RESET_WARNA << endl;
         printSeparator("-", 49);
         return -1;
     }
@@ -82,31 +90,30 @@ int regis(Pengguna *ptrAkun, int &jumlahPengguna) {
         clearScreen();
         usernameValid = true;
         if (jumlahPengguna >= MAXPENGGUNA) {
-            cout << "=> Data Pengguna Sudah Penuh!" << endl; 
+            cout << FG_MERAH << "[!] Data Pengguna Sudah Penuh!" << RESET_WARNA << endl; 
             printSeparator("-", 49);
             system("Pause");
-            printSeparator("-", 49);
             return 0;
         }
         
-        // cout << "=== MENU REGISTER =======================================" << endl;
         printHeader("MENU REGISTER", 50);
-
-        cout << "Masukkan Username" << endl;
-        cout << "> "; getline(cin, username);
+        cout << FG_CYAN << "Masukkan Username" << RESET_WARNA << endl; 
+        cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; getline(cin, username);
         printSeparator("-", 49);
 
         if (username.length() == 0) {
-            cout << "=> Username Tidak Boleh Kosong!" << endl;
+            cout << FG_MERAH << "[!] Username Tidak Boleh Kosong!" << RESET_WARNA << endl; 
+            printSeparator("-", 49);
             system("pause"); 
             usernameValid = false;
         }
 
         for (int i = 0; i < jumlahPengguna; i++) {
-            if (username == (ptrAkun + i) -> username) { 
-                cout << "=> Username sudah digunakan. Silakan masukkan username lain" << endl;
-                system("pause");
+            if (username == (ptrAkun + i) -> username) {
+                cout << FG_MERAH << "[!] Username Sudah Digunakan!" << RESET_WARNA << endl;  
                 printSeparator("-", 49);
+                
+                system("pause");
                 usernameValid = false; 
                 break;
             }
@@ -116,13 +123,14 @@ int regis(Pengguna *ptrAkun, int &jumlahPengguna) {
     bool passwordValid = false;
     do {
         passwordValid = true;
-        cout << "Masukkan Password" << endl; 
-        cout << "> "; getline(cin, password); 
-        printSeparator("-", 49);
+        cout << FG_CYAN << "Masukkan Password" << RESET_WARNA << endl; 
+        cout << FG_HIJAU << "[" << FG_PUTIH << ">" << FG_HIJAU << "] " << FG_KUNING << RESET_WARNA; getline(cin, password);
+        printSeparator("-", 49); 
 
         if (password.length() == 0) {
-            cout << "=> Password Tidak Boleh Kosong!" << endl; 
+            cout << FG_MERAH << "[!] Password Tidak Boleh Kosong!" << RESET_WARNA << endl; 
             passwordValid = false;
+            printSeparator("-", 49);
             system("pause");
             printSeparator("-", 49);
         }
@@ -134,8 +142,9 @@ int regis(Pengguna *ptrAkun, int &jumlahPengguna) {
     ptrAkun[jumlahPengguna].isAdmin = false;
     jumlahPengguna++; uniqueUser++;
 
-    cout << "=> Register berhasil" << endl;
-    system("pause");
+    cout << FG_HIJAU << "[" << FG_PUTIH << "~" << FG_HIJAU << "] Register Berhasil!" << RESET_WARNA << endl;
+    
     printSeparator("-", 49);
+    system("pause");
     return jumlahPengguna;
 }

@@ -1,3 +1,4 @@
+#include "types.h"
 #include "utils.h"
 
 #include <iostream>
@@ -44,14 +45,14 @@ void printHeader(string teks, int panjangTotal) {
     }
 
     string borderKanan(panjangKiri, '=');
-    cout << borderKiri << bagianTengah << borderKanan << endl;
+    cout << FG_MAGENTA << borderKiri << FG_KUNING << bagianTengah << FG_MAGENTA << borderKanan << RESET_WARNA << endl;
 }
 
 void printSeparator(string teks, int jumlahKarakter) {
     for (int i = 0; i <= jumlahKarakter; i++) {
-        cout << teks;
+        cout << FG_MAGENTA << teks;
     }
-    cout << endl;
+    cout << RESET_WARNA << endl;
 }
 
 int inputAngka(const string &prompt) {
@@ -133,4 +134,71 @@ char inputKarakter(const string &prompt, const string &validKarakter) {
 
         return karakter;
     }
+}
+
+void getKategori(BendaLangit arr[], int &ukuran, string kunci, string kategori[], int &ukuranKategori) {
+    string kategoriUnik[100];
+    int jumlahKategori = 0;
+
+    for(int i=0; i<ukuran; i++) {
+        bool ditemukan = false;
+
+        if (kunci == "KLASIFIKASI") {
+            // Cek apakah kategori sudah tersimpan
+            for(int j=0; j<jumlahKategori; j++) {
+                if(arr[i].klasifikasi == kategoriUnik[j]) {
+                    ditemukan = true;
+                    break;
+                }
+            }
+
+            // Jika belum ada
+            if(!ditemukan) {
+                kategoriUnik[jumlahKategori] =
+                arr[i].klasifikasi;
+
+                jumlahKategori++;
+            }
+        }
+        else if (kunci == "KONSTELASI") {
+            // Cek apakah kategori sudah tersimpan
+            for(int j=0; j<jumlahKategori; j++) {
+                if(arr[i].konstelasi == kategoriUnik[j]) {
+                    ditemukan = true;
+                    break;
+                }
+            }
+
+            // Jika belum ada
+            if(!ditemukan) {
+                kategoriUnik[jumlahKategori] =
+                arr[i].konstelasi;
+
+                jumlahKategori++;
+            }
+        }
+        else if (kunci == "STATUS OBSERVASI") {
+            // Cek apakah kategori sudah tersimpan
+            for(int j=0; j<jumlahKategori; j++) {
+                if(arr[i].statusObservasi == kategoriUnik[j]) {
+                    ditemukan = true;
+                    break;
+                }
+            }
+
+            // Jika belum ada
+            if(!ditemukan) {
+                kategoriUnik[jumlahKategori] =
+                arr[i].statusObservasi;
+
+                jumlahKategori++;
+            }
+        }
+    }
+
+    for (int i = 0; i < jumlahKategori; i++) {
+        kategori[i] = kategoriUnik[i]; 
+    }
+
+    ukuranKategori = jumlahKategori;
 }
